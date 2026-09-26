@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+@theme {
+  --color-rustic-blush: #E3BDB0;
+  --color-rustic-terracotta: #D28B77;
+  --color-rustic-clay: #BD8167;
+  --color-rustic-deep: #9F4B31;
+
+  --color-paper-ivory: #FAF7F5;
+  --color-paper-warm: #F4EBE6;
+  --color-paper-card: #FFFDFB;
+  --color-dark-espresso: #3D251E;
+  --color-muted-cocoa: #6B473C;
+
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-script: var(--font-great-vibes), "Great Vibes", cursive;
+  --font-sans: var(--font-dm-sans), "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+:root {
+  /* NEW RUSTIC COLOR THEME */
+  --rustic-blush: #E3BDB0;        /* Soft Blush / Nude: Light backgrounds, soft accents */
+  --rustic-terracotta: #D28B77;   /* Dusty Terracotta: Primary accent */
+  --rustic-clay: #BD8167;         /* Warm Clay: Secondary accent */
+  --rustic-deep: #9F4B31;         /* Deep Terracotta: Dark accent, buttons, strong headings */
+
+  /* Semantic Design Tokens */
+  --color-background: #FAF7F5;
+  --color-surface: #FFFDFB;
+  --color-surface-muted: #F5EEE9;
+  --color-surface-blush: #F0E3DE;
+  --color-text-primary: #3D251E;
+  --color-text-secondary: #6B473C;
+  --color-text-muted: #8F6E64;
+  --color-heading: #9F4B31;
+  --color-heading-romantic: #BD8167;
+  --color-heading-warm: #D28B77;
+  --color-primary: #9F4B31;
+  --color-primary-hover: #BD8167;
+  --color-primary-active: #D28B77;
+  --color-accent: #E3BDB0;
+  --color-accent-terracotta: #D28B77;
+  --color-border: rgba(189, 129, 103, 0.22);
+  --color-border-warm: rgba(159, 75, 49, 0.25);
+  --color-border-blush: rgba(227, 189, 176, 0.65);
+  --color-focus: #D28B77;
+  --color-success: #9F4B31;
+  --color-error: #9C3B3E;
+  --color-ivory: #FAF7F5;
+  --color-ivory-light: #FFFDFB;
+
+  /* Layered Paper Shadows */
+  --shadow-paper-sm: 0 2px 8px -2px rgba(159, 75, 49, 0.08), 0 1px 3px rgba(227, 189, 176, 0.12);
+  --shadow-paper: 0 10px 30px -10px rgba(159, 75, 49, 0.12), 0 4px 12px -2px rgba(189, 129, 103, 0.10);
+  --shadow-paper-lg: 0 24px 50px -15px rgba(159, 75, 49, 0.16), 0 8px 20px -4px rgba(227, 189, 176, 0.15);
+}
+
+/* Paper grain and stationery texture overlay */
+.paper-grain {
+  background-color: var(--color-background);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(255, 253, 251, 0.88) 0%, rgba(244, 235, 230, 0.55) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Damask embossed floral pattern for rustic wedding stationery */
+.damask-pattern {
+  background-color: #F4EBE6;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 253, 251, 0.6) 0%, rgba(227, 189, 176, 0.35) 100%),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239F4B31' fill-opacity='0.08'%3E%3Cpath d='M40 0 C45 15, 65 20, 65 35 C65 50, 48 55, 40 70 C32 55, 15 50, 15 35 C15 20, 35 15, 40 0 Z M40 18 C37 28, 26 32, 26 40 C26 48, 36 50, 40 60 C44 50, 54 48, 54 40 C54 32, 43 28, 40 18 Z'/%3E%3Ccircle cx='40' cy='38' r='3.5'/%3E%3Cpath d='M0 40 C10 42, 16 52, 16 60 C16 68, 6 72, 0 80 M80 40 C70 42, 64 52, 64 60 C64 68, 74 72, 80 80 M0 0 C10 2, 16 12, 16 20 M80 0 C70 2, 64 12, 64 20' stroke='%239F4B31' stroke-width='1' fill='none' stroke-opacity='0.12'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Subtle stationery inner card paper */
+.stationery-card {
+  background-color: #FFFDFB;
+  box-shadow: 
+    0 1px 3px rgba(159, 75, 49, 0.04),
+    0 12px 32px -8px rgba(159, 75, 49, 0.08),
+    0 28px 56px -18px rgba(227, 189, 176, 0.15);
+}
+
+/* Fine vintage sparkle */
+@keyframes softSparkle {
+  0%, 100% { opacity: 0.20; transform: scale(0.85); }
+  50% { opacity: 0.90; transform: scale(1.15); }
+}
+
+.animate-sparkle {
+  animation: softSparkle 4s ease-in-out infinite;
+}
+
+/* Falling petal animation */
+@keyframes driftPetal {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.70;
+  }
+  85% {
+    opacity: 0.70;
+  }
+  100% {
+    transform: translateY(105vh) translateX(45px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.falling-petal {
+  position: absolute;
+  pointer-events: none;
+  animation: driftPetal linear infinite;
+}
+
+/* Wax seal 3D press effect */
+.wax-seal-btn {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.wax-seal-btn:hover {
+  transform: scale(1.035);
+  box-shadow: 0 14px 28px rgba(159, 75, 49, 0.25), 0 6px 12px rgba(189, 129, 103, 0.18);
+}
+
+.wax-seal-btn:active {
+  transform: scale(0.96) translateY(2px);
+  box-shadow: 0 4px 10px rgba(159, 75, 49, 0.25);
+}
+
+/* Audio button gentle pulse when playing */
+@keyframes gentlePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(159, 75, 49, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(159, 75, 49, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(159, 75, 49, 0);
+  }
+}
+
+.audio-playing {
+  animation: gentlePulse 2.2s infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF7F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E3BDB0;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D28B77;
+}
+
+/* Prevent unwanted horizontal overflow */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Keep the envelope artwork proportional while fitting the available viewport. */
+.invitation-envelope-stage {
+  max-width: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #b5715a;
+}
+
+@media (max-width: 767px) {
+  .invitation-envelope-stage {
+    width: 100vw !important;
+    height: 100svh !important;
+  }
+
+  .envelope-artboard {
+    width: auto !important;
+    height: 100% !important;
+    max-width: none !important;
+  }
+}
+
+/* The portrait artwork fills wide desktop screens and may continue below the viewport. */
+.hero-artboard {
+  width: 100%;
+}
+
+main.hero-emerging > #hero-section {
+  animation: heroEmergence 1.45s cubic-bezier(0.22, 0.72, 0.28, 1) both;
+}
+
+@keyframes heroEmergence {
+  from {
+    opacity: 0.12;
+    transform: translateY(9%) scale(0.96);
+    transform-origin: 50% 100%;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transform-origin: 50% 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-stage-section {
+    height: auto;
+    min-height: 100svh;
+  }
+}
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
