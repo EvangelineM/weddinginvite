@@ -8,6 +8,7 @@ export const MusicToggle: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const synthCtxRef = useRef<AudioContext | null>(null);
   const synthIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const hasAutoPlayed = useRef(false);
 
   // Gentle fallback Web Audio synthesizer playing romantic harp notes
   const startSynthMelody = () => {
@@ -72,24 +73,27 @@ export const MusicToggle: React.FC = () => {
     }
   };
 
+  // Start music — called from a real user gesture context
+  const startMusic = async () => {
+    let playedAudio = false;
+    if (audioRef.current) {
+      try {
+        audioRef.current.volume = 0.7;
+        await audioRef.current.play();
+        playedAudio = true;
+      } catch {
+        playedAudio = false;
+      }
+    }
+    if (!playedAudio) {
+      startSynthMelody();
+    }
+    setIsPlaying(true);
+  };
+
   const toggleMusic = async () => {
     if (!isPlaying) {
-      // Try playing audio file first
-      let playedAudio = false;
-      if (audioRef.current) {
-        try {
-          await audioRef.current.play();
-          playedAudio = true;
-        } catch {
-          playedAudio = false;
-        }
-      }
-
-      // If audio file doesn't play or errors, run the Web Audio ambient harp melody
-      if (!playedAudio) {
-        startSynthMelody();
-      }
-      setIsPlaying(true);
+      await startMusic();
     } else {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -99,8 +103,33 @@ export const MusicToggle: React.FC = () => {
     }
   };
 
+  // Auto-start music on the FIRST user interaction (click/tap/scroll).
+  // This runs inside the browser's trusted user-gesture, so play() won't be blocked.
   useEffect(() => {
+    const onFirstInteraction = () => {
+      if (hasAutoPlayed.current) return;
+      hasAutoPlayed.current = true;
+
+      // Remove all listeners immediately
+      document.removeEventListener('click', onFirstInteraction, true);
+      document.removeEventListener('touchstart', onFirstInteraction, true);
+      document.removeEventListener('scroll', onFirstInteraction, true);
+      document.removeEventListener('keydown', onFirstInteraction, true);
+
+      startMusic();
+    };
+
+    // Attach listeners in capture phase so we catch any interaction
+    document.addEventListener('click', onFirstInteraction, true);
+    document.addEventListener('touchstart', onFirstInteraction, true);
+    document.addEventListener('scroll', onFirstInteraction, true);
+    document.addEventListener('keydown', onFirstInteraction, true);
+
     return () => {
+      document.removeEventListener('click', onFirstInteraction, true);
+      document.removeEventListener('touchstart', onFirstInteraction, true);
+      document.removeEventListener('scroll', onFirstInteraction, true);
+      document.removeEventListener('keydown', onFirstInteraction, true);
       stopSynthMelody();
     };
   }, []);

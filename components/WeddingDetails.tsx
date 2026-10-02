@@ -18,7 +18,7 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({ t }) => {
     <section id="venue-section" className="venue-section">
       {/* Outer floral parchment background */}
       <Image
-        src={`${VENUE}/base_bg.png`}
+        src="/images/savedate/Vintage Floral Wedding Invitation Background.png"
         alt=""
         fill
         sizes="100vw"

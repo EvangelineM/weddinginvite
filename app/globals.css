@@ -195,9 +195,14 @@ html, body {
 }
 
 .section3-section {
+  position: relative;
   width: 100%;
   overflow: hidden;
   background: #f6ead8;
+  background-image: url('/images/savedate/Vintage Floral Wedding Invitation Background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .section3-artboard {

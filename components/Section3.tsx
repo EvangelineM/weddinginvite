@@ -43,16 +43,6 @@ export function Section3() {
   return (
     <section id="section-3" className="section3-section">
       <div className="section3-artboard">
-        <Image
-          src={`${SECTION3}/Dreamy Floral Chapel Wedding Frame.png`}
-          alt=""
-          fill
-          unoptimized
-          priority
-          sizes="(max-width: 760px) 100vw, 760px"
-          className="section3-bg"
-        />
-
         <div className="section3-overlay">
           <Art
             src="Golden Cross and Symmetrical Floral Garland.png"

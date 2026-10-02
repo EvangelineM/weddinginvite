@@ -85,7 +85,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
       <div className="rsvp-artboard">
         {/* Background botanical frame image */}
         <Image
-          src={`${RSVP}/bg1.png`}
+          src={`${RSVP}/bg2.png`}
           alt=""
           fill
           sizes="(max-width: 760px) 100vw, 760px"
