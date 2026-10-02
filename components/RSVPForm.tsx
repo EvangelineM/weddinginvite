@@ -1,20 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, CheckCircle2, Heart } from 'lucide-react';
+import Image from 'next/image';
 import confetti from 'canvas-confetti';
 import { TranslationContent } from '@/lib/translations';
-import { GoldSparkle, LuxuryDivider, VintageCornerBorders } from './DecorativeElements';
+
+const RSVP = '/images/rsvp';
 
 interface RSVPFormProps {
   t: TranslationContent;
 }
 
 export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
-  const [attendance, setAttendance] = useState<'attending' | 'declined'>('attending');
+  const [attendance, setAttendance] = useState<'attending' | 'declined' | ''>('');
   const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [dietary, setDietary] = useState('');
   const [message, setMessage] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
@@ -25,18 +24,14 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
     e.preventDefault();
     setErrorMessage(null);
 
-    // Client-side validations
     if (!fullName.trim()) {
       setErrorMessage(t.rsvp.validationName);
       return;
     }
 
-    if (email.trim()) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email.trim())) {
-        setErrorMessage(t.rsvp.validationEmail);
-        return;
-      }
+    if (!attendance) {
+      setErrorMessage(t.rsvp.validationAttendance);
+      return;
     }
 
     setIsLoading(true);
@@ -47,9 +42,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           full_name: fullName.trim(),
-          email: email.trim() || undefined,
           attendance,
-          dietary_requirements: dietary.trim() || undefined,
           message: message.trim() || undefined,
         }),
       });
@@ -60,7 +53,6 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
         throw new Error(result.error || t.rsvp.errorMessage);
       }
 
-      // Celebratory luxury confetti effect
       try {
         confetti({
           particleCount: 55,
@@ -69,7 +61,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
           colors: ['#E3BDB0', '#D28B77', '#BD8167', '#9F4B31', '#FFFDFB'],
         });
       } catch {
-        // Safe fallback
+        /* Safe fallback */
       }
 
       setIsSuccess(true);
@@ -83,220 +75,183 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
   const handleReset = () => {
     setIsSuccess(false);
     setFullName('');
-    setEmail('');
-    setDietary('');
     setMessage('');
-    setAttendance('attending');
+    setAttendance('');
     setErrorMessage(null);
   };
 
   return (
-    <section
-      id="rsvp-section"
-      className="relative w-full min-h-[100svh] flex flex-col items-center justify-center px-4 py-20 bg-[#FAF7F5]"
-    >
-      {/* Decorative Rustic Sparkles */}
-      <GoldSparkle top="10%" left="15%" size={14} delay="0.4s" />
-      <GoldSparkle top="26%" right="14%" size={16} delay="1.6s" />
-      <GoldSparkle bottom="12%" right="18%" size={12} delay="2.2s" />
+    <section id="rsvp-section" className="rsvp-section">
+      <div className="rsvp-artboard">
+        {/* Background botanical frame image */}
+        <Image
+          src={`${RSVP}/bg1.png`}
+          alt=""
+          fill
+          sizes="(max-width: 760px) 100vw, 760px"
+          className="rsvp-bg"
+          priority
+        />
 
-      {/* Luxury Stationery RSVP Card */}
-      <div className="relative z-10 w-full max-w-xl sm:max-w-2xl mx-auto py-12 px-6 sm:px-14 stationery-card rounded-3xl border border-[#E3BDB0]/60 flex flex-col">
-        <VintageCornerBorders />
+        {/* Content overlay */}
+        <div className="rsvp-overlay">
 
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h2 className="font-serif italic text-4xl sm:text-6xl text-[#9F4B31] font-normal tracking-wide">
-            {t.rsvp.title}
-          </h2>
+          {/* ══════════════ RSVP HEADING ══════════════ */}
+          <h2 className="rsvp-title">RSVP</h2>
 
-          <p className="font-serif italic text-base sm:text-lg text-[#BD8167] mt-2">
-            {t.rsvp.deadline}
+          {/* Small calligraphic ornament swirl (matching the reference) */}
+          <svg className="rsvp-ornament" viewBox="0 0 120 30" fill="none" aria-hidden="true">
+            <path
+              d="M60 15 C52 8, 38 12, 38 18 C38 22, 44 24, 50 20 C56 16, 58 12, 60 15 C62 12, 64 16, 70 20 C76 24, 82 22, 82 18 C82 12, 68 8, 60 15Z"
+              stroke="#91482F"
+              strokeWidth="1.2"
+              fill="none"
+            />
+            <path d="M36 18 C30 22, 22 20, 18 16" stroke="#91482F" strokeWidth="0.9" fill="none" strokeLinecap="round" />
+            <path d="M84 18 C90 22, 98 20, 102 16" stroke="#91482F" strokeWidth="0.9" fill="none" strokeLinecap="round" />
+          </svg>
+
+          {/* ══════════════ TINY DIAMOND ORNAMENT ══════════════ */}
+          <div className="rsvp-tiny-diamond" aria-hidden="true">
+            <span />
+          </div>
+
+          {/* ══════════════ DEADLINE ══════════════ */}
+          <p className="rsvp-deadline">
+            Kindly reply before the 1st of April, 2027.
           </p>
 
-          <LuxuryDivider className="my-3.5 w-44" />
-        </div>
-
-        {/* Success Confirmation State */}
-        {isSuccess ? (
-          <div className="py-10 text-center flex flex-col items-center animate-fade-in">
-            <div className="w-16 h-16 rounded-full bg-[#E3BDB0]/35 flex items-center justify-center text-[#9F4B31] mb-4">
-              <CheckCircle2 className="w-10 h-10 text-[#9F4B31]" />
-            </div>
-
-            <h3 className="font-serif italic text-3xl sm:text-4xl text-[#9F4B31] font-normal mb-2">
-              {t.rsvp.successHeading}
-            </h3>
-
-            <p className="font-serif text-[#3D251E]/90 text-lg sm:text-xl mb-6">
-              {t.rsvp.successMessage}
-            </p>
-
-            <div className="flex items-center justify-center text-[#BD8167] mb-6">
-              <Heart className="w-6 h-6 fill-current" />
-            </div>
-
-            <button
-              type="button"
-              onClick={handleReset}
-              className="text-xs font-sans uppercase tracking-[0.25em] text-[#9F4B31] hover:text-[#BD8167] underline underline-offset-4 transition-colors"
-            >
-              {t.rsvp.sendAnother}
-            </button>
-          </div>
-        ) : (
-          /* RSVP Input Form */
-          <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
-            
-            {/* Error Banner */}
-            {errorMessage && (
-              <div className="p-3.5 rounded-lg bg-[#9C3B3E]/10 border border-[#9C3B3E]/30 text-[#9C3B3E] text-xs font-sans text-center">
-                {errorMessage}
-              </div>
-            )}
-
-            {/* Attendance Radio Buttons */}
-            <div>
-              <label className="block font-sans text-xs sm:text-sm uppercase tracking-wider text-[#3D251E] font-medium mb-2.5">
-                {t.rsvp.attendingQuestion} <span className="text-[#9F4B31]">*</span>
-              </label>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {/* Option Yes */}
-                <label
-                  className={`flex items-center space-x-3 p-3.5 rounded-lg border cursor-pointer min-h-[44px] transition-all ${
-                    attendance === 'attending'
-                      ? 'border-[#9F4B31] bg-[#E3BDB0]/25 shadow-xs'
-                      : 'border-[#E3BDB0] hover:bg-[#FAF7F5]'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="attendance"
-                    value="attending"
-                    checked={attendance === 'attending'}
-                    onChange={() => setAttendance('attending')}
-                    className="accent-[#9F4B31] w-4 h-4 cursor-pointer"
-                  />
-                  <span className="font-sans text-sm sm:text-base text-[#3D251E]">
-                    {t.rsvp.yesOption}
-                  </span>
-                </label>
-
-                {/* Option No */}
-                <label
-                  className={`flex items-center space-x-3 p-3.5 rounded-lg border cursor-pointer min-h-[44px] transition-all ${
-                    attendance === 'declined'
-                      ? 'border-[#9F4B31] bg-[#E3BDB0]/25 shadow-xs'
-                      : 'border-[#E3BDB0] hover:bg-[#FAF7F5]'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="attendance"
-                    value="declined"
-                    checked={attendance === 'declined'}
-                    onChange={() => setAttendance('declined')}
-                    className="accent-[#9F4B31] w-4 h-4 cursor-pointer"
-                  />
-                  <span className="font-sans text-sm sm:text-base text-[#3D251E]">
-                    {t.rsvp.noOption}
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            {/* Full Name */}
-            <div>
-              <label
-                htmlFor="rsvp-fullname"
-                className="block font-sans text-xs sm:text-sm uppercase tracking-wider text-[#3D251E] font-medium mb-1.5"
-              >
-                {t.rsvp.nameLabel} <span className="text-[#9F4B31]">*</span>
-              </label>
-              <input
-                id="rsvp-fullname"
-                type="text"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder={t.rsvp.namePlaceholder}
-                className="w-full min-h-[44px] px-4 py-3 rounded-lg bg-[#FFFDFB] border border-[#E3BDB0] text-[#3D251E] font-sans placeholder:text-[#8F6E64]/70 focus:outline-none focus:border-[#9F4B31] focus:ring-2 focus:ring-[#9F4B31]/25 transition-all text-sm sm:text-base"
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label
-                htmlFor="rsvp-email"
-                className="block font-sans text-xs sm:text-sm uppercase tracking-wider text-[#3D251E] font-medium mb-1.5"
-              >
-                {t.rsvp.emailLabel}
-              </label>
-              <input
-                id="rsvp-email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={t.rsvp.emailPlaceholder}
-                className="w-full min-h-[44px] px-4 py-3 rounded-lg bg-[#FFFDFB] border border-[#E3BDB0] text-[#3D251E] font-sans placeholder:text-[#8F6E64]/70 focus:outline-none focus:border-[#9F4B31] focus:ring-2 focus:ring-[#9F4B31]/25 transition-all text-sm sm:text-base"
-              />
-            </div>
-
-            {/* Allergies / Dietary */}
-            <div>
-              <label
-                htmlFor="rsvp-dietary"
-                className="block font-sans text-xs sm:text-sm uppercase tracking-wider text-[#3D251E] font-medium mb-1.5"
-              >
-                {t.rsvp.dietaryLabel}
-              </label>
-              <input
-                id="rsvp-dietary"
-                type="text"
-                value={dietary}
-                onChange={(e) => setDietary(e.target.value)}
-                placeholder={t.rsvp.dietaryPlaceholder}
-                className="w-full min-h-[44px] px-4 py-3 rounded-lg bg-[#FFFDFB] border border-[#E3BDB0] text-[#3D251E] font-sans placeholder:text-[#8F6E64]/70 focus:outline-none focus:border-[#9F4B31] focus:ring-2 focus:ring-[#9F4B31]/25 transition-all text-sm sm:text-base"
-              />
-            </div>
-
-            {/* Message */}
-            <div>
-              <label
-                htmlFor="rsvp-message"
-                className="block font-sans text-xs sm:text-sm uppercase tracking-wider text-[#3D251E] font-medium mb-1.5"
-              >
-                {t.rsvp.messageLabel}
-              </label>
-              <textarea
-                id="rsvp-message"
-                rows={3}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder={t.rsvp.messagePlaceholder}
-                className="w-full px-4 py-3 rounded-lg bg-[#FFFDFB] border border-[#E3BDB0] text-[#3D251E] font-sans placeholder:text-[#8F6E64]/70 focus:outline-none focus:border-[#9F4B31] focus:ring-2 focus:ring-[#9F4B31]/25 transition-all text-sm sm:text-base resize-none"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <div className="pt-2">
+          {/* ══════════════ SUCCESS STATE ══════════════ */}
+          {isSuccess ? (
+            <div className="rsvp-success">
+              <h3 className="rsvp-success-heading">{t.rsvp.successHeading}</h3>
+              <p className="rsvp-success-message">{t.rsvp.successMessage}</p>
               <button
-                type="submit"
-                id="send-rsvp-btn"
-                disabled={isLoading}
-                className="w-full min-h-[48px] py-4 px-8 rounded-lg bg-[#9F4B31] hover:bg-[#BD8167] active:bg-[#D28B77] text-[#FFFDFB] font-sans text-xs sm:text-sm uppercase tracking-[0.25em] font-medium shadow-sm hover:shadow hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer"
+                type="button"
+                onClick={handleReset}
+                className="rsvp-success-reset"
               >
-                <Send className="w-4 h-4 rotate-45 text-[#FFFDFB]" />
-                <span>
-                  {isLoading ? t.rsvp.submittingButton : t.rsvp.submitButton}
-                </span>
+                {t.rsvp.sendAnother}
               </button>
             </div>
+          ) : (
+            /* ══════════════ FORM ══════════════ */
+            <form onSubmit={handleSubmit} className="rsvp-form">
 
-          </form>
-        )}
+              {/* Error Banner */}
+              {errorMessage && (
+                <div className="rsvp-error">{errorMessage}</div>
+              )}
 
+              {/* ── Full name ── */}
+              <div className="rsvp-field">
+                <label htmlFor="rsvp-fullname" className="rsvp-label">
+                  Full name
+                </label>
+                <input
+                  id="rsvp-fullname"
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className="rsvp-input"
+                />
+              </div>
+
+              {/* Thin separator line */}
+              <div className="rsvp-field-separator" aria-hidden="true" />
+
+              {/* ── Attendance (single row) ── */}
+              <div className="rsvp-attend-row">
+                <span className="rsvp-label rsvp-attend-label-inline">
+                  Will you attend?
+                </span>
+                <div className="rsvp-checkboxes-inline">
+                  <label className="rsvp-checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={attendance === 'attending'}
+                      onChange={() => setAttendance(attendance === 'attending' ? '' : 'attending')}
+                      className="rsvp-checkbox-hidden"
+                    />
+                    <span className={`rsvp-checkbox-box ${attendance === 'attending' ? 'rsvp-checkbox-checked' : ''}`}>
+                      {attendance === 'attending' && (
+                        <svg viewBox="0 0 16 16" fill="none" className="rsvp-checkmark">
+                          <path d="M3 8.5L6.5 12L13 4" stroke="#91482F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </span>
+                    <span className="rsvp-checkbox-text">Yes</span>
+                  </label>
+                  <label className="rsvp-checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={attendance === 'declined'}
+                      onChange={() => setAttendance(attendance === 'declined' ? '' : 'declined')}
+                      className="rsvp-checkbox-hidden"
+                    />
+                    <span className={`rsvp-checkbox-box ${attendance === 'declined' ? 'rsvp-checkbox-checked' : ''}`}>
+                      {attendance === 'declined' && (
+                        <svg viewBox="0 0 16 16" fill="none" className="rsvp-checkmark">
+                          <path d="M3 8.5L6.5 12L13 4" stroke="#91482F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </span>
+                    <span className="rsvp-checkbox-text">No</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Thin separator line */}
+              <div className="rsvp-field-separator" aria-hidden="true" />
+
+              {/* ── Message ── */}
+              <div className="rsvp-field">
+                <label htmlFor="rsvp-message" className="rsvp-label">
+                  Message for the couple
+                </label>
+                <textarea
+                  id="rsvp-message"
+                  rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="rsvp-textarea"
+                />
+              </div>
+
+              {/* ── Send button with leaf flourishes ── */}
+              <div className="rsvp-btn-wrap">
+                {/* Left leaf branch */}
+                <svg className="rsvp-btn-leaf rsvp-btn-leaf-left" viewBox="0 0 60 20" fill="none" aria-hidden="true">
+                  <path d="M55 10 C45 6, 35 4, 28 7 C21 10, 24 14, 30 13 C36 12, 42 8, 55 10Z" fill="#8C8964" fillOpacity="0.55" />
+                  <path d="M52 10 C44 8, 36 6, 28 9" stroke="#5E6241" strokeWidth="0.7" fill="none" />
+                  <path d="M48 12 C40 14, 30 16, 20 12 C14 10, 10 6, 6 10" stroke="#5E6241" strokeWidth="0.6" fill="none" />
+                  <circle cx="9" cy="8" r="1.8" fill="#D98F70" fillOpacity="0.45" />
+                  <circle cx="16" cy="6" r="1.2" fill="#C9795D" fillOpacity="0.35" />
+                </svg>
+
+                <button
+                  type="submit"
+                  id="send-rsvp-btn"
+                  disabled={isLoading}
+                  className="rsvp-send-btn"
+                >
+                  {isLoading ? 'Sending...' : 'Send'}
+                </button>
+
+                {/* Right leaf branch */}
+                <svg className="rsvp-btn-leaf rsvp-btn-leaf-right" viewBox="0 0 60 20" fill="none" aria-hidden="true">
+                  <path d="M5 10 C15 6, 25 4, 32 7 C39 10, 36 14, 30 13 C24 12, 18 8, 5 10Z" fill="#8C8964" fillOpacity="0.55" />
+                  <path d="M8 10 C16 8, 24 6, 32 9" stroke="#5E6241" strokeWidth="0.7" fill="none" />
+                  <path d="M12 12 C20 14, 30 16, 40 12 C46 10, 50 6, 54 10" stroke="#5E6241" strokeWidth="0.6" fill="none" />
+                  <circle cx="51" cy="8" r="1.8" fill="#D98F70" fillOpacity="0.45" />
+                  <circle cx="44" cy="6" r="1.2" fill="#C9795D" fillOpacity="0.35" />
+                </svg>
+              </div>
+
+            </form>
+          )}
+        </div>
       </div>
     </section>
   );

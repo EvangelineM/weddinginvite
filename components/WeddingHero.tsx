@@ -1,12 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Language, TranslationContent } from '@/lib/translations';
 
-/** Native artboard size of the hero illustration (portrait). */
-const HERO_W = 682;
-const HERO_H = 1024;
+/** Native dimensions of the supplied portrait hero video. */
+const HERO_W = 720;
+const HERO_H = 1280;
 
 /** Reference typography colors sampled from the artwork. */
 const TEXT_PRIMARY = '#3B2422';
@@ -21,17 +21,17 @@ const SHARP_TYPE: React.CSSProperties = {
 interface WeddingHeroProps {
   t: TranslationContent;
   lang: Language;
+  isActive: boolean;
 }
 
 /**
- * Fits the full 682×1024 artboard inside the viewport (contain) so the couple,
- * chapel, and copy stay visible on wide desktops.
+ * Keeps the supplied 720×1280 invitation video proportional at every viewport.
  */
 function HeroFitStage({ children }: { children: React.ReactNode }) {
   return (
     <section
       id="hero-section"
-      className="hero-stage-section relative flex w-full items-start justify-center overflow-hidden bg-[#FAF7F5]"
+      className="hero-stage-section relative flex w-full items-start justify-center overflow-hidden bg-paper-ivory"
     >
       <div
         className="hero-artboard relative"
@@ -47,286 +47,177 @@ function HeroFitStage({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** Shared scene — same file for EN and ES. Unoptimized to avoid soft JPEG recompression. */
-function HeroBackground() {
+/** Animated hero scene. Muted inline playback allows background autoplay across browsers. */
+function HeroBackground({
+  isActive,
+  onRevealStart,
+  onEnded,
+}: {
+  isActive: boolean;
+  onRevealStart: () => void;
+  onEnded: () => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (!isActive || !video || !Number.isFinite(video.duration)) return;
+
+    if (video.duration - video.currentTime <= 3) {
+      onRevealStart();
+    }
+  };
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    const video = videoRef.current;
+    const hero = video.closest('#hero-section');
+    if (!hero) return;
+
+    const playFromStart = () => {
+      if (!isActive) return;
+      video.currentTime = 0;
+      video.muted = true;
+      void video.play().catch(() => {
+        // Muted playback can still be delayed until the browser permits it.
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+          playFromStart();
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: [0, 0.25] },
+    );
+
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [isActive]);
+
   return (
-    <Image
-      src="/images/hero-reference.jpg"
-      alt=""
-      fill
-      priority
-      unoptimized
-      sizes="100vw"
-      className="object-contain object-top"
-    />
+    <video
+      ref={videoRef}
+      aria-hidden="true"
+      muted
+      playsInline
+      preload="auto"
+      onTimeUpdate={handleTimeUpdate}
+      onEnded={onEnded}
+      className="absolute inset-0 h-full w-full object-cover object-top"
+    >
+      <source
+        src="https://res.cloudinary.com/jcjsrbvw/video/upload/v1790413402/Animate_wedding_invitation_image__20260926040209.mp4"
+        type="video/mp4"
+      />
+    </video>
   );
 }
 
 /**
- * Invitation copy aligned to the reference layout (682×1024).
- * Uses live HTML + ornament PNGs — not hero-text-overlay.png (that asset
- * includes a misaligned duplicate church illustration and causes overlap).
+ * Invitation copy aligned to the supplied video. The video remains visible
+ * behind the copy so its animation and the site's live language switcher work
+ * together.
  */
-function HeroInvitationText({ t, lang }: { t: TranslationContent; lang: Language }) {
-  /** Text block sits over the sky on the right, matching the reference column. */
-  const textColumn = { left: '46%', right: '2%' };
+function HeroInvitationText({
+  t,
+  lang,
+  isRevealed,
+}: {
+  t: TranslationContent;
+  lang: Language;
+  isRevealed: boolean;
+}) {
   const monthLabel = lang === 'EN' ? 'NOVEMBER' : 'NOVIEMBRE';
 
   return (
-    <div className="absolute inset-0 z-[2] pointer-events-none select-none" style={SHARP_TYPE}>
-      <div className="absolute text-center" style={{ top: '6.8%', ...textColumn }}>
-        <p
-          className="font-serif italic leading-[1.45]"
-          style={{
-            fontSize: 'clamp(0.55rem, 1.85cqi, 0.92rem)',
-            color: TEXT_PRIMARY,
-            letterSpacing: '0.02em',
-          }}
-        >
-          {t.hero.blessingLine1}
-          <br />
-          {t.hero.blessingLine2}
-        </p>
-      </div>
-
-      <div
-        className="absolute flex items-center justify-center"
-        style={{ top: '12.2%', ...textColumn }}
-      >
+    <div
+      className="hero-invitation-overlay absolute inset-0 z-2 pointer-events-none select-none"
+      data-revealed={isRevealed}
+      style={SHARP_TYPE}
+    >
+      <div className="absolute left-[22%] right-[4%] top-[7.4%] flex h-[7.8%] justify-center sm:left-[16%] sm:right-[16%]">
         <Image
-          src="/images/ornament-cross.png"
+          src="/images/cross.png"
           alt=""
-          width={280}
-          height={40}
+          width={768}
+          height={1024}
           unoptimized
-          className="h-auto w-[clamp(140px,38cqi,280px)]"
-        />
-      </div>
-
-      <div
-        className="absolute flex justify-center"
-        style={{ top: '14.8%', left: '38%', right: '0%' }}
-      >
-        <Image
-          src="/images/title-irene.png"
-          alt={t.hero.bride}
-          width={340}
-          height={80}
-          unoptimized
-          className="h-auto w-[clamp(160px,48cqi,340px)]"
-        />
-      </div>
-
-      <div
-        className="absolute flex items-center justify-center"
-        style={{ top: '22.0%', ...textColumn }}
-      >
-        <Image
-          src="/images/ornament-bride-sprig.png"
-          alt=""
-          width={120}
-          height={24}
-          unoptimized
-          className="h-auto w-[clamp(48px,12cqi,96px)]"
+          className="h-full w-auto object-contain"
         />
       </div>
 
       <p
-        className="absolute text-center font-serif italic"
-        style={{
-          top: '23.8%',
-          ...textColumn,
-          fontSize: 'clamp(0.48rem, 1.5cqi, 0.78rem)',
-          color: TEXT_MUTED,
-          letterSpacing: '0.04em',
-        }}
+        className="absolute left-[22%] right-[4%] top-[17.2%] text-center font-serif italic leading-[1.08] sm:left-[16%] sm:right-[16%]"
+        style={{ fontSize: 'clamp(0.92rem, 3.1cqi, 1.6rem)', color: TEXT_PRIMARY, fontWeight: 500 }}
       >
-        {t.hero.brideParentsLabel}
+        “I have found the one
+        <br />
+        whom my soul loves.”
+        <span className="mt-[clamp(0.2rem,0.7cqi,0.45rem)] block not-italic" style={{ fontSize: '0.72em' }}>
+          — Song of Solomon 3:4 (NIV)
+        </span>
       </p>
 
-      <p
-        className="absolute text-center font-serif font-medium"
-        style={{
-          top: '25.6%',
-          left: '42%',
-          right: '0%',
-          fontSize: 'clamp(0.45rem, 1.45cqi, 0.75rem)',
-          color: TEXT_PRIMARY,
-          letterSpacing: '0.03em',
-        }}
-      >
-        {t.hero.brideParents}
-      </p>
-
-      <div
-        className="absolute flex items-center justify-center"
-        style={{ top: '28.6%', ...textColumn }}
-      >
+      <div className="absolute left-[22%] right-[4%] top-[22.5%] flex justify-center sm:left-[16%] sm:right-[16%]">
         <Image
-          src="/images/ornament-ampersand.png"
+          src="/images/flower_divider.png"
           alt=""
-          width={200}
-          height={48}
+          width={1920}
+          height={1080}
           unoptimized
-          className="h-auto w-[clamp(100px,28cqi,200px)]"
-        />
-      </div>
-
-      <div
-        className="absolute flex justify-center"
-        style={{ top: '32.8%', left: '36%', right: '0%' }}
-      >
-        <Image
-          src="/images/title-franklin.png"
-          alt={t.hero.groom}
-          width={380}
-          height={80}
-          unoptimized
-          className="h-auto w-[clamp(170px,52cqi,380px)]"
-        />
-      </div>
-
-      <div
-        className="absolute flex items-center justify-center"
-        style={{ top: '41.2%', ...textColumn }}
-      >
-        <Image
-          src="/images/ornament-groom-sprig.png"
-          alt=""
-          width={120}
-          height={24}
-          unoptimized
-          className="h-auto w-[clamp(48px,12cqi,96px)]"
+          className="h-auto w-[43%] max-w-none object-contain"
         />
       </div>
 
       <p
-        className="absolute text-center font-serif italic"
-        style={{
-          top: '42.8%',
-          ...textColumn,
-          fontSize: 'clamp(0.48rem, 1.5cqi, 0.78rem)',
-          color: TEXT_MUTED,
-          letterSpacing: '0.04em',
-        }}
+        className="absolute left-[22%] right-[4%] top-[29.5%] whitespace-nowrap text-center font-script leading-none sm:left-[16%] sm:right-[16%]"
+        style={{ fontSize: 'clamp(2.15rem, 9.7cqi, 5.2rem)', color: TEXT_MUTED }}
       >
-        {t.hero.groomParentsLabel}
+        {t.hero.bride} <span className="font-serif italic">&amp;</span> {t.hero.groom}
       </p>
-
-      <p
-        className="absolute text-center font-serif font-medium"
-        style={{
-          top: '44.5%',
-          left: '42%',
-          right: '0%',
-          fontSize: 'clamp(0.45rem, 1.45cqi, 0.75rem)',
-          color: TEXT_PRIMARY,
-          letterSpacing: '0.03em',
-        }}
-      >
-        {t.hero.groomParents}
-      </p>
-
-      <div className="absolute text-center" style={{ top: '47.0%', left: '43%', right: '1%' }}>
-        <p
-          className="font-serif italic leading-[1.55]"
-          style={{
-            fontSize: 'clamp(0.5rem, 1.7cqi, 0.88rem)',
-            color: TEXT_PRIMARY,
-            letterSpacing: '0.01em',
-          }}
-        >
-          {t.hero.invitationLine1}
-          <br />
-          {t.hero.invitationLine2}
-        </p>
-      </div>
 
       <div
-        className="absolute flex items-center justify-center"
-        style={{ top: '51.6%', ...textColumn }}
+        className="absolute left-[22%] right-[4%] top-[36.7%] flex items-center justify-center gap-[clamp(0.4rem,1.7cqi,1rem)] whitespace-nowrap font-serif font-semibold sm:left-[16%] sm:right-[16%]"
+        style={{ fontSize: 'clamp(0.82rem, 3cqi, 1.55rem)', color: TEXT_PRIMARY, letterSpacing: '0.12em' }}
       >
+        <span>16</span>
+        <span className="opacity-60">|</span>
+        <span>{monthLabel}</span>
+        <span className="opacity-60">|</span>
+        <span>2026</span>
+      </div>
+
+      <div className="absolute left-[22%] right-[4%] top-[38.2%] flex justify-center sm:left-[16%] sm:right-[16%]">
         <Image
-          src="/images/ornament-divider.png"
+          src="/images/flower_divider.png"
           alt=""
-          width={80}
-          height={20}
+          width={1920}
+          height={1080}
           unoptimized
-          className="h-auto w-[clamp(36px,9cqi,72px)]"
+          className="h-auto w-[27%] max-w-none object-contain"
         />
       </div>
 
-      <div
-        className="absolute flex items-center justify-center"
-        style={{ top: '53.8%', ...textColumn }}
-      >
-        <div className="flex items-center" style={{ gap: 'clamp(4px, 1.2cqi, 10px)' }}>
-          <span
-            className="font-serif font-bold"
-            style={{
-              fontSize: 'clamp(0.85rem, 2.8cqi, 1.6rem)',
-              color: TEXT_PRIMARY,
-              letterSpacing: '0.05em',
-            }}
-          >
-            16
-          </span>
-          <span
-            className="font-serif font-light opacity-60"
-            style={{ fontSize: 'clamp(0.7rem, 2cqi, 1.3rem)', color: TEXT_PRIMARY }}
-          >
-            |
-          </span>
-          <span
-            className="font-serif font-semibold tracking-widest"
-            style={{
-              fontSize: 'clamp(0.52rem, 1.6cqi, 0.9rem)',
-              color: TEXT_PRIMARY,
-              letterSpacing: '0.18em',
-            }}
-          >
-            {monthLabel}
-          </span>
-          <span
-            className="font-serif font-light opacity-60"
-            style={{ fontSize: 'clamp(0.7rem, 2cqi, 1.3rem)', color: TEXT_PRIMARY }}
-          >
-            |
-          </span>
-          <span
-            className="font-serif font-bold"
-            style={{
-              fontSize: 'clamp(0.85rem, 2.8cqi, 1.6rem)',
-              color: TEXT_PRIMARY,
-              letterSpacing: '0.05em',
-            }}
-          >
-            2026
-          </span>
-        </div>
-      </div>
-
-      <div
-        className="absolute flex items-center justify-center"
-        style={{ top: '57.5%', ...textColumn }}
-      >
-        <Image
-          src="/images/ornament-bottom-garland.png"
-          alt=""
-          width={140}
-          height={32}
-          unoptimized
-          className="h-auto w-[clamp(56px,14cqi,120px)]"
-        />
-      </div>
     </div>
   );
 }
 
-export const WeddingHero: React.FC<WeddingHeroProps> = ({ t, lang }) => {
+export const WeddingHero: React.FC<WeddingHeroProps> = ({ t, lang, isActive }) => {
+  const [isVideoEnded, setIsVideoEnded] = React.useState(false);
+
   return (
     <HeroFitStage>
-      {lang === 'EN' ? <HeroBackground /> : <HeroInvitationText t={t} lang={lang} />}
+      <HeroBackground
+        isActive={isActive}
+        onRevealStart={() => setIsVideoEnded(true)}
+        onEnded={() => setIsVideoEnded(true)}
+      />
+      <HeroInvitationText t={t} lang={lang} isRevealed={isVideoEnded} />
     </HeroFitStage>
   );
 };

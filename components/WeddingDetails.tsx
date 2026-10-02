@@ -2,9 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { MapPin } from 'lucide-react';
 import { TranslationContent } from '@/lib/translations';
-import { GoldSparkle, LuxuryDivider, VintageCornerBorders } from './DecorativeElements';
+
+const VENUE = '/images/venue';
 
 interface WeddingDetailsProps {
   t: TranslationContent;
@@ -12,83 +12,148 @@ interface WeddingDetailsProps {
 
 export const WeddingDetails: React.FC<WeddingDetailsProps> = ({ t }) => {
   const googleMapsUrl =
-    'https://www.google.com/maps/search/?api=1&query=Ch%C3%A2teau+de+la+Couronne+Nouvelle-Aquitaine+France';
+    'https://www.google.com/maps/search/?api=1&query=C.S.I.+St.+Paul%27s+Church+Keelkantalai+Tamil+Nadu';
 
   return (
-    <section
-      id="details-section"
-      className="relative w-full min-h-[100svh] flex flex-col items-center justify-center text-center overflow-hidden px-4 py-20 bg-[#FAF8F5]"
-    >
-      {/* Decorative Rustic Sparkles */}
-      <GoldSparkle top="8%" left="15%" size={14} delay="0.7s" />
-      <GoldSparkle top="22%" right="16%" size={16} delay="2.1s" />
-      <GoldSparkle bottom="14%" left="18%" size={12} delay="1.2s" />
+    <section id="venue-section" className="venue-section">
+      {/* Outer floral parchment background */}
+      <Image
+        src={`${VENUE}/base_bg.png`}
+        alt=""
+        fill
+        sizes="100vw"
+        className="venue-outer-bg"
+        priority
+      />
 
-      {/* Central Stationery Page Container filling width */}
-      <div className="relative z-10 w-full max-w-2xl mx-auto py-12 px-6 sm:px-14 stationery-card rounded-3xl border border-[#E3BDB0]/60 flex flex-col items-center">
-        
-        {/* Subtle decorative inner corner borders */}
-        <VintageCornerBorders />
+      {/* Inner ornate floral frame card */}
+      <div className="venue-artboard">
+        <Image
+          src={`${VENUE}/secondbg.png`}
+          alt=""
+          fill
+          sizes="(max-width: 760px) 100vw, 760px"
+          className="venue-frame-bg"
+          priority
+        />
 
-        {/* Château Vignette Illustration */}
-        <div className="relative w-44 h-44 sm:w-56 sm:h-56 mb-4 select-none hover:scale-105 transition-transform duration-500">
-          <Image
-            src="/images/chateau-vignette.jpg"
-            alt="Château de la Couronne illustration"
-            fill
-            sizes="(max-width: 640px) 176px, 224px"
-            className="object-contain"
-          />
-        </div>
+        {/* Content overlay */}
+        <div className="venue-overlay">
+          {/* "Venue" script heading */}
+          <h2 className="venue-title">Venue</h2>
 
-        {/* Heading: Join Us To Celebrate Our Wedding */}
-        <div className="mb-4">
-          <h2 className="font-serif italic text-3xl sm:text-5xl text-[#9F4B31] leading-tight font-normal">
-            {t.welcome.titleLine1}
-          </h2>
-          <h3 className="font-serif italic text-3xl sm:text-5xl text-[#BD8167] leading-tight font-normal">
-            {t.welcome.titleLine2}
+          {/* "WHERE WE CELEBRATE" subtitle */}
+          <p className="venue-subtitle">WHERE WE CELEBRATE</p>
+
+          {/* Diamond divider */}
+          <div className="venue-rule" aria-hidden="true">
+            <span />
+          </div>
+
+          {/* Church name */}
+          <h3 className="venue-church-name">
+            C.S.I. St. Paul&apos;s Church
           </h3>
-        </div>
 
-        {/* Luxury Rustic Divider */}
-        <LuxuryDivider className="my-2.5 w-44" />
-
-        {/* Excited Description */}
-        <p className="font-serif text-[#3D251E]/90 text-base sm:text-lg leading-relaxed max-w-md mt-2 mb-6">
-          {t.welcome.description}
-        </p>
-
-        {/* Time & Location Section */}
-        <div className="flex flex-col items-center space-y-2 mb-8">
-          <h4 className="font-serif italic text-2xl sm:text-3xl text-[#BD8167] font-normal">
-            {t.welcome.timeLocationTitle}
-          </h4>
-
-          <p className="font-serif text-[#3D251E] text-base sm:text-lg leading-snug max-w-sm">
-            {t.welcome.venueLine}
+          {/* Location */}
+          <p className="venue-location">
+            Keelkantalai, Tamil Nadu
           </p>
 
-          <p className="font-serif italic text-2xl sm:text-3xl text-[#9F4B31] font-medium pt-1">
-            {t.welcome.time}
-          </p>
+          {/* Diamond divider below location */}
+          <div className="venue-rule venue-rule-lower" aria-hidden="true">
+            <span />
+          </div>
+
+          {/* Wedding & Reception columns */}
+          <div className="venue-events">
+            {/* Wedding column */}
+            <article className="venue-event">
+              <div className="venue-event-icon">
+                <Image
+                  src={`${VENUE}/Interlocked Golden Wedding Rings.png`}
+                  alt="Wedding rings"
+                  width={1024}
+                  height={494}
+                  unoptimized
+                  className="venue-rings-img"
+                />
+              </div>
+              <h4 className="venue-event-label">WEDDING</h4>
+              <div className="venue-time-row">
+                <div className="venue-clock-icon">
+                  <Image
+                    src={`${VENUE}/Rose Gold Transparent Clock Icon.png`}
+                    alt="Clock"
+                    width={1100}
+                    height={1100}
+                    unoptimized
+                    className="venue-clock-img"
+                  />
+                </div>
+                <span className="venue-time-text">10:00 AM</span>
+              </div>
+            </article>
+
+            {/* Central diamond + vertical divider */}
+            <div className="venue-events-divider" aria-hidden="true">
+              <div className="venue-events-diamond" />
+              <div className="venue-events-line" />
+            </div>
+
+            {/* Reception column */}
+            <article className="venue-event">
+              <div className="venue-event-icon">
+                <Image
+                  src={`${VENUE}/Golden Champagne Toast Icon.png`}
+                  alt="Champagne toast"
+                  width={1200}
+                  height={1000}
+                  unoptimized
+                  className="venue-toast-img"
+                />
+              </div>
+              <h4 className="venue-event-label">RECEPTION</h4>
+              <div className="venue-time-row">
+                <div className="venue-clock-icon">
+                  <Image
+                    src={`${VENUE}/Rose Gold Transparent Clock Icon.png`}
+                    alt="Clock"
+                    width={1100}
+                    height={1100}
+                    unoptimized
+                    className="venue-clock-img"
+                  />
+                </div>
+                <span className="venue-time-text">1:00 PM ONWARDS</span>
+              </div>
+            </article>
+          </div>
+
+          {/* "OPEN IN MAPS" button */}
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            id="open-in-maps-btn"
+            className="venue-maps-btn"
+            aria-label="Open venue location in Google Maps (opens in new tab)"
+          >
+            <svg
+              className="venue-maps-pin"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            <span className="venue-maps-label">OPEN IN MAPS</span>
+          </a>
         </div>
-
-        {/* Google Maps Button matching exact prompt specification */}
-        <a
-          href={googleMapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          id="google-maps-btn"
-          className="group inline-flex items-center justify-center space-x-2.5 px-8 py-3.5 min-h-[44px] rounded-lg bg-[#9F4B31] hover:bg-[#BD8167] active:bg-[#D28B77] border border-[#9F4B31]/30 text-[#FFFDFB] transition-all duration-300 shadow-sm hover:shadow hover:-translate-y-0.5 active:translate-y-0"
-          aria-label="Open location in Google Maps (opens in new tab)"
-        >
-          <MapPin className="w-4 h-4 text-[#FFFDFB] group-hover:scale-110 transition-transform" />
-          <span className="font-sans text-xs sm:text-sm uppercase tracking-[0.22em] font-medium text-[#FFFDFB]">
-            {t.welcome.googleMapsButton}
-          </span>
-        </a>
-
       </div>
     </section>
   );

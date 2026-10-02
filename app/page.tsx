@@ -7,8 +7,9 @@ import { LanguageToggle } from '@/components/LanguageToggle';
 import { MusicToggle } from '@/components/MusicToggle';
 import { FallingPetals } from '@/components/DecorativeElements';
 import { WeddingHero } from '@/components/WeddingHero';
+import { SaveTheDate } from '@/components/SaveTheDate';
+import { Section3 } from '@/components/Section3';
 import { WeddingDetails } from '@/components/WeddingDetails';
-import { CurtainCountdown } from '@/components/CurtainCountdown';
 import { RSVPForm } from '@/components/RSVPForm';
 import { FinalPage } from '@/components/FinalPage';
 
@@ -76,18 +77,21 @@ export default function WeddingInvitationPage() {
         }`}
       >
         {/* Page 1: Wedding Hero Cover */}
-        <WeddingHero t={t} lang={currentLang} />
+        <WeddingHero t={t} lang={currentLang} isActive={isUnlocked || isHeroEmerging} />
 
-        {/* Page 2: Welcome / Location */}
+        {/* Page 2: Save the Date scratch reveal */}
+        <SaveTheDate />
+
+        {/* Page 3: Formal wedding invitation details */}
+        <Section3 />
+
+        {/* Page 4: Welcome / Location */}
         <WeddingDetails t={t} />
 
-        {/* Page 3: Theatrical Curtains Reveal + Live Countdown */}
-        <CurtainCountdown t={t} />
-
-        {/* Page 4: Stationery RSVP */}
+        {/* Page 5: Stationery RSVP */}
         <RSVPForm t={t} />
 
-        {/* Page 5: Final Keepsake Back Cover */}
+        {/* Page 7: Final Keepsake Back Cover */}
         <FinalPage t={t} />
 
         {/* Footer Admin Link */}
