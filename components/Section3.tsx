@@ -4,6 +4,8 @@ import Image from "next/image";
 import { TranslationContent, Language } from "@/lib/translations";
 
 const SECTION3 = "/images/section3";
+const VINTAGE_BG =
+    "/images/section3/Vintage Floral Wedding Invitation Background.png";
 
 function Art({
     src,
@@ -48,6 +50,14 @@ interface Section3Props {
 export function Section3({ t }: Section3Props) {
     return (
         <section id="section-3" className="section3-section">
+            <Image
+                src={VINTAGE_BG}
+                alt=""
+                fill
+                priority
+                sizes="100vw"
+                className="pointer-events-none select-none object-cover object-center"
+            />
             <div className="section3-artboard">
                 <div className="section3-overlay">
                     <Art

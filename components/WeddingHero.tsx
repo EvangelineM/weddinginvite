@@ -136,7 +136,7 @@ function HeroInvitationText({
             data-revealed={isRevealed}
             style={SHARP_TYPE}
         >
-            <div className="absolute left-[12%] right-[12%] top-[7.4%] flex h-[7.8%] justify-center">
+            <div className="absolute left-[26%] right-[6%] top-[8.2%] flex h-[7.8%] justify-center">
                 <Image
                     src="/images/cross.png"
                     alt=""
@@ -148,11 +148,12 @@ function HeroInvitationText({
             </div>
 
             <p
-                className="absolute left-[8%] right-[8%] top-[17.2%] text-center font-serif italic leading-[1.12]"
+                className="absolute left-[27%] right-[7%] top-[17.2%] text-center font-serif italic leading-[1.12]"
                 style={{
-                    fontSize: "clamp(0.85rem, 2.9cqi, 1.45rem)",
+                    fontSize: "clamp(0.85rem, 3.9cqi, 1.25rem)",
                     color: TEXT_PRIMARY,
-                    fontWeight: 500,
+                    fontWeight: 650,
+                    fontStyle: "italic",
                 }}
             >
                 {t.hero.verseLine1}
@@ -162,59 +163,85 @@ function HeroInvitationText({
                         {t.hero.verseLine2}
                     </>
                 )}
-                <span
-                    className="mt-[clamp(0.2rem,0.7cqi,0.45rem)] block not-italic"
-                    style={{ fontSize: "0.72em" }}
-                >
-                    {t.hero.verseRef}
-                </span>
+                { <span
+                    className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block not-italic"
+                    style={{ fontSize: "0.67em" }}
+                    >
+                    — Song of Solomon{" "}
+                    <span
+                        style={{
+                        fontFamily: "var(--font-libre-bodoni)",
+                        fontWeight: 400,
+                        fontStyle: "normal",
+                        fontSize: "0.9em",
+                        }}
+                    >
+                        3:4
+                    </span>{" "}
+                    (NIV)
+                </span> 
+
+                // <span
+                //     className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block font-libre-bodoni font-normal  not-italic"
+                //     style={{ fontSize: "0.66em" }}
+                //     >
+                //     {t.hero.verseRef}
+                // </span>
+                }
             </p>
 
-            <div className="absolute left-[12%] right-[12%] top-[22.5%] flex justify-center">
+            <div className="absolute left-[27%] right-[8.5%] top-[23.3%] flex justify-center">
                 <Image
-                    src="/images/flower_divider.png"
+                    src="/images/datedivider.png"
                     alt=""
                     width={1920}
                     height={1080}
                     unoptimized
-                    className="h-auto w-[43%] max-w-none object-contain"
+                    className="h-auto w-[49%] max-w-none object-contain"
                 />
             </div>
 
             <p
-                className="absolute left-[6%] right-[6%] top-[29.5%] whitespace-nowrap text-center font-script leading-none"
+                // className="absolute left-[23%] right-[4%] top-[28.5%] whitespace-nowrap text-center font-script leading-none"
+                // style={{
+                //     fontSize: "clamp(3.0rem, 10.2cqi, 4.8rem)",
+                //     color: TEXT_MUTED,
+                // }}
+
+                 className="absolute left-[23%] right-[5%] top-[28.9%] whitespace-nowrap text-center font-cara : leading-none"
                 style={{
-                    fontSize: "clamp(2.15rem, 9.2cqi, 4.8rem)",
+                    fontSize: "clamp(3.08rem, 10.2cqi, 4.8rem)",
                     color: TEXT_MUTED,
+                    letterSpacing: "0.027em",
                 }}
             >
-                {t.hero.bride} <span className="font-serif italic">&amp;</span>{" "}
-                {t.hero.groom}
+                {t.hero.groom} <span className="font-cara">&amp;</span>{" "}
+                {t.hero.bride}
             </p>
 
             <div
-                className="absolute left-[8%] right-[8%] top-[36.7%] flex items-center justify-center gap-[clamp(0.4rem,1.7cqi,1rem)] whitespace-nowrap font-serif font-semibold"
+                className="absolute left-[20%] right-[0%] top-[35.7%] flex items-center justify-center gap-[clamp(0.4rem,1.7cqi,1rem)] whitespace-nowrap"
                 style={{
-                    fontSize: "clamp(0.82rem, 3cqi, 1.55rem)",
+                    fontSize: "clamp(0.75rem, 2.65cqi, 1.55rem)",
                     color: TEXT_PRIMARY,
                     letterSpacing: "0.12em",
                 }}
-            >
-                <span>16</span>
-                <span className="opacity-60">|</span>
-                <span>{t.hero.month}</span>
-                <span className="opacity-60">|</span>
-                <span>2026</span>
+                >
+                <span className="font-libre-bodoni font-normal opacity-80">16</span>
+                <span className="font-serif font-normal opacity-100">|</span>
+                <span className="font-serif font-semibold">{t.hero.month}</span>
+                <span className="font-serif font-normal opacity-100">|</span>
+                <span className="font-libre-bodoni font-normal opacity-80">2026</span>
             </div>
 
-            <div className="absolute left-[12%] right-[12%] top-[40.5%] flex justify-center">
+            <div className="absolute left-[27%] right-[12%] top-[37.2%] flex justify-center">
                 <Image
-                    src="/images/flower_divider.png"
+                    src="/images/datedivider.png"
                     alt=""
                     width={1920}
                     height={1080}
                     unoptimized
-                    className="h-auto w-[27%] max-w-none object-contain"
+                    className="h-auto w-[35%] max-w-none object-contain"
                 />
             </div>
         </div>

@@ -14,9 +14,14 @@
 
     --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
     --font-script: var(--font-great-vibes), "Great Vibes", cursive;
+    --font-cara: var(--font-carattere), "Carattere", cursive;
+    --font-pinyon: var(--font-pinyon), "Pinyon Script", cursive;
+    --font-libre-bodoni: var(--font-libre-bodoni), "Libre Bodoni", serif, cursive;
     --font-sans:
-        var(--font-dm-sans), "DM Sans", -apple-system, BlinkMacSystemFont,
+    var(--font-dm-sans), "DM Sans", -apple-system, BlinkMacSystemFont,
         sans-serif;
+
+        
 }
 
 :root {
@@ -295,7 +300,7 @@ body {
     width: 100%;
     overflow: hidden;
     background: #f6ead8;
-    background-image: url("/images/savedate/Vintage Floral Wedding Invitation Background.png");
+    background-image: url("/images/section3/Vintage Floral Wedding Invitation Background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -592,162 +597,135 @@ body {
 
 .save-date-eyebrow,
 .save-date-card-heading,
-.save-date-card-divider,
-.save-date-divider,
 .save-date-footer {
     color: #875334;
-    font-family: var(--font-cormorant), Georgia, serif;
-    letter-spacing: 0.34em;
+    font-family: var(--font-serif), Georgia, serif;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
 }
 
 .save-date-eyebrow {
     margin-top: 1.5vh;
-    font-size: clamp(0.58rem, 1.1vw, 0.8rem);
+    font-size: clamp(0.77rem, 1.1vw, 0.8rem);
     font-weight: 700;
     color: #79472f;
+    transform: translateY(30px);
 }
 
-.save-date-title {
-    margin-top: 0.3rem;
-    color: #a8563c;
-    font-family: var(--font-pinyon), var(--font-great-vibes), cursive;
-    font-size: clamp(3.7rem, 9vw, 7.5rem);
-    font-weight: 400;
-    line-height: 0.95;
-    -webkit-text-stroke: 0.34px currentColor;
-    letter-spacing: 0.01em;
-}
-
-.save-date-divider {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    width: min(12rem, 34vw);
-    margin-top: 0.35rem;
-    font-size: 0.7rem;
-    letter-spacing: 0;
-}
-
-.save-date-divider::before,
-.save-date-divider::after {
-    content: "";
-    height: 1px;
-    flex: 1;
-    background: #b8794d;
-}
-
-.save-date-divider span,
-.save-date-card-divider span {
+.save-date-title-curved {
     display: block;
-    width: 0.55rem;
-    height: 0.55rem;
-    border: 1px solid #b8794d;
-    transform: rotate(45deg);
+    width: min(100%, 760px);
+    height: auto;
+    overflow: visible;
+    margin-top: 0.2rem;
+    color: #a8563c;
+}
+
+.save-date-title-curved text {
+    fill: currentColor;
+    font-family: var(--font-cara), var(--font-great-vibes), cursive;
+    font-size: 150px;
+    font-weight: 400;
+    stroke: currentColor;
+    stroke-width: 0.34px;
+    transform: translateY(60px);
+}
+
+.save-date-divider-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+.save-date-divider-img {
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 1px rgba(130, 80, 40, 0.15));
+}
+
+.save-date-divider-eyebrow {
+    width: clamp(130px, 22vw, 170px);
+    margin-top: 0.25rem;
+    margin-bottom: 0.1rem;
+    transform: translateY(18px);
+}
+
+.save-date-divider-title {
+    width: clamp(170px, 30vw, 230px);
+    margin-top: 0.15rem;
+    transform: translateY(-15px);
+}
+
+.save-date-divider-card-heading {
+    width: clamp(65px, 16vw, 120px);
+    margin-top: 0.15rem;
+}
+
+.save-date-divider-card-footer {
+    width: clamp(85px, 16vw, 120px);
+    margin-top: 0.15rem;
 }
 
 .save-date-card-wrap {
     position: relative;
+    width: 90%;
+    margin-top: 1.5rem;
+    margin-inline: auto;
+    transform: translateY(-80px);
+    
 }
 
 .save-date-card-shadow {
     position: absolute;
     z-index: 0;
-    right: 8%;
-    bottom: -22px;
-    left: 8%;
-    height: 38px;
+    left: 3%;
+    right: 3%;
+    bottom: -20px;
+    height: 50px;
     border-radius: 50%;
-    background: radial-gradient(
-        ellipse,
-        rgba(100, 65, 45, 0.28) 0%,
-        rgba(100, 65, 45, 0.12) 44%,
-        transparent 74%
-    );
-    filter: blur(6px);
+    background: radial-gradient(ellipse at center,
+            rgba(179, 87, 33, 0.24) 60%,
+            rgba(141, 77, 40, 0.18) 35%,
+            rgba(153, 63, 7, 0.1) 60%,
+            rgba(145, 99, 71, 0.035) 78%,
+            transparent 88%);
+    filter: blur(10px);
     pointer-events: none;
+    
 }
 
 .save-date-section .save-date-card {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        min-height: 0;
+        margin-right: auto;
+        margin-left: auto;
+        margin-inline: auto;
+        border-radius: 18px;
+        isolation: isolate;
+        overflow: visible;
+        background: transparent;
+        box-shadow: none;
+        padding: 1rem 0.5rem;
+    }
+
+.save-date-card-bg-img {
+    object-fit: contain;
+    z-index: 0;
+    border-radius: 18px;
+    pointer-events: none;
+    filter:
+        drop-shadow(0 2px 2px rgba(112, 69, 43, 0.20)) drop-shadow(0 5px 5px rgba(112, 69, 43, 0.16)) drop-shadow(0 10px 12px rgba(112, 69, 43, 0.12)) drop-shadow(0 18px 20px rgba(112, 69, 43, 0.07));
+}
+.save-date-card-heading {
     position: relative;
     z-index: 1;
-    width: min(92%, 600px);
-    min-height: 0;
-    margin-right: auto;
-    margin-left: auto;
-    aspect-ratio: 1.7;
-    border: 1px solid rgba(175, 125, 70, 0.45);
-    border-radius: 18px;
-    isolation: isolate;
-    background-color: rgba(250, 235, 213, 0.76);
-    background-image:
-        radial-gradient(
-            circle at 18% 12%,
-            rgba(255, 255, 244, 0.26) 0 1px,
-            transparent 1px
-        ),
-        radial-gradient(
-            circle at 72% 64%,
-            rgba(143, 91, 54, 0.08) 0 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            135deg,
-            rgba(255, 250, 235, 0.32),
-            rgba(219, 180, 137, 0.08)
-        );
-    background-size:
-        17px 17px,
-        23px 23px,
-        100% 100%;
-    box-shadow:
-        0 15px 40px rgba(100, 65, 45, 0.1),
-        inset 0 0 0 5px rgba(255, 244, 218, 0.2);
-}
-
-.save-date-section .save-date-card::before {
-    position: absolute;
-    z-index: 0;
-    inset: 10px;
-    border: 1px solid rgba(175, 125, 70, 0.28);
-    border-radius: 12px;
-    content: "";
-    pointer-events: none;
-}
-
-.save-date-card-corner {
-    position: absolute;
-    z-index: 25;
-    width: 2.1rem;
-    height: 2.1rem;
-    color: rgba(161, 104, 58, 0.72);
-    pointer-events: none;
-}
-
-.save-date-card-corner-tl {
-    top: 0.35rem;
-    left: 0.35rem;
-}
-
-.save-date-card-corner-tr {
-    top: 0.35rem;
-    right: 0.35rem;
-    transform: scaleX(-1);
-}
-
-.save-date-card-corner-bl {
-    bottom: 0.35rem;
-    left: 0.35rem;
-    transform: scaleY(-1);
-}
-
-.save-date-card-corner-br {
-    right: 0.35rem;
-    bottom: 0.35rem;
-    transform: scale(-1);
-}
-
-.save-date-card-heading {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -763,32 +741,11 @@ body {
     stroke-width: 1.5;
 }
 
-.save-date-card-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    margin: 0.3rem auto 0;
-    width: min(8rem, 28vw);
-    font-size: 0;
-}
-
-.save-date-card-divider::before,
-.save-date-card-divider::after {
-    content: "";
-    height: 1px;
-    flex: 1;
-    background: #b8794d;
-}
-
-.save-date-card-divider span {
-    width: 0.3rem;
-    height: 0.3rem;
-}
 
 .save-date-heart-content {
     position: relative;
-    width: min(54%, 440px);
+    z-index: 1;
+    width: min(58%, 440px);
     aspect-ratio: 1.42;
     margin: 0.9rem auto 0;
     container-type: inline-size;
@@ -933,6 +890,8 @@ body {
 }
 
 .save-date-footer {
+    position: relative;
+    z-index: 1;
     margin-top: 2rem;
     font-size: clamp(0.75rem, 1.7vw, 1.1rem);
     color: #8d503b;
@@ -944,9 +903,6 @@ body {
     -webkit-text-stroke: 0.1px currentColor;
 }
 
-.save-date-divider-bottom {
-    margin: 0.28rem auto 0;
-}
 
 .save-date-falling-petals {
     position: absolute;

@@ -4,6 +4,8 @@ import {
     Great_Vibes,
     DM_Sans,
     Pinyon_Script,
+    Carattere,
+    Libre_Bodoni,
 } from "next/font/google";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import "./globals.css";
@@ -29,6 +31,18 @@ const pinyonScript = Pinyon_Script({
     weight: ["400"],
     variable: "--font-pinyon",
     display: "swap",
+});
+
+const carattere = Carattere({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-carattere",
+});
+
+const libreBodoni = Libre_Bodoni({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-libre-bodoni",
 });
 
 const dmSans = DM_Sans({
@@ -57,7 +71,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${cormorant.variable} ${greatVibes.variable} ${pinyonScript.variable} ${dmSans.variable} h-full`}
+            className={`${cormorant.variable} ${greatVibes.variable} ${pinyonScript.variable} ${dmSans.variable} ${carattere.variable} ${libreBodoni.variable} h-full`}
         >
             <body className="min-h-full font-serif bg-[#FAF7F5] text-[#3D251E] antialiased selection:bg-[#E3BDB0] selection:text-[#9F4B31]">
                 <SmoothScroll />

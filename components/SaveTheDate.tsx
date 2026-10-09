@@ -8,35 +8,21 @@ import { TranslationContent, Language } from "@/lib/translations";
 const HEART_FRAME = "/images/savedate/Ornate Rose-Gold Floral Heart Frame.png";
 const GOLD_HEART_TEXTURE = "/images/savedate/Golden Foil Heart Cutout.png";
 const SAVE_DATE_BACKGROUND =
-    "/images/savedate/Vintage Floral Wedding Invitation Background.png";
+    "/images/savedate/Romantic Peach Petal Stationery Background.png";
+const HEART_BACKGROUND = "/images/savedate/heart_bg.png";
+const ORNAMENTAL_DIVIDER =
+    "/images/savedate/Golden Diamond Ornamental Divider.png";
 const REVEAL_THRESHOLD = 0.2;
 const BRUSH_RADIUS = 34;
-const LEAF_COUNT = 14;
+const LEAF_COUNT = 15;
 const MIN_LEAF_DURATION = 5.5;
 const MAX_LEAF_DURATION = 7.6;
-const FOIL_X = 0.055;
-const FOIL_Y = 0.07;
-const FOIL_WIDTH = 0.89;
-const FOIL_HEIGHT = 0.84;
+const FOIL_X = -0.035;
+const FOIL_Y = 0.015;
+const FOIL_WIDTH = 1.07;
+const FOIL_HEIGHT = 0.97;
 
-function CornerOrnament({ className }: { className: string }) {
-    return (
-        <svg viewBox="0 0 40 40" className={className} aria-hidden="true">
-            <path
-                d="M3 36C3 17 10 7 29 4M4 28C10 27 14 23 16 17M12 10C16 11 19 14 19 18M21 8C25 9 27 12 27 16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.1"
-                strokeLinecap="round"
-            />
-            <path
-                d="M9 25C13 25 16 27 16 30C12 30 10 28 9 25ZM17 14C21 14 23 16 23 19C20 19 18 17 17 14ZM27 6C31 6 33 8 33 11C30 11 28 9 27 6Z"
-                fill="currentColor"
-                opacity="0.52"
-            />
-        </svg>
-    );
-}
+
 
 function ScratchHeart({
     t,
@@ -270,7 +256,7 @@ function FallingSaveDatePetals({ active }: { active: boolean }) {
                     style={
                         {
                             left: `${(index * 7.5 + 4) % 94}%`,
-                            animationDelay: `${(index % 5) * 0.28}s`,
+                            animationDelay: `${(index % 5) * 0.1}s`,
                             animationDuration: `${MIN_LEAF_DURATION + ((MAX_LEAF_DURATION - MIN_LEAF_DURATION) * (index % 4)) / 3}s`,
                             "--petal-size": `${10 + (index % 4) * 4}px`,
                             "--petal-drift": `${index % 2 === 0 ? 1 : -1}`,
@@ -339,18 +325,61 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
 
             <div className="relative z-10 flex h-full w-full max-w-5xl flex-col items-center justify-start text-center">
                 <p className="save-date-eyebrow">{t.saveTheDate.eyebrow}</p>
-                <h2 className="save-date-title">{t.saveTheDate.title}</h2>
-                <div className="save-date-divider" aria-hidden="true">
-                    <span />
+                <div className="save-date-divider-wrap save-date-divider-wrap-eyebrow" aria-hidden="true">
+                    <Image
+                        src={ORNAMENTAL_DIVIDER}
+                        alt=""
+                        width={2172}
+                        height={724}
+                        priority
+                        className="save-date-divider-img save-date-divider-eyebrow"
+                    />
+                </div>
+               
+                <svg
+                className="save-date-title save-date-title-curved"
+                viewBox="0 0 760 170"
+                role="img"
+                aria-label={t.saveTheDate.title}
+                >
+                <defs>
+                    <path
+                    id="save-date-curve"
+                    d="M 35 125 Q 380 35 725 125"
+                    />
+                </defs>
+                <text>
+                    <textPath
+                    href="#save-date-curve"
+                    startOffset="50%"
+                    textAnchor="middle"
+                    >
+                    {t.saveTheDate.title}
+                    </textPath>
+                </text>
+                </svg>
+
+                <div className="save-date-divider-wrap save-date-divider-wrap-title" aria-hidden="true">
+                    <Image
+                        src={ORNAMENTAL_DIVIDER}
+                        alt=""
+                        width={2172}
+                        height={724}
+                        priority
+                        className="save-date-divider-img save-date-divider-title"
+                    />
                 </div>
 
                 <div className="save-date-card-wrap relative mt-7 w-full max-w-[760px]">
                     <div className="save-date-card-shadow" aria-hidden="true" />
                     <div className="save-date-card relative w-full">
-                        <CornerOrnament className="save-date-card-corner save-date-card-corner-tl" />
-                        <CornerOrnament className="save-date-card-corner save-date-card-corner-tr" />
-                        <CornerOrnament className="save-date-card-corner save-date-card-corner-bl" />
-                        <CornerOrnament className="save-date-card-corner save-date-card-corner-br" />
+                        <Image
+                            src={HEART_BACKGROUND}
+                            alt=""
+                            fill
+                            sizes="(max-width: 640px) 92vw, 620px"
+                            className="save-date-card-bg-img object-contain"
+                        />
                         <div className="save-date-card-heading">
                             <CalendarDays
                                 aria-hidden="true"
@@ -360,10 +389,16 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
                             <span>{t.saveTheDate.cardHeading}</span>
                         </div>
                         <div
-                            className="save-date-card-divider"
+                            className="save-date-divider-wrap save-date-divider-wrap-card-heading"
                             aria-hidden="true"
                         >
-                            <span />
+                            <Image
+                                src={ORNAMENTAL_DIVIDER}
+                                alt=""
+                                width={2172}
+                                height={724}
+                                className="save-date-divider-img save-date-divider-card-heading"
+                            />
                         </div>
 
                         <div
@@ -395,13 +430,15 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
                                 </span>
                             </div>
                             <ScratchHeart t={t} onReveal={handleReveal} />
+                           
+
                             <Image
                                 src={HEART_FRAME}
                                 alt=""
                                 fill
                                 sizes="(max-width: 640px) 92vw, 620px"
                                 unoptimized
-                                className="pointer-events-none z-20 object-contain"
+                                className="pointer-events-none z-20 object-contain scale-[1.15] "
                             />
                         </div>
 
@@ -409,10 +446,16 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
                             {t.saveTheDate.footer}
                         </p>
                         <div
-                            className="save-date-divider save-date-divider-bottom"
+                            className="save-date-divider-wrap save-date-divider-wrap-card-footer"
                             aria-hidden="true"
                         >
-                            <span />
+                            <Image
+                                src={ORNAMENTAL_DIVIDER}
+                                alt=""
+                                width={2172}
+                                height={724}
+                                className="save-date-divider-img save-date-divider-card-footer"
+                            />
                         </div>
                     </div>
                 </div>
