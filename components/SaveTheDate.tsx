@@ -380,27 +380,7 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
                             sizes="(max-width: 640px) 92vw, 620px"
                             className="save-date-card-bg-img object-contain"
                         />
-                        <div className="save-date-card-heading">
-                            <CalendarDays
-                                aria-hidden="true"
-                                className="h-6 w-6"
-                                strokeWidth={1.8}
-                            />
-                            <span>{t.saveTheDate.cardHeading}</span>
-                        </div>
-                        <div
-                            className="save-date-divider-wrap save-date-divider-wrap-card-heading"
-                            aria-hidden="true"
-                        >
-                            <Image
-                                src={ORNAMENTAL_DIVIDER}
-                                alt=""
-                                width={2172}
-                                height={724}
-                                className="save-date-divider-img save-date-divider-card-heading"
-                            />
-                        </div>
-
+                  
                         <div
                             className="save-date-heart-content"
                             aria-live="polite"
@@ -431,14 +411,13 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
                             </div>
                             <ScratchHeart t={t} onReveal={handleReveal} />
                            
-
                             <Image
                                 src={HEART_FRAME}
                                 alt=""
                                 fill
                                 sizes="(max-width: 640px) 92vw, 620px"
                                 unoptimized
-                                className="pointer-events-none z-20 object-contain scale-[1.15] "
+                                className="pointer-events-none z-20 object-contain scale-[1.15]"
                             />
                         </div>
 

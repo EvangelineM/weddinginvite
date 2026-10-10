@@ -26,7 +26,6 @@ export interface TranslationContent {
     saveTheDate: {
         eyebrow: string;
         title: string;
-        cardHeading: string;
         day: string;
         daySuffix: string;
         month: string;
@@ -151,7 +150,6 @@ export const translations: Record<Language, TranslationContent> = {
         saveTheDate: {
             eyebrow: "MARK YOUR CALENDAR",
             title: "Save the Date",
-            cardHeading: "OUR SPECIAL DAY",
             day: "16",
             daySuffix: "th",
             month: "NOVEMBER",
@@ -278,7 +276,6 @@ export const translations: Record<Language, TranslationContent> = {
         saveTheDate: {
             eyebrow: "திருமண நன்னாள்",
             title: "Save the Date",
-            cardHeading: "எங்கள் சிறப்பு நாள்",
             day: "16",
             daySuffix: "",
             month: "நவம்பர்",
