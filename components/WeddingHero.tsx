@@ -62,7 +62,7 @@ function HeroBackground({
         const video = videoRef.current;
         if (!isActive || !video || !Number.isFinite(video.duration)) return;
 
-        if (video.duration - video.currentTime <= 3) {
+        if (video.duration - video.currentTime <= 6.5) {
             onRevealStart();
         }
     };
@@ -163,30 +163,31 @@ function HeroInvitationText({
                         {t.hero.verseLine2}
                     </>
                 )}
-                { <span
-                    className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block not-italic"
-                    style={{ fontSize: "0.67em" }}
-                    >
-                    — Song of Solomon{" "}
+                {
                     <span
-                        style={{
-                        fontFamily: "var(--font-libre-bodoni)",
-                        fontWeight: 400,
-                        fontStyle: "normal",
-                        fontSize: "0.9em",
-                        }}
+                        className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block not-italic"
+                        style={{ fontSize: "0.67em" }}
                     >
-                        3:4
-                    </span>{" "}
-                    (NIV)
-                </span> 
+                        — Song of Solomon{" "}
+                        <span
+                            style={{
+                                fontFamily: "var(--font-libre-bodoni)",
+                                fontWeight: 400,
+                                fontStyle: "normal",
+                                fontSize: "0.9em",
+                            }}
+                        >
+                            3:4
+                        </span>{" "}
+                        (NIV)
+                    </span>
 
-                // <span
-                //     className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block font-libre-bodoni font-normal  not-italic"
-                //     style={{ fontSize: "0.66em" }}
-                //     >
-                //     {t.hero.verseRef}
-                // </span>
+                    // <span
+                    //     className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block font-libre-bodoni font-normal  not-italic"
+                    //     style={{ fontSize: "0.66em" }}
+                    //     >
+                    //     {t.hero.verseRef}
+                    // </span>
                 }
             </p>
 
@@ -201,14 +202,9 @@ function HeroInvitationText({
                 />
             </div>
 
+            {/* Mobile View */}
             <p
-                // className="absolute left-[23%] right-[4%] top-[28.5%] whitespace-nowrap text-center font-script leading-none"
-                // style={{
-                //     fontSize: "clamp(3.0rem, 10.2cqi, 4.8rem)",
-                //     color: TEXT_MUTED,
-                // }}
-
-                 className="absolute left-[23%] right-[5%] top-[28.9%] whitespace-nowrap text-center font-cara : leading-none"
+                className="absolute left-[23%] right-[5%] top-[28.9%] whitespace-nowrap text-center font-cara leading-none md:hidden"
                 style={{
                     fontSize: "clamp(3.08rem, 10.2cqi, 4.8rem)",
                     color: TEXT_MUTED,
@@ -219,22 +215,42 @@ function HeroInvitationText({
                 {t.hero.bride}
             </p>
 
+            {/* Desktop View */}
             <div
-                className="absolute left-[20%] right-[0%] top-[35.7%] flex items-center justify-center gap-[clamp(0.4rem,1.7cqi,1rem)] whitespace-nowrap"
+                className="absolute left-[23%] right-[5%] top-[30%] hidden md:flex flex-col text-center font-cara leading-[0.55]"
+                style={{
+                    fontSize: "clamp(3rem, 8cqi, 4rem)",
+                    color: TEXT_MUTED,
+                    letterSpacing: "0.027em",
+                }}
+            >
+                <div className="text-left ml-[12%]">{t.hero.groom}</div>
+                <div className="text-center text-[0.7em] my-2">
+                    <span className="font-cara">&amp;</span>
+                </div>
+                <div className="text-right mr-[25%]">{t.hero.bride}</div>
+            </div>
+
+            <div
+                className="absolute left-[20%] right-[0%] top-[35.7%] md:top-[41%] flex items-center justify-center gap-[clamp(0.4rem,1.7cqi,1rem)] whitespace-nowrap"
                 style={{
                     fontSize: "clamp(0.75rem, 2.65cqi, 1.55rem)",
                     color: TEXT_PRIMARY,
                     letterSpacing: "0.12em",
                 }}
-                >
-                <span className="font-libre-bodoni font-normal opacity-80">16</span>
+            >
+                <span className="font-libre-bodoni font-normal opacity-80">
+                    16
+                </span>
                 <span className="font-serif font-normal opacity-100">|</span>
                 <span className="font-serif font-semibold">{t.hero.month}</span>
                 <span className="font-serif font-normal opacity-100">|</span>
-                <span className="font-libre-bodoni font-normal opacity-80">2026</span>
+                <span className="font-libre-bodoni font-normal opacity-80">
+                    2026
+                </span>
             </div>
 
-            <div className="absolute left-[27%] right-[12%] top-[37.2%] flex justify-center">
+            <div className="absolute left-[27%] right-[12%] top-[37.2%] md:top-[42.5%] flex justify-center">
                 <Image
                     src="/images/datedivider.png"
                     alt=""

@@ -2,11 +2,11 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { CalendarDays } from "lucide-react";
 import { TranslationContent, Language } from "@/lib/translations";
 
 const HEART_FRAME = "/images/savedate/Ornate Rose-Gold Floral Heart Frame.png";
 const GOLD_HEART_TEXTURE = "/images/savedate/Golden Foil Heart Cutout.png";
+const HEART_FOIL_MASK = "/images/savedate/heart-foil-mask.png";
 const SAVE_DATE_BACKGROUND =
     "/images/savedate/Romantic Peach Petal Stationery Background.png";
 const HEART_BACKGROUND = "/images/savedate/heart_bg.png";
@@ -17,12 +17,34 @@ const BRUSH_RADIUS = 34;
 const LEAF_COUNT = 15;
 const MIN_LEAF_DURATION = 5.5;
 const MAX_LEAF_DURATION = 7.6;
-const FOIL_X = -0.035;
-const FOIL_Y = 0.015;
-const FOIL_WIDTH = 1.07;
-const FOIL_HEIGHT = 0.97;
 
+// Both heart images are 1536×1024 (aspect 1.5).  The HEART_FRAME overlay
+// is displayed via <Image fill className="object-contain">, so the browser
+// letterboxes it when the container aspect ratio differs from 1.5.
+//
+// To keep the foil canvas perfectly aligned with the frame at ANY container
+// aspect ratio (desktop 1.5:1, mobile 1:1, etc.) we replicate the
+// object-contain math at draw-time and position the foil relative to
+// that rectangle — not relative to the raw canvas dimensions.
+const IMG_ASPECT = 1536 / 1024;
 
+/**
+ * Compute the same rectangle the browser uses for object-fit:contain
+ * on a 1536×1024 image inside a container of size w × h.
+ */
+function containRect(w: number, h: number) {
+    const containerAspect = w / h;
+    if (containerAspect > IMG_ASPECT) {
+        // Container wider than image → fit to height, center horizontally
+        const dH = h;
+        const dW = dH * IMG_ASPECT;
+        return { x: (w - dW) / 2, y: 0, w: dW, h: dH };
+    }
+    // Container taller than image → fit to width, center vertically
+    const dW = w;
+    const dH = dW / IMG_ASPECT;
+    return { x: 0, y: (h - dH) / 2, w: dW, h: dH };
+}
 
 function ScratchHeart({
     t,
@@ -57,23 +79,32 @@ function ScratchHeart({
 
             context.globalCompositeOperation = "source-over";
             context.clearRect(0, 0, bounds.width, bounds.height);
-            if (!goldImage.complete || goldImage.naturalWidth === 0) return;
+            if (
+                !goldImage.complete ||
+                goldImage.naturalWidth === 0 ||
+                !maskImage.complete ||
+                maskImage.naturalWidth === 0
+            )
+                return;
+
+            // Compute the object-contain rectangle so the foil is drawn
+            // in the exact same space the browser places the HEART_FRAME.
+            const cr = containRect(bounds.width, bounds.height);
+
             const goldBase = context.createLinearGradient(
-                0,
-                0,
-                bounds.width,
-                bounds.height,
+                cr.x,
+                cr.y,
+                cr.x + cr.w,
+                cr.y + cr.h,
             );
             goldBase.addColorStop(0, "#c58b42");
             goldBase.addColorStop(0.45, "#9f642f");
             goldBase.addColorStop(1, "#c18a42");
             context.fillStyle = goldBase;
-            context.fillRect(0, 0, bounds.width, bounds.height);
-            const foilX = bounds.width * FOIL_X;
-            const foilY = bounds.height * FOIL_Y;
-            const foilWidth = bounds.width * FOIL_WIDTH;
-            const foilHeight = bounds.height * FOIL_HEIGHT;
-            context.drawImage(goldImage, foilX, foilY, foilWidth, foilHeight);
+            context.fillRect(cr.x, cr.y, cr.w, cr.h);
+
+            // Draw gold foil to fill the contain rect (same coords as frame)
+            context.drawImage(goldImage, cr.x, cr.y, cr.w, cr.h);
 
             context.fillStyle = "#fff4d4";
             context.textAlign = "center";
@@ -82,21 +113,48 @@ function ScratchHeart({
                 getComputedStyle(document.documentElement)
                     .getPropertyValue("--font-cormorant")
                     .trim() || "Georgia, serif";
-            context.font = `700 ${Math.max(9, bounds.width * 0.035)}px ${serifFont}`;
-            context.fillText(
+            // Text positioned relative to the contain rect
+            const textCx = cr.x + cr.w / 2;
+            // Size text from the heart width, then shrink to fit the heart's
+            // span at that height so long translations never spill out.
+            const fitFont = (
+                text: string,
+                style: string,
+                preferredSize: number,
+                maxWidth: number,
+            ) => {
+                context.font = `${style} ${preferredSize}px ${serifFont}`;
+                const width = context.measureText(text).width;
+                const size =
+                    width > maxWidth
+                        ? (preferredSize * maxWidth) / width
+                        : preferredSize;
+                context.font = `${style} ${size}px ${serifFont}`;
+                return size;
+            };
+            const titleSize = fitFont(
                 t.saveTheDate.scratchInstruction,
-                bounds.width / 2,
-                bounds.height * 0.49,
+                "700",
+                cr.w * 0.042,
+                cr.w * 0.5,
             );
-            context.font = `italic 600 ${Math.max(8, bounds.width * 0.027)}px ${serifFont}`;
+            const titleY = cr.y + cr.h * 0.48;
+            context.fillText(t.saveTheDate.scratchInstruction, textCx, titleY);
+            const subtitleSize = fitFont(
+                t.saveTheDate.scratchSubtitle,
+                "italic 600",
+                cr.w * 0.03,
+                cr.w * 0.42,
+            );
             context.fillText(
                 t.saveTheDate.scratchSubtitle,
-                bounds.width / 2,
-                bounds.height * 0.57,
+                textCx,
+                titleY + titleSize * 0.6 + subtitleSize * 0.9,
             );
 
+            // Clip to the frame's inner opening (same mask as the CSS mask)
             context.globalCompositeOperation = "destination-in";
-            context.drawImage(goldImage, foilX, foilY, foilWidth, foilHeight);
+            context.drawImage(maskImage, cr.x, cr.y, cr.w, cr.h);
             context.globalCompositeOperation = "source-over";
 
             const pixels = context.getImageData(
@@ -115,11 +173,15 @@ function ScratchHeart({
         const goldImage = new window.Image();
         goldImage.onload = drawGoldLayer;
         goldImage.src = GOLD_HEART_TEXTURE;
+        const maskImage = new window.Image();
+        maskImage.onload = drawGoldLayer;
+        maskImage.src = HEART_FOIL_MASK;
         drawGoldLayer();
         const resizeObserver = new ResizeObserver(drawGoldLayer);
         resizeObserver.observe(canvas);
         return () => {
             goldImage.onload = null;
+            maskImage.onload = null;
             resizeObserver.disconnect();
         };
     }, [t.saveTheDate.scratchInstruction, t.saveTheDate.scratchSubtitle]);
@@ -314,8 +376,9 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
                 alt=""
                 fill
                 priority
-                sizes="100vw"
+                sizes="(max-width: 620px) 100vw, 620px"
                 className="object-cover object-top"
+                unoptimized
             />
             <div
                 className="save-date-wash absolute inset-0"
@@ -325,7 +388,10 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
 
             <div className="relative z-10 flex h-full w-full max-w-5xl flex-col items-center justify-start text-center">
                 <p className="save-date-eyebrow">{t.saveTheDate.eyebrow}</p>
-                <div className="save-date-divider-wrap save-date-divider-wrap-eyebrow" aria-hidden="true">
+                <div
+                    className="save-date-divider-wrap save-date-divider-wrap-eyebrow"
+                    aria-hidden="true"
+                >
                     <Image
                         src={ORNAMENTAL_DIVIDER}
                         alt=""
@@ -335,31 +401,47 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
                         className="save-date-divider-img save-date-divider-eyebrow"
                     />
                 </div>
-               
+
                 <svg
-                className="save-date-title save-date-title-curved"
-                viewBox="0 0 760 170"
-                role="img"
-                aria-label={t.saveTheDate.title}
+                    className="save-date-title save-date-title-curved"
+                    viewBox="0 0 760 170"
+                    role="img"
+                    aria-label={t.saveTheDate.title}
                 >
-                <defs>
-                    <path
-                    id="save-date-curve"
-                    d="M 35 125 Q 380 35 725 125"
-                    />
-                </defs>
-                <text>
-                    <textPath
-                    href="#save-date-curve"
-                    startOffset="50%"
-                    textAnchor="middle"
-                    >
-                    {t.saveTheDate.title}
-                    </textPath>
-                </text>
+                    <defs>
+                        <linearGradient
+                            id="save-date-title-grad"
+                            x1="0%"
+                            y1="0%"
+                            x2="100%"
+                            y2="80%"
+                        >
+                            <stop offset="0%" stopColor="#8d3824" />
+                            <stop offset="40%" stopColor="#a74a32" />
+                            <stop offset="70%" stopColor="#98402c" />
+                            <stop offset="100%" stopColor="#b4573d" />
+                        </linearGradient>
+                        <path
+                            id="save-date-curve"
+                            d="M 35 125 Q 380 35 725 125"
+                        />
+                    </defs>
+                    <text>
+                        <textPath
+                            href="#save-date-curve"
+                            startOffset="50%"
+                            textAnchor="middle"
+                            fill="url(#save-date-title-grad)"
+                        >
+                            {t.saveTheDate.title}
+                        </textPath>
+                    </text>
                 </svg>
 
-                <div className="save-date-divider-wrap save-date-divider-wrap-title" aria-hidden="true">
+                <div
+                    className="save-date-divider-wrap save-date-divider-wrap-title"
+                    aria-hidden="true"
+                >
                     <Image
                         src={ORNAMENTAL_DIVIDER}
                         alt=""
@@ -377,10 +459,11 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
                             src={HEART_BACKGROUND}
                             alt=""
                             fill
-                            sizes="(max-width: 640px) 92vw, 620px"
-                            className="save-date-card-bg-img object-contain"
+                            unoptimized
+                            sizes="(max-width: 720px) 100vw, 720px"
+                            className="save-date-card-bg-img"
                         />
-                  
+
                         <div
                             className="save-date-heart-content"
                             aria-live="polite"
@@ -410,14 +493,13 @@ export function SaveTheDate({ t }: SaveTheDateProps) {
                                 </span>
                             </div>
                             <ScratchHeart t={t} onReveal={handleReveal} />
-                           
+
                             <Image
                                 src={HEART_FRAME}
                                 alt=""
                                 fill
                                 sizes="(max-width: 640px) 92vw, 620px"
-                                unoptimized
-                                className="pointer-events-none z-20 object-contain scale-[1.15]"
+                                className="pointer-events-none z-20 object-contain"
                             />
                         </div>
 

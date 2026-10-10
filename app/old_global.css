@@ -604,7 +604,7 @@ body {
 }
 
 .save-date-eyebrow {
-    margin-top: 2.5vh;
+    margin-top: 1.5vh;
     font-size: clamp(0.77rem, 1.1vw, 0.8rem);
     font-weight: 700;
     color: #79472f;
@@ -622,11 +622,12 @@ body {
 
 .save-date-title-curved text {
     fill: currentColor;
-    font-family: var(--font-pinyon), var(--font-cara), cursive;
-    font-size: 140px;
+    font-family: var(--font-cara), var(--font-great-vibes), cursive;
+    font-size: 150px;
     font-weight: 400;
-    stroke: none;
-    transform: translateY(30px);
+    stroke: currentColor;
+    stroke-width: 0.34px;
+    transform: translateY(60px);
 }
 
 .save-date-divider-wrap {
@@ -638,8 +639,6 @@ body {
     line-height: 0;
     pointer-events: none;
     user-select: none;
-    transform: translateY(-30px);
-    padding: 1rem 0;
 }
 
 .save-date-divider-img {
@@ -703,23 +702,21 @@ body {
     position: relative;
     z-index: 1;
     width: 100%;
-    aspect-ratio: 960 / 960;
+    height: 100%;
+    min-height: 0;
+    margin-right: auto;
+    margin-left: auto;
     margin-inline: auto;
     border-radius: 18px;
     isolation: isolate;
     overflow: visible;
     background: transparent;
     box-shadow: none;
-    padding: 1.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
+    padding: 1rem 0.5rem;
 }
 
 .save-date-card-bg-img {
-    object-fit: fill;
+    object-fit: contain;
     z-index: 0;
     border-radius: 18px;
     pointer-events: none;
@@ -736,7 +733,7 @@ body {
     align-items: center;
     gap: 0.35rem;
     padding-top: 0.7rem;
-    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    font-size: clamp(0.54rem, 1vw, 0.72rem);
     font-weight: 700;
     letter-spacing: 0.38em;
 }
@@ -749,15 +746,10 @@ body {
 .save-date-heart-content {
     position: relative;
     z-index: 1;
-    width: 80%;
-    aspect-ratio: 1.5;
-    margin: auto;
+    width: min(58%, 440px);
+    aspect-ratio: 1.42;
+    margin: 0.9rem auto 0;
     container-type: inline-size;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
 }
 
 .save-date-heart {
@@ -804,20 +796,9 @@ body {
     opacity: 0;
 }
 
-/* Mask shares the frame's 1536×1024 canvas, so `contain` lines it up with
-   the frame's object-contain at every container aspect ratio. */
 .save-date-heart canvas {
     opacity: 1;
     transition: opacity 650ms ease;
-    -webkit-mask-image: url("/images/savedate/heart-foil-mask.png");
-    mask-image: url("/images/savedate/heart-foil-mask.png");
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    mask-mode: alpha;
 }
 
 .save-date-scratch-revealed {
@@ -912,10 +893,10 @@ body {
 .save-date-footer {
     position: relative;
     z-index: 1;
-    /* margin-top: 2rem; */
-    font-size: clamp(1.5rem, 2.5vw, 1.6rem);
+    margin-top: 2rem;
+    font-size: clamp(0.75rem, 1.7vw, 1.1rem);
     color: #8d503b;
-    font-family: var(--font-pinyon), var(--font-great-vibes);
+    font-family: var(--font-pinyon), var(--font-great-vibes), cursive;
     font-style: italic;
     font-weight: 400;
     letter-spacing: 0.03em;
@@ -970,18 +951,14 @@ body {
 
     .save-date-section .save-date-card {
         width: 100%;
-        aspect-ratio: 1145 / 1374;
+        aspect-ratio: auto;
+        min-height: 54vh;
         margin-top: 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
     }
 
     .save-date-heart-content {
-        width: 80%;
-        aspect-ratio: 1 / 1;
-        margin: auto;
+        width: 90%;
+        margin-top: 1rem;
     }
 
     .save-date-heart {

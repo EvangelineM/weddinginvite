@@ -55,7 +55,7 @@ export function Section3({ t }: Section3Props) {
                 alt=""
                 fill
                 priority
-                sizes="100vw"
+                sizes="(max-width: 620px) 100vw, 620px"
                 className="pointer-events-none select-none object-cover object-center"
             />
             <div className="section3-artboard">

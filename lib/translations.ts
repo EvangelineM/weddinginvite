@@ -34,6 +34,7 @@ export interface TranslationContent {
         scratchInstruction: string;
         scratchSubtitle: string;
         revealButtonAria: string;
+        cardHeading: string;
     };
     section3: {
         blessingLine1: string;
@@ -158,6 +159,7 @@ export const translations: Record<Language, TranslationContent> = {
             scratchInstruction: "✦ SCRATCH TO REVEAL ✦",
             scratchSubtitle: "A date close to our hearts *",
             revealButtonAria: "Reveal wedding date",
+            cardHeading: "OUR SPECIAL DAY",
         },
         section3: {
             blessingLine1:
@@ -284,6 +286,7 @@ export const translations: Record<Language, TranslationContent> = {
             scratchInstruction: "✦ சுரண்டி பார்க்கவும் ✦",
             scratchSubtitle: "எங்கள் இதயத்திற்கு இனிய நாள் *",
             revealButtonAria: "திருமண தேதியைக் காணவும்",
+            cardHeading: "எங்கள் சிறப்பு நாள்",
         },
         section3: {
             blessingLine1: "இறைவனின் திருவருளாலும் குடும்பத்தாரின் ஆசிகளாலும்,",
