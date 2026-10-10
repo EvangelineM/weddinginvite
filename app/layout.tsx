@@ -34,15 +34,15 @@ const pinyonScript = Pinyon_Script({
 });
 
 const carattere = Carattere({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-carattere",
+    subsets: ["latin"],
+    weight: "400",
+    variable: "--font-carattere",
 });
 
 const libreBodoni = Libre_Bodoni({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-libre-bodoni",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"],
+    variable: "--font-libre-bodoni",
 });
 
 const dmSans = DM_Sans({
@@ -53,12 +53,12 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "The Wedding of Irene & Franklin | Château de la Couronne",
+    title: "The Wedding of Irene & Franklin",
     description:
-        "Join us to celebrate the wedding of Irene & Franklin on 16 November 2026 at Château de la Couronne, Nouvelle-Aquitaine, France.",
+        "Join us to celebrate the wedding of Irene & Franklin on 16 November 2026",
     openGraph: {
         title: "The Wedding of Irene & Franklin",
-        description: "16 November 2026 • Château de la Couronne, France",
+        description: "16 November 2026",
         type: "website",
     },
 };

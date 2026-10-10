@@ -749,7 +749,7 @@ body {
 .save-date-heart-content {
     position: relative;
     z-index: 1;
-    width: 80%;
+    width: 94%;
     aspect-ratio: 1.5;
     margin: auto;
     container-type: inline-size;
@@ -979,8 +979,8 @@ body {
     }
 
     .save-date-heart-content {
-        width: 80%;
-        aspect-ratio: 1 / 1;
+        width: 98%;
+        aspect-ratio: 1.5;
         margin: auto;
     }
 
@@ -998,11 +998,15 @@ body {
 
 .hero-invitation-overlay {
     opacity: 0;
-    transition: opacity 2.4s ease-in-out;
+    transform: translateY(14px);
+    transition:
+        opacity 2.4s ease-in-out,
+        transform 2.4s ease-out;
 }
 
 .hero-invitation-overlay[data-revealed="true"] {
     opacity: 1;
+    transform: translateY(0);
 }
 
 .envelope-frame-layer {
@@ -1877,6 +1881,76 @@ main.hero-emerging > #hero-section {
 .lang-ta .rsvp-send-btn {
     font-size: 2.6cqw;
     padding: 1.3cqw 4cqw;
+}
+
+/* Hero names: Latin script fonts lack Tamil glyphs, so the fallback is much wider */
+.lang-ta .hero-names-mobile {
+    font-size: clamp(1.5rem, 6.4cqi, 2.6rem) !important;
+    letter-spacing: 0 !important;
+}
+
+.lang-ta .hero-names-desktop {
+    font-size: clamp(1.4rem, 4.6cqi, 2.3rem) !important;
+    letter-spacing: 0 !important;
+    line-height: 1;
+}
+
+.lang-ta .hero-names-desktop > div:nth-child(2) {
+    margin-block: 0;
+    line-height: 0.8;
+}
+
+.lang-ta .venue-title {
+    padding-top: calc(27% + 3cqw);
+    font-size: 8.5cqw;
+    line-height: 1.1;
+    letter-spacing: 0;
+}
+
+.lang-ta .venue-church-name {
+    font-size: 4.8cqw;
+}
+
+.lang-ta .venue-location {
+    font-size: 3.4cqw;
+}
+
+.lang-ta .save-date-title-curved text {
+    font-size: 78px;
+}
+
+.lang-ta .save-date-footer {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    line-height: 1.5;
+    padding-inline: 8%;
+}
+
+.lang-ta .section3-blessing {
+    top: 21.6%;
+    left: 6%;
+    width: 88%;
+    font-size: 2.55cqw;
+    line-height: 1.55;
+    letter-spacing: 0;
+}
+
+.lang-ta .section3-bride h2,
+.lang-ta .section3-groom h2 {
+    font-size: 7.4cqw;
+    line-height: 1.2;
+}
+
+.lang-ta .section3-relation {
+    font-size: 2.3cqw;
+}
+
+.lang-ta .section3-parents {
+    font-size: 2.35cqw;
+    letter-spacing: 0;
+}
+
+.lang-ta .section3-venue p {
+    font-size: 2.5cqw;
 }
 
 /* BACKGROUND */

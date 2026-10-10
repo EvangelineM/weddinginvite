@@ -12,6 +12,9 @@ const HERO_H = 1280;
 const TEXT_PRIMARY = "#3B2422";
 const TEXT_MUTED = "#5A3628";
 
+/** Playback time (in seconds) of the 6s hero video when the copy fades up. */
+const TEXT_REVEAL_AT_SECONDS = 3;
+
 const SHARP_TYPE: React.CSSProperties = {
     WebkitFontSmoothing: "antialiased",
     MozOsxFontSmoothing: "grayscale",
@@ -62,7 +65,7 @@ function HeroBackground({
         const video = videoRef.current;
         if (!isActive || !video || !Number.isFinite(video.duration)) return;
 
-        if (video.duration - video.currentTime <= 6.5) {
+        if (video.currentTime >= TEXT_REVEAL_AT_SECONDS) {
             onRevealStart();
         }
     };
@@ -204,7 +207,7 @@ function HeroInvitationText({
 
             {/* Mobile View */}
             <p
-                className="absolute left-[23%] right-[5%] top-[28.9%] whitespace-nowrap text-center font-cara leading-none md:hidden"
+                className="hero-names-mobile absolute left-[23%] right-[5%] top-[28.9%] whitespace-nowrap text-center font-cara leading-none md:hidden"
                 style={{
                     fontSize: "clamp(3.08rem, 10.2cqi, 4.8rem)",
                     color: TEXT_MUTED,
@@ -217,7 +220,7 @@ function HeroInvitationText({
 
             {/* Desktop View */}
             <div
-                className="absolute left-[23%] right-[5%] top-[30%] hidden md:flex flex-col text-center font-cara leading-[0.55]"
+                className="hero-names-desktop absolute left-[23%] right-[5%] top-[30%] hidden md:flex flex-col text-center font-cara leading-[0.55]"
                 style={{
                     fontSize: "clamp(3rem, 8cqi, 4rem)",
                     color: TEXT_MUTED,
