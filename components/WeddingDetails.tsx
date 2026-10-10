@@ -22,7 +22,7 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({ t }) => {
                 src="/images/section3/Vintage Floral Wedding Invitation Background.png"
                 alt=""
                 fill
-                sizes="100vw"
+                sizes="(max-width: 620px) 100vw, 620px"
                 className="venue-outer-bg"
                 priority
             />

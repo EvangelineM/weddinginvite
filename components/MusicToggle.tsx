@@ -7,6 +7,7 @@ export const MusicToggle: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const synthCtxRef = useRef<AudioContext | null>(null);
+    const wasPlayingRef = useRef(false);
     const synthIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const hasAutoPlayed = useRef(false);
 
@@ -162,6 +163,29 @@ export const MusicToggle: React.FC = () => {
             stopSynthMelody();
         };
     }, []);
+
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                wasPlayingRef.current = isPlaying;
+                if (isPlaying) {
+                    if (audioRef.current) audioRef.current.pause();
+                    stopSynthMelody();
+                    setIsPlaying(false);
+                }
+            } else {
+                if (wasPlayingRef.current) {
+                    startMusic();
+                }
+            }
+        };
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        return () =>
+            document.removeEventListener(
+                "visibilitychange",
+                handleVisibilityChange,
+            );
+    }, [isPlaying]);
 
     return (
         <>
