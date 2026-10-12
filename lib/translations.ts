@@ -14,19 +14,6 @@ export interface TranslationContent {
         verseLine1: string;
         verseRef: string;
     };
-    saveTheDate: {
-        eyebrow: string;
-        title: string;
-        day: string;
-        daySuffix: string;
-        month: string;
-        year: string;
-        footer: string;
-        scratchInstruction: string;
-        scratchSubtitle: string;
-        revealButtonAria: string;
-        cardHeading: string;
-    };
     section3: {
         blessingLine1: string;
         blessingLine2: string;
