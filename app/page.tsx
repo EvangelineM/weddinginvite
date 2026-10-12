@@ -104,7 +104,7 @@ export default function WeddingInvitationPage() {
                     isActive={isUnlocked || isHeroEmerging}
                 />
 
-                {/* Page 2: Save the Date scratch reveal */}
+                {/* Page 2: Countdown */}
                 <SaveTheDate t={t} lang={currentLang} />
 
                 {/* Page 3: Formal wedding invitation details */}

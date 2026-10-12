@@ -160,37 +160,16 @@ function HeroInvitationText({
                 }}
             >
                 {t.hero.verseLine1}
-                {t.hero.verseLine2 && (
-                    <>
-                        <br />
-                        {t.hero.verseLine2}
-                    </>
-                )}
+                
+                )
                 {
-                    <span
-                        className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block not-italic"
-                        style={{ fontSize: "0.67em" }}
-                    >
-                        — Song of Solomon{" "}
-                        <span
-                            style={{
-                                fontFamily: "var(--font-libre-bodoni)",
-                                fontWeight: 400,
-                                fontStyle: "normal",
-                                fontSize: "0.9em",
-                            }}
-                        >
-                            3:4
-                        </span>{" "}
-                        (NIV)
-                    </span>
 
-                    // <span
-                    //     className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block font-libre-bodoni font-normal  not-italic"
-                    //     style={{ fontSize: "0.66em" }}
-                    //     >
-                    //     {t.hero.verseRef}
-                    // </span>
+                    <span
+                        className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block font-libre-bodoni font-normal  not-italic"
+                        style={{ fontSize: "0.66em" }}
+                        >
+                        {t.hero.verseRef}
+                    </span>
                 }
             </p>
 

@@ -580,420 +580,266 @@ body {
     font-weight: 600;
 }
 
-.save-date-section {
-    min-height: min(100svh, 760px);
-    color: #6f3c26;
-    background: #f4dfc7;
-}
+/* ========================================
+   COUNTDOWN / SAVE THE DATE SECTION
+   ======================================== */
 
-.save-date-wash {
-    background: linear-gradient(
-        180deg,
-        rgba(255, 247, 234, 0.08),
-        rgba(255, 231, 205, 0.18)
-    );
-}
-
-.save-date-eyebrow,
-.save-date-card-heading,
-.save-date-footer {
-    color: #875334;
-    font-family: var(--font-serif), Georgia, serif;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-}
-
-.save-date-eyebrow {
-    margin-top: 2.5vh;
-    font-size: clamp(0.77rem, 1.1vw, 0.8rem);
-    font-weight: 700;
-    color: #79472f;
-    transform: translateY(30px);
-}
-
-.save-date-title-curved {
-    display: block;
-    width: min(100%, 760px);
-    height: auto;
-    overflow: visible;
-    margin-top: 0.2rem;
-    color: #a8563c;
-}
-
-.save-date-title-curved text {
-    fill: currentColor;
-    font-family: var(--font-pinyon), var(--font-cara), cursive;
-    font-size: 140px;
-    font-weight: 400;
-    stroke: none;
-    transform: translateY(30px);
-}
-
-.save-date-divider-wrap {
+.countdown-section {
     position: relative;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 0;
+    width: 100%;
+    overflow: hidden;
+    background: #FAF7F5;
+}
+
+.countdown-artboard {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 941 / 1671;
+    overflow: hidden;
+    margin: 0 auto;
+    container-type: inline-size;
+}
+
+.countdown-bg-img {
+    object-fit: cover;
+    object-position: center;
     pointer-events: none;
     user-select: none;
-    transform: translateY(-30px);
-    padding: 1rem 0;
+    z-index: 0;
 }
 
-.save-date-divider-img {
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 5px 1px rgba(130, 80, 40, 0.15));
-}
-
-.save-date-divider-eyebrow {
-    width: clamp(130px, 22vw, 170px);
-    margin-top: 0.25rem;
-    margin-bottom: 0.1rem;
-    transform: translateY(18px);
-}
-
-.save-date-divider-title {
-    width: clamp(170px, 30vw, 230px);
-    margin-top: 0.15rem;
-    transform: translateY(-15px);
-}
-
-.save-date-divider-card-heading {
-    width: clamp(65px, 16vw, 120px);
-    margin-top: 0.15rem;
-}
-
-.save-date-divider-card-footer {
-    width: clamp(85px, 16vw, 120px);
-    margin-top: 0.15rem;
-}
-
-.save-date-card-wrap {
-    position: relative;
-    width: 90%;
-    margin-top: 1.5rem;
-    margin-inline: auto;
-    transform: translateY(-80px);
-}
-
-.save-date-card-shadow {
+/* Card placed in the open sky/terrace right quadrant:
+   In 941 x 1671 canvas:
+   left = 402px (42.72%), top = 439px (26.27%),
+   width = 486px (51.65%), height = 748px (44.76%) */
+.countdown-card {
     position: absolute;
-    z-index: 0;
-    left: 3%;
-    right: 3%;
-    bottom: -20px;
-    height: 50px;
-    border-radius: 50%;
-    background: radial-gradient(
-        ellipse at center,
-        rgba(179, 87, 33, 0.24) 60%,
-        rgba(141, 77, 40, 0.18) 35%,
-        rgba(153, 63, 7, 0.1) 60%,
-        rgba(145, 99, 71, 0.035) 78%,
-        transparent 88%
-    );
-    filter: blur(10px);
-    pointer-events: none;
-}
-
-.save-date-section .save-date-card {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    aspect-ratio: 960 / 960;
-    margin-inline: auto;
-    border-radius: 18px;
-    isolation: isolate;
-    overflow: visible;
-    background: transparent;
-    box-shadow: none;
-    padding: 1.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-}
-
-.save-date-card-bg-img {
-    object-fit: fill;
-    z-index: 0;
-    border-radius: 18px;
-    pointer-events: none;
-    filter: drop-shadow(0 2px 2px rgba(112, 69, 43, 0.2))
-        drop-shadow(0 5px 5px rgba(112, 69, 43, 0.16))
-        drop-shadow(0 10px 12px rgba(112, 69, 43, 0.12))
-        drop-shadow(0 18px 20px rgba(112, 69, 43, 0.07));
-}
-.save-date-card-heading {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.35rem;
-    padding-top: 0.7rem;
-    font-size: clamp(0.7rem, 1.5vw, 1rem);
-    font-weight: 700;
-    letter-spacing: 0.38em;
-}
-
-.save-date-card-heading svg {
-    color: #9f6238;
-    stroke-width: 1.5;
-}
-
-.save-date-heart-content {
-    position: relative;
-    z-index: 1;
-    width: 94%;
-    aspect-ratio: 1.5;
-    margin: auto;
+    left: 42.08%;
+    top: 25.85%;
+    width: 52.0%;
+    height: 45.45%;
+    z-index: 2;
     container-type: inline-size;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
 }
 
-.save-date-heart {
+/* Double gold frame overlay */
+.countdown-frame-img {
     position: absolute;
-    z-index: 10;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    background: transparent;
-}
-
-.save-date-hidden-prompt {
-    position: absolute;
-    z-index: 3;
-    top: 45%;
-    left: 50%;
-    display: flex;
-    width: 100%;
-    transform: translate(-50%, -50%);
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    color: #fff4d4;
-    font-family: var(--font-cormorant), Georgia, serif;
-    font-size: clamp(0.55rem, 1.4vw, 0.95rem);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    transition: opacity 500ms ease;
-}
-
-.save-date-hidden-prompt small {
-    width: 100%;
-    margin-top: 0.12rem;
-    font-size: 0.8em;
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-}
-
-.save-date-hidden-prompt-revealed {
-    opacity: 0;
-}
-
-/* Mask shares the frame's 1536×1024 canvas, so `contain` lines it up with
-   the frame's object-contain at every container aspect ratio. */
-.save-date-heart canvas {
-    opacity: 1;
-    transition: opacity 650ms ease;
-    -webkit-mask-image: url("/images/savedate/heart-foil-mask.png");
-    mask-image: url("/images/savedate/heart-foil-mask.png");
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    mask-mode: alpha;
-}
-
-.save-date-scratch-revealed {
-    pointer-events: none !important;
-}
-
-.save-date-scratch-revealed canvas {
-    opacity: 0;
-    pointer-events: none !important;
-}
-
-.save-date-date {
-    position: absolute;
-    z-index: 1;
-    top: 25%;
-    left: 50%;
-    display: flex;
-    width: 55%;
-    transform: translateX(-50%);
-    flex-direction: column;
-    align-items: center;
-    color: #7c351f;
-    font-family: var(--font-cormorant), Georgia, serif;
-    font-variant-numeric: lining-nums;
-    font-feature-settings: "lnum" 1;
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-}
-
-.save-date-date-visible {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-}
-
-.save-date-heart-content > img {
-    filter: saturate(0.86) brightness(1.03);
-}
-
-.save-date-date strong {
-    display: block;
-    font-family: var(--font-cormorant), Georgia, serif;
-    font-size: clamp(2rem, 14cqi, 3.5rem);
-    font-weight: 600;
-    line-height: 0.9;
-}
-
-.save-date-date sup {
-    margin-left: 0.1em;
-    font-size: 0.42em;
-    position: relative;
-    top: -0.42em;
-    vertical-align: baseline;
-}
-
-.save-date-date span {
-    font-size: clamp(0.8rem, 5cqi, 1.25rem);
-    font-weight: 600;
-    letter-spacing: 0.28em;
-}
-
-.save-date-year-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.42rem;
-    width: 100%;
-    margin-top: 0.18rem;
-}
-
-.save-date-year-row i {
-    display: block;
-    width: clamp(1.25rem, 8cqi, 2.4rem);
-    height: 1px;
-    background: currentColor;
-    opacity: 0.7;
-}
-
-.save-date-date .save-date-year {
-    margin-top: 0.1rem;
-    font-family: var(--font-cormorant), Georgia, serif;
-    font-size: clamp(0.72rem, 4.2cqi, 1.05rem);
-    font-weight: 500;
-    letter-spacing: 0.16em;
-}
-
-.save-date-date .save-date-date-heart {
-    margin-top: 0.18rem;
-    font-size: clamp(0.42rem, 2.2cqi, 0.65rem);
-    letter-spacing: 0;
-}
-
-.save-date-footer {
-    position: relative;
-    z-index: 1;
-    /* margin-top: 2rem; */
-    font-size: clamp(1.5rem, 2.5vw, 1.6rem);
-    color: #8d503b;
-    font-family: var(--font-pinyon), var(--font-great-vibes);
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: 0.03em;
-    text-transform: none;
-    -webkit-text-stroke: 0.1px currentColor;
-}
-
-.save-date-falling-petals {
-    position: absolute;
-    z-index: 15;
-    inset: 0;
-    overflow: hidden;
+    object-fit: fill;
     pointer-events: none;
+    user-select: none;
+    z-index: 2;
 }
 
-.save-date-falling-petal {
+/* Absolute positioning inside card:
+   card width = 100cqw (486px in reference)
+   card height = 748px */
+.countdown-inner {
     position: absolute;
-    top: -1.5rem;
-    width: var(--petal-size);
-    height: calc(var(--petal-size) * 1.3);
-    border-radius: 100% 0 100% 0;
-    background: linear-gradient(135deg, #d99b84, #b86f63 65%, #8e5d50);
-    opacity: 0;
-    filter: saturate(0.78);
-    animation: saveDateFallingPetal linear forwards;
+    inset: 0;
+    z-index: 3;
+    pointer-events: auto;
 }
 
-@keyframes saveDateFallingPetal {
-    0% {
-        opacity: 0;
-        transform: translate3d(0, -2rem, 0) rotate(0deg);
-    }
-    12% {
-        opacity: 0.55;
-    }
-    50% {
-        transform: translate3d(calc(var(--petal-drift) * 5rem), 50vh, 0)
-            rotate(150deg);
-    }
-    100% {
-        opacity: 0;
-        transform: translate3d(calc(var(--petal-drift) * -4rem), 110vh, 0)
-            rotate(300deg);
-    }
+/* ---- Heart symbol ---- */
+.countdown-heart {
+    position: absolute;
+    top: 7.8%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #AF8D60;
+    font-size: 11cqw;
+    line-height: 1;
+    margin: 0;
+    user-select: none;
 }
 
-@media (max-width: 640px) {
-    .save-date-section {
-        min-height: 100svh;
-        padding-top: 4rem;
-    }
+/* ---- COUNTDOWN title ---- */
+.countdown-title {
+    position: absolute;
+    top: 16.6%;
+    left: 51%;
+    transform: translateX(-50%);
+    margin: 0;
+    color: #713B1C;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 7.2cqw;
+    font-weight: 500;
+    letter-spacing: 0.23em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
 
-    .save-date-section .save-date-card {
-        width: 100%;
-        aspect-ratio: 1145 / 1374;
-        margin-top: 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+/* ---- Leaf divider image with horizontal flanking lines ---- */
+.countdown-divider-wrap {
+    position: absolute;
+    top: 24.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60.0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
+}
 
-    .save-date-heart-content {
-        width: 98%;
-        aspect-ratio: 1.5;
-        margin: auto;
-    }
+.countdown-divider-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
 
-    .save-date-heart {
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
+/* ---- Date: NOVEMBER 16, 2026 ---- */
+.countdown-date {
+    position: absolute;
+    top: 36.0%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    color: #713B1C;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 7.0cqw;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 1;
+}
 
-    .save-date-footer {
-        margin-top: 0.3rem;
-    }
+/* ---- Weekday: MONDAY ---- */
+.countdown-weekday {
+    position: absolute;
+    top: 43.0%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    color: #713B1C;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 6.5cqw;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+/* ---- Countdown numbers: 157:23:41:44 ---- */
+.countdown-numbers {
+    position: absolute;
+    top: 51.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    color: #895a2e;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 11.0cqw;
+    font-weight: 100;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* ---- Countdown labels: DAYS  HOURS  MINUTES  SECONDS ---- */
+.countdown-labels {
+    position: absolute;
+    top: 61.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0;
+    color: #875334;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 2.4cqw;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.countdown-label-item {
+    display: block;
+    text-align: center;
+}
+
+/* ---- Closing message (script font) ---- */
+.countdown-closing {
+    position: absolute;
+    top: 73.0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 82%;
+    margin: 0;
+    color: #A45B35;
+    font-family: --font-pinyon, "Pinyon Script", cursive;
+    font-size: 9.4cqw;
+    font-weight: 420;
+    letter-spacing: 1;
+    line-height: 1.15;
+    text-align: center;
+    white-space: pre-line;
+}
+
+/* ========================================
+   TAMIL SPECIFIC OVERRIDES FOR COUNTDOWN
+   (Strictly isolated: does not affect English)
+   ======================================== */
+.countdown-card-ta .countdown-title,
+html[lang="ta"] .countdown-card .countdown-title {
+    top: 16.6%;
+    left: 54%;
+    font-family: var(--fonts-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 5.3cqw;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+}
+
+.countdown-card-ta .countdown-date,
+html[lang="ta"] .countdown-card .countdown-date {
+    top: 36.0%;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 7.4cqw;
+    letter-spacing: 0.03em;
+    font-weight: 550;
+}
+
+.countdown-card-ta .countdown-weekday,
+html[lang="ta"] .countdown-card .countdown-weekday {
+    top: 43.5%;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 6.0cqw;
+    letter-spacing: 0.03em;
+    font-weight: 550;
+}
+
+.countdown-card-ta .countdown-labels,
+html[lang="ta"] .countdown-card .countdown-labels {
+    top: 61.5%;
+    width: 60%;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 1.45cqw;
+    letter-spacing: 0;
+    font-weight: 650;
+}
+
+.countdown-card-ta .countdown-closing,
+html[lang="ta"] .countdown-card .countdown-closing {
+    top: 73.0%;
+    width: 80%;
+    font-family: var(--font-pinyon), --font-pinyon, "Pinyon Script", cursive;
+    font-style: italic;
+    font-size: 5.2cqw;
+    font-weight: 550;
+    letter-spacing: 0.05em;
+    line-height: 1.65;
 }
 
 .hero-invitation-overlay {

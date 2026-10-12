@@ -6,21 +6,12 @@ export interface TranslationContent {
         tapPrompt: string;
     };
     hero: {
-        blessingLine1: string;
-        blessingLine2: string;
         bride: string;
-        brideParentsLabel: string;
-        brideParents: string;
         ampersand: string;
         groom: string;
-        groomParentsLabel: string;
-        groomParents: string;
-        invitationLine1: string;
-        invitationLine2: string;
         date: string;
         month: string;
         verseLine1: string;
-        verseLine2: string;
         verseRef: string;
     };
     saveTheDate: {
@@ -82,11 +73,14 @@ export interface TranslationContent {
         title: string;
         subtitlePrefix: string;
         targetDate: string;
+        date: string;
+        weekday: string;
         days: string;
         hours: string;
         minutes: string;
         seconds: string;
         dayIsHere: string;
+        closing: string;
     };
     rsvp: {
         title: string;
@@ -131,35 +125,13 @@ export const translations: Record<Language, TranslationContent> = {
             tapPrompt: "Tap the seal to reveal the invitation",
         },
         hero: {
-            blessingLine1: "With God's grace and the blessings",
-            blessingLine2: "of our families,",
             bride: "Irene",
-            brideParentsLabel: "Daughter of",
-            brideParents: "Mr. S. Mariadurai & Mrs. Manimatha Mariadurai",
             ampersand: "&",
             groom: "Franklin",
-            groomParentsLabel: "Son of",
-            groomParents: "Late Mr. G. Rajan & Mrs. Regina Rajan",
-            invitationLine1: "joyfully invite you to celebrate",
-            invitationLine2: "the beginning of their journey together.",
             date: "16 NOVEMBER 2026",
             month: "NOVEMBER",
-            verseLine1: "“I have found the one",
-            verseLine2: "whom my soul loves.”",
-            verseRef: "— Song of Solomon 3:4 (NIV)",
-        },
-        saveTheDate: {
-            eyebrow: "MARK YOUR CALENDAR",
-            title: "Save the Date",
-            day: "16",
-            daySuffix: "th",
-            month: "NOVEMBER",
-            year: "2026",
-            footer: "Join us as we begin our forever",
-            scratchInstruction: "✦ SCRATCH TO REVEAL ✦",
-            scratchSubtitle: "A date close to our hearts *",
-            revealButtonAria: "Reveal wedding date",
-            cardHeading: "OUR SPECIAL DAY",
+            verseLine1: "May your fountain be blessed",
+            verseRef: "— Proverbs 5:18 (NIV)",
         },
         section3: {
             blessingLine1:
@@ -209,11 +181,14 @@ export const translations: Record<Language, TranslationContent> = {
             title: "Countdown",
             subtitlePrefix: "Until",
             targetDate: "16 November 2026",
+            date: "NOVEMBER 16, 2026",
+            weekday: "MONDAY",
             days: "DAYS",
             hours: "HOURS",
             minutes: "MINUTES",
             seconds: "SECONDS",
             dayIsHere: "THE DAY IS HERE",
+            closing: "We can't wait\nto celebrate with you!",
         },
         rsvp: {
             title: "RSVP",
@@ -258,36 +233,13 @@ export const translations: Record<Language, TranslationContent> = {
         },
 
         hero: {
-            blessingLine1: "இறைவனின் திருவருளாலும் குடும்பத்தாரின் ஆசிகளாலும்,",
-            blessingLine2: "எங்கள் வாழ்வின் இனிய தொடக்கத்தை",
             bride: "ஐரீன்",
-            brideParentsLabel: "மகள்",
-            brideParents: "திரு. S. மரியதுரை & திருமதி. மணிமதா மரியதுரை",
             ampersand: "&",
             groom: "பிராங்க்ளின்",
-            groomParentsLabel: "மகன்",
-            groomParents: "மறைந்த திரு. G. ராஜன் & திருமதி. ரெஜினா ராஜன்",
-            invitationLine1: "கொண்டாட தங்களை மகிழ்வுடன் அழைக்கிறோம்.",
-            invitationLine2:
-                "எங்கள் புதிய பயணத்தின் தொடக்கத்தில் இணைந்திடுங்கள்.",
             date: "16 நவம்பர் 2026",
             month: "நவம்பர்",
-            verseLine1: "“என் ஆத்துமா நேசிக்கிறவரைக்",
-            verseLine2: "கண்டுபிடித்தேன்.”",
-            verseRef: "— உன்னதப்பாட்டு 3:4",
-        },
-        saveTheDate: {
-            eyebrow: "திருமண நன்னாள்",
-            title: "நம் திருமண நாள்",
-            day: "16",
-            daySuffix: "",
-            month: "நவம்பர்",
-            year: "2026",
-            footer: "எங்கள் வாழ்வின் இனிய தொடக்கத்தில் இணைந்திடுங்கள்",
-            scratchInstruction: "✦ மெதுவாகச் சுரண்டிப் பாருங்கள் ✦",
-            scratchSubtitle: "எங்கள் வாழ்வின் மகிழ்வான நாள்",
-            revealButtonAria: "திருமண நாளைக் காண",
-            cardHeading: "இனிய திருமண நாள்",
+            verseLine1: "உன் ஊற்றுக்கண் ஆசீர்வதிக்கப்படுவதாக",
+            verseRef: "— நீதிமொழிகள் 5:18",
         },
         section3: {
             blessingLine1: "இறைவனின் திருவருளாலும் குடும்பத்தாரின் ஆசிகளாலும்,",
@@ -333,14 +285,17 @@ export const translations: Record<Language, TranslationContent> = {
             googleMapsButton: "GOOGLE MAPS-ல் காண்க",
         },
         countdown: {
-            title: "திருமண விழாவிற்கு",
+            title: "இனிய நாளை நோக்கி…",
             subtitlePrefix: "இன்னும்",
             targetDate: "16 நவம்பர் 2026",
+            date: "16 நவம்பர் 2026",
+            weekday: "திங்கட்கிழமை",
             days: "நாட்கள்",
             hours: "மணிநேரங்கள்",
             minutes: "நிமிடங்கள்",
             seconds: "விநாடிகள்",
             dayIsHere: "இனிய திருமண நாள் வந்துவிட்டது",
+            closing: "தங்களை அன்புடன் \n வரவேற்க ஆவலுடன் \n காத்திருக்கிறோம்!",
         },
         rsvp: {
             title: "RSVP",
