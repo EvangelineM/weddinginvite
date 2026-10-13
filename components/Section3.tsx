@@ -53,6 +53,7 @@ export function Section3({ t }: Section3Props) {
                 fill
                 priority
                 sizes="(max-width: 620px) 100vw, 620px"
+                unoptimized
                 className="pointer-events-none select-none object-cover object-center"
             />
 

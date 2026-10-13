@@ -6,11 +6,11 @@ import confetti from "canvas-confetti";
 import { TranslationContent, Language } from "@/lib/translations";
 
 const BACKGROUND =
-    "/images/savedate/Golden Floral Terrace at Sunset.png";
+    "/images/savedate/savedate_bg.png";
 const FRAME =
-    "/images/savedate/Warm Gold Double-Line Rounded Frame.png";
+    "/images/savedate/frame.png";
 const DIVIDER =
-    "/images/savedate/Elegant Golden Leaf Divider.png";
+    "/images/savedate/leaf_divider.png";
 
 const WEDDING_DATE = new Date("2026-11-16T10:00:00+05:30");
 
