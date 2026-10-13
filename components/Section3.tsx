@@ -5,7 +5,7 @@ import Image from "next/image";
 import { TranslationContent, Language } from "@/lib/translations";
 
 const SECTION3 = "/images/section3";
-const VINTAGE_BG = "/images/section3/bg2.PNG";
+const VINTAGE_BG = "/images/section3/invitebg.PNG";
 
 interface ArtProps {
     src: string;
