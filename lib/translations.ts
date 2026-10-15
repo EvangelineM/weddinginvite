@@ -15,26 +15,20 @@ export interface TranslationContent {
         verseRef: string;
     };
     section3: {
-        blessingLine1: string;
-        blessingLine2: string;
-        blessingLine3: string;
-        bride: string;
-        brideRelation: string;
-        brideParents: string;
+        inviteLine1: string;
+        inviteLine2: string;
+        inviteLine3: string;
         groom: string;
-        groomRelation: string;
-        groomParents: string;
-        weddingTitle: string;
-        weddingDate: string;
-        weddingDay: string;
-        weddingTime: string;
-        receptionTitle: string;
-        receptionDate: string;
-        receptionDay: string;
-        receptionTime: string;
-        venueTitle: string;
-        venueChurch: string;
-        venueLocation: string;
+        ampersand: string;
+        bride: string;
+        verseLine1: string;
+        verseLine2: string;
+        verseRef: string;
+        weekday: string;
+        month: string;
+        day: string;
+        year: string;
+        time: string;
     };
     venue: {
         title: string;
@@ -72,12 +66,15 @@ export interface TranslationContent {
     rsvp: {
         title: string;
         deadline: string;
+        deadlineLine1?: string;
+        deadlineLine2?: string;
         attendingQuestion: string;
         yesOption: string;
         noOption: string;
         nameLabel: string;
         namePlaceholder: string;
         guestsLabel: string;
+        guestsPlaceholder?: string;
         emailLabel: string;
         emailPlaceholder: string;
         dietaryLabel: string;
@@ -88,10 +85,13 @@ export interface TranslationContent {
         submittingButton: string;
         successHeading: string;
         successMessage: string;
+        declinedHeading?: string;
+        declinedMessage?: string;
         errorMessage: string;
         validationName: string;
         validationEmail: string;
         validationAttendance: string;
+        validationGuests?: string;
         sendAnother: string;
     };
     final: {
@@ -121,27 +121,20 @@ export const translations: Record<Language, TranslationContent> = {
             verseRef: "— Proverbs 5:18 (NIV)",
         },
         section3: {
-            blessingLine1:
-                "With God's grace and the blessings of our families,",
-            blessingLine2: "we joyfully invite you to celebrate",
-            blessingLine3: "the beginning of our journey together.",
-            bride: "Irene",
-            brideRelation: "Daughter of",
-            brideParents: "Mr. S. Mariadurai & Mrs. Manimatha Mariadurai",
+            inviteLine1: "TOGETHER WITH OUR FAMILIES",
+            inviteLine2: "WE JOYFULLY INVITE YOU TO",
+            inviteLine3: "CELEBRATE THE WEDDING OF",
             groom: "Franklin",
-            groomRelation: "Son of",
-            groomParents: "late Mr. G. Rajan & Mrs. Regina Rajan",
-            weddingTitle: "WEDDING",
-            weddingDate: "16 NOVEMBER 2026",
-            weddingDay: "MONDAY",
-            weddingTime: "10:00 AM",
-            receptionTitle: "RECEPTION",
-            receptionDate: "16 NOVEMBER 2026",
-            receptionDay: "MONDAY",
-            receptionTime: "1:00 PM ONWARDS",
-            venueTitle: "VENUE",
-            venueChurch: "C.S.I. St. Paul's Church",
-            venueLocation: "Keelkatalai, Tamil Nadu",
+            ampersand: "&",
+            bride: "Irene",
+            verseLine1: "“THEREFORE WHAT GOD HAS JOINED TOGETHER,",
+            verseLine2: "LET NO ONE SEPARATE.”",
+            verseRef: "MARK 10:9",
+            weekday: "MONDAY",
+            month: "NOV",
+            day: "16",
+            year: "2026",
+            time: "AT 10:30 AM",
         },
         venue: {
             title: "Venue",
@@ -180,26 +173,33 @@ export const translations: Record<Language, TranslationContent> = {
         rsvp: {
             title: "RSVP",
             deadline: "Kindly reply before 28 August 2026.",
-            attendingQuestion: "Will you attend?",
+            deadlineLine1: "KINDLY REPLY BEFORE",
+            deadlineLine2: "28 AUGUST 2026",
+            attendingQuestion: "WILL YOU ATTEND?",
             yesOption: "Yes",
             noOption: "No",
-            nameLabel: "Full name",
+            nameLabel: "FULL NAME",
             namePlaceholder: "Your full name",
-            guestsLabel: "Number of guests",
+            guestsLabel: "HOW MANY GUESTS?",
+            guestsPlaceholder: "1",
             emailLabel: "Email",
             emailPlaceholder: "you@example.com",
             dietaryLabel: "Allergies or dietary requirements",
             dietaryPlaceholder: "e.g. vegetarian, gluten-free, nut allergy",
-            messageLabel: "Message for the couple",
+            messageLabel: "MESSAGE FOR THE COUPLE",
             messagePlaceholder: "Share a wish, a memory, or a note...",
-            submitButton: "Send",
-            submittingButton: "Sending...",
+            submitButton: "SEND",
+            submittingButton: "SENDING...",
             successHeading: "Thank you for celebrating with us.",
             successMessage: "We can't wait to see you!",
+            declinedHeading: "Thank you for letting us know.",
+            declinedMessage:
+                "Thank you for letting us know. You’ll be dearly missed! Sending love and blessings your way. 🤎",
             errorMessage: "Something went wrong. Please try again.",
             validationName: "Please enter your full name.",
             validationEmail: "Please provide a valid email address.",
             validationAttendance: "Please indicate whether you will attend.",
+            validationGuests: "Please enter the number of guests.",
             sendAnother: "Submit another response",
         },
         final: {
@@ -229,26 +229,20 @@ export const translations: Record<Language, TranslationContent> = {
             verseRef: "— நீதிமொழிகள் 5:18",
         },
         section3: {
-            blessingLine1: "இறைவனின் திருவருளாலும் குடும்பத்தாரின் ஆசிகளாலும்,",
-            blessingLine2: "எங்கள் இல்லற வாழ்வின் இனிய தொடக்கத்தை",
-            blessingLine3: "தங்களுடன் பகிர்ந்துகொள்ள அன்புடன் அழைக்கிறோம்.",
-            bride: "ஐரீன்",
-            brideRelation: "அன்பு மகள்",
-            brideParents: "திரு. S. மரியதுரை & திருமதி. மணிமதா மரியதுரை",
+            inviteLine1: "எங்கள் குடும்பத்தாரின் ஆசிகளுடன்",
+            inviteLine2: "எங்கள் திருமண நன்னாளைக் கொண்டாட",
+            inviteLine3: "தங்களை அன்புடன் அழைக்கிறோம்",
             groom: "பிராங்க்ளின்",
-            groomRelation: "அன்பு மகன்",
-            groomParents: "மறைந்த திரு. G. ராஜன் & திருமதி. ரெஜினா ராஜன்",
-            weddingTitle: "திருமண விழா",
-            weddingDate: "16 நவம்பர் 2026",
-            weddingDay: "திங்கட்கிழமை",
-            weddingTime: "காலை 10:00 மணி",
-            receptionTitle: "திருமண வரவேற்பு",
-            receptionDate: "16 நவம்பர் 2026",
-            receptionDay: "திங்கட்கிழமை",
-            receptionTime: "பிற்பகல் 1:00 மணி",
-            venueTitle: "திருமணம் நடைபெறும் இடம்",
-            venueChurch: "சி.எஸ்.ஐ. செயிண்ட் பால்ஸ் ஆலயம்",
-            venueLocation: "கீழ்க்கட்டளை, தமிழ்நாடு",
+            ampersand: "&",
+            bride: "ஐரீன்",
+            verseLine1: "“ தேவன் இணைத்ததை",
+            verseLine2: "மனுஷன் பிரிக்காதிருக்கக்கடவன்.”",
+            verseRef: "மாற்கு 10:9",
+            weekday: "திங்கட்கிழமை",
+            month: "நவம்பர்",
+            day: "16",
+            year: "2026",
+            time: "காலை 10:00 மணி",
         },
         venue: {
             title: "திருமண இடம்",
@@ -287,12 +281,15 @@ export const translations: Record<Language, TranslationContent> = {
         rsvp: {
             title: "RSVP",
             deadline: "28 ஆகஸ்ட் 2026-க்குள் தங்களின் வருகையைத் தெரிவிக்கவும்.",
+            deadlineLine1: "வருகையைத் தெரிவிக்கவும்",
+            deadlineLine2: "28 ஆகஸ்ட் 2026-க்குள்",
             attendingQuestion: "தாங்கள் கலந்துகொள்வீர்களா?",
             yesOption: "ஆம்",
             noOption: "இல்லை",
             nameLabel: "முழுப் பெயர்",
             namePlaceholder: "தங்களின் முழுப் பெயர்",
             guestsLabel: "விருந்தினர்களின் எண்ணிக்கை",
+            guestsPlaceholder: "1",
             emailLabel: "மின்னஞ்சல் முகவரி",
             emailPlaceholder: "you@example.com",
             dietaryLabel: "உணவு ஒவ்வாமைகள் அல்லது சிறப்பு உணவுத் தேவைகள்",
@@ -305,12 +302,16 @@ export const translations: Record<Language, TranslationContent> = {
             successHeading:
                 "எங்களுடன் இணைந்து இவ்விழாவை சிறப்பித்தமைக்கு நன்றி.",
             successMessage: "தங்களை அன்புடன் வரவேற்க ஆவலுடன் காத்திருக்கிறோம்!",
+            declinedHeading: "தெரிவித்தமைக்கு நன்றி.",
+            declinedMessage:
+                "தெரிவித்தமைக்கு நன்றி. தங்களின் வருகையை நாங்கள் மிகவும் தவறவிடுவோம்! எங்களின் அன்பும் ஆசிகளும் என்றும் உங்களுடன். 🤎",
             errorMessage:
                 "ஏதோ ஒரு பிழை ஏற்பட்டுள்ளது. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.",
             validationName: "தங்களின் முழுப் பெயரை உள்ளிடவும்.",
             validationEmail: "சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்.",
             validationAttendance:
                 "தாங்கள் கலந்துகொள்வீர்களா என்பதைத் தெரிவிக்கவும்.",
+            validationGuests: "விருந்தினர்களின் எண்ணிக்கையை உள்ளிடவும்.",
             sendAnother: "மற்றொரு பதிலைச் சமர்ப்பிக்கவும்",
         },
         final: {

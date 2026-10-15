@@ -3,24 +3,26 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import confetti from "canvas-confetti";
-import { TranslationContent } from "@/lib/translations";
+import { TranslationContent, Language } from "@/lib/translations";
 
-const RSVP = "/images/rsvp";
+const RSVP_DIR = "/images/rsvp";
 
 interface RSVPFormProps {
     t: TranslationContent;
+    lang?: Language;
 }
 
-export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
-    const [attendance, setAttendance] = useState<"attending" | "declined" | "">(
-        "",
-    );
+export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
+    const isTamil = lang === "TA" || t.countdown.days === "நாட்கள்";
+
+    const [attendance, setAttendance] = useState<"attending" | "declined" | "">("");
     const [fullName, setFullName] = useState("");
     const [guestsCount, setGuestsCount] = useState<number>(1);
     const [message, setMessage] = useState("");
 
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [lastSubmittedAttendance, setLastSubmittedAttendance] = useState<"attending" | "declined" | "">("");
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -34,6 +36,11 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
 
         if (!attendance) {
             setErrorMessage(t.rsvp.validationAttendance);
+            return;
+        }
+
+        if (attendance === "attending" && (!guestsCount || guestsCount < 1)) {
+            setErrorMessage(t.rsvp.validationGuests || "Please enter the number of guests.");
             return;
         }
 
@@ -57,21 +64,26 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
                 throw new Error(result.error || t.rsvp.errorMessage);
             }
 
-            try {
-                confetti({
-                    particleCount: 55,
-                    spread: 65,
-                    origin: { y: 0.65 },
-                    colors: [
-                        "#E3BDB0",
-                        "#D28B77",
-                        "#BD8167",
-                        "#9F4B31",
-                        "#FFFDFB",
-                    ],
-                });
-            } catch {
-                /* Safe fallback */
+            setLastSubmittedAttendance(attendance);
+
+            if (attendance === "attending") {
+                try {
+                    confetti({
+                        particleCount: 65,
+                        spread: 70,
+                        origin: { y: 0.65 },
+                        colors: [
+                            "#E3BDB0",
+                            "#D28B77",
+                            "#BD8167",
+                            "#9F4B31",
+                            "#AF8D60",
+                            "#FFFDFB",
+                        ],
+                    });
+                } catch {
+                    /* Confetti fallback */
+                }
             }
 
             setIsSuccess(true);
@@ -88,90 +100,107 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
         setGuestsCount(1);
         setMessage("");
         setAttendance("");
+        setLastSubmittedAttendance("");
         setErrorMessage(null);
     };
 
     return (
         <section id="rsvp-section" className="rsvp-section">
-            <div className="rsvp-artboard">
-                {/* Background botanical frame image */}
+            <div className={`rsvp-artboard ${isTamil ? "rsvp-ta" : ""}`}>
+                {/* 1. Botanical Framed Background */}
                 <Image
-                    src={`${RSVP}/bg2.png`}
-                    alt=""
+                    src={`${RSVP_DIR}/rsvp_bg.png`}
+                    alt="RSVP Background"
                     fill
-                    sizes="(max-width: 760px) 100vw, 760px"
+                    sizes="(max-width: 620px) 100vw, 620px"
                     className="rsvp-bg"
                     priority
+                    unoptimized
                 />
 
-                {/* Content overlay */}
+                {/* 2. RSVP Content Layer */}
                 <div className="rsvp-overlay">
-                    {/* ══════════════ RSVP HEADING ══════════════ */}
-                    <h2 className="rsvp-title">{t.rsvp.title}</h2>
-
-                    {/* Small calligraphic ornament swirl (matching the reference) */}
-                    <svg
-                        className="rsvp-ornament"
-                        viewBox="0 0 120 30"
-                        fill="none"
-                        aria-hidden="true"
-                    >
-                        <path
-                            d="M60 15 C52 8, 38 12, 38 18 C38 22, 44 24, 50 20 C56 16, 58 12, 60 15 C62 12, 64 16, 70 20 C76 24, 82 22, 82 18 C82 12, 68 8, 60 15Z"
-                            stroke="#91482F"
-                            strokeWidth="1.2"
-                            fill="none"
+                    {/* ── Top Golden Leaf Divider ── */}
+                    <div className="rsvp-top-divider-wrap" aria-hidden="true">
+                        <Image
+                            src={`${RSVP_DIR}/top_divider.png`}
+                            alt=""
+                            width={2172}
+                            height={724}
+                            className="rsvp-divider-img"
+                            priority
+                            unoptimized
                         />
-                        <path
-                            d="M36 18 C30 22, 22 20, 18 16"
-                            stroke="#91482F"
-                            strokeWidth="0.9"
-                            fill="none"
-                            strokeLinecap="round"
-                        />
-                        <path
-                            d="M84 18 C90 22, 98 20, 102 16"
-                            stroke="#91482F"
-                            strokeWidth="0.9"
-                            fill="none"
-                            strokeLinecap="round"
-                        />
-                    </svg>
-
-                    {/* ══════════════ TINY DIAMOND ORNAMENT ══════════════ */}
-                    <div className="rsvp-tiny-diamond" aria-hidden="true">
-                        <span />
                     </div>
 
-                    {/* ══════════════ DEADLINE ══════════════ */}
-                    <p className="rsvp-deadline">{t.rsvp.deadline}</p>
+                    {/* ── RSVP Text Heading ── */}
+                    <div className="rsvp-title-wrap">
+                        <h2 className="rsvp-title-text">{t.rsvp.title}</h2>
+                    </div>
 
-                    {/* ══════════════ SUCCESS STATE ══════════════ */}
+                    {/* ── Deadline Text Lines ── */}
+                    <div className="rsvp-deadline-wrap">
+                        <p className="rsvp-deadline-line">
+                            {t.rsvp.deadlineLine1 || "KINDLY REPLY BEFORE"}
+                        </p>
+                        <p className="rsvp-deadline-line rsvp-deadline-date">
+                            {t.rsvp.deadlineLine2 || "28 AUGUST 2026"}
+                        </p>
+                    </div>
+
+                    {/* ── Middle Diamond Floral Divider ── */}
+                    <div className="rsvp-middle-divider-wrap" aria-hidden="true">
+                        <Image
+                            src={`${RSVP_DIR}/middle_divider.png`}
+                            alt=""
+                            width={2172}
+                            height={724}
+                            className="rsvp-divider-img"
+                            priority
+                            unoptimized
+                        />
+                    </div>
+
+                    {/* ── Success or Declined Submission State (Directly on BG) ── */}
                     {isSuccess ? (
-                        <div className="rsvp-success">
-                            <h3 className="rsvp-success-heading">
-                                {t.rsvp.successHeading}
-                            </h3>
-                            <p className="rsvp-success-message">
-                                {t.rsvp.successMessage}
-                            </p>
+                        <div className="rsvp-result-wrap">
+                            {lastSubmittedAttendance === "declined" ? (
+                                <div className="rsvp-result-content">
+                                    <p className="rsvp-declined-message">
+                                        {t.rsvp.declinedMessage ||
+                                            "Thank you for letting us know. You’ll be dearly missed! Sending love and blessings your way. 🤎"}
+                                    </p>
+                                </div>
+                            ) : (
+                                <div className="rsvp-result-content">
+                                    <h3 className="rsvp-success-heading">
+                                        {t.rsvp.successHeading}
+                                    </h3>
+                                    <p className="rsvp-success-message">
+                                        {t.rsvp.successMessage}
+                                    </p>
+                                </div>
+                            )}
+
                             <button
                                 type="button"
                                 onClick={handleReset}
-                                className="rsvp-success-reset"
+                                className="rsvp-reset-button"
                             >
                                 {t.rsvp.sendAnother}
                             </button>
                         </div>
                     ) : (
-                        /* ══════════════ FORM ══════════════ */
+                        /* ── Interactive RSVP Form ── */
                         <form onSubmit={handleSubmit} className="rsvp-form">
                             {/* Error Banner */}
                             {errorMessage && (
-                                <div className="rsvp-error">{errorMessage}</div>
+                                <div className="rsvp-error-banner" role="alert">
+                                    {errorMessage}
+                                </div>
                             )}
 
-                            {/* ── Full name ── */}
+                            {/* 1. Full Name */}
                             <div className="rsvp-field">
                                 <label
                                     htmlFor="rsvp-fullname"
@@ -179,150 +208,144 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
                                 >
                                     {t.rsvp.nameLabel}
                                 </label>
-                                <input
-                                    id="rsvp-fullname"
-                                    type="text"
-                                    required
-                                    placeholder={t.rsvp.namePlaceholder}
-                                    value={fullName}
-                                    onChange={(e) =>
-                                        setFullName(e.target.value)
-                                    }
-                                    className="rsvp-input"
-                                />
-                            </div>
-
-                            {/* Thin separator line */}
-                            <div
-                                className="rsvp-field-separator"
-                                aria-hidden="true"
-                            />
-
-                            {/* ── Attendance (single row) ── */}
-                            <div className="rsvp-attend-row">
-                                <span className="rsvp-label rsvp-attend-label-inline">
-                                    {t.rsvp.attendingQuestion}
-                                </span>
-                                <div className="rsvp-checkboxes-inline">
-                                    <label className="rsvp-checkbox-label">
-                                        <input
-                                            type="checkbox"
-                                            checked={attendance === "attending"}
-                                            onChange={() =>
-                                                setAttendance(
-                                                    attendance === "attending"
-                                                        ? ""
-                                                        : "attending",
-                                                )
-                                            }
-                                            className="rsvp-checkbox-hidden"
-                                        />
-                                        <span
-                                            className={`rsvp-checkbox-box ${attendance === "attending" ? "rsvp-checkbox-checked" : ""}`}
-                                        >
-                                            {attendance === "attending" && (
-                                                <svg
-                                                    viewBox="0 0 16 16"
-                                                    fill="none"
-                                                    className="rsvp-checkmark"
-                                                >
-                                                    <path
-                                                        d="M3 8.5L6.5 12L13 4"
-                                                        stroke="#91482F"
-                                                        strokeWidth="2"
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                    />
-                                                </svg>
-                                            )}
-                                        </span>
-                                        <span className="rsvp-checkbox-text">
-                                            {t.rsvp.yesOption}
-                                        </span>
-                                    </label>
-                                    <label className="rsvp-checkbox-label">
-                                        <input
-                                            type="checkbox"
-                                            checked={attendance === "declined"}
-                                            onChange={() =>
-                                                setAttendance(
-                                                    attendance === "declined"
-                                                        ? ""
-                                                        : "declined",
-                                                )
-                                            }
-                                            className="rsvp-checkbox-hidden"
-                                        />
-                                        <span
-                                            className={`rsvp-checkbox-box ${attendance === "declined" ? "rsvp-checkbox-checked" : ""}`}
-                                        >
-                                            {attendance === "declined" && (
-                                                <svg
-                                                    viewBox="0 0 16 16"
-                                                    fill="none"
-                                                    className="rsvp-checkmark"
-                                                >
-                                                    <path
-                                                        d="M3 8.5L6.5 12L13 4"
-                                                        stroke="#91482F"
-                                                        strokeWidth="2"
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                    />
-                                                </svg>
-                                            )}
-                                        </span>
-                                        <span className="rsvp-checkbox-text">
-                                            {t.rsvp.noOption}
-                                        </span>
-                                    </label>
+                                <div className="rsvp-input-frame-box">
+                                    <Image
+                                        src={`${RSVP_DIR}/input_frame.png`}
+                                        alt=""
+                                        fill
+                                        className="rsvp-frame-img"
+                                        unoptimized
+                                        priority
+                                    />
+                                    <input
+                                        id="rsvp-fullname"
+                                        type="text"
+                                        required
+                                        placeholder={t.rsvp.namePlaceholder}
+                                        value={fullName}
+                                        onChange={(e) =>
+                                            setFullName(e.target.value)
+                                        }
+                                        className="rsvp-input"
+                                    />
                                 </div>
                             </div>
 
-                            {/* ── Number of guests (visible when attending) ── */}
+                            {/* 2. Attendance (Yes / No side-by-side) */}
+                            <div className="rsvp-field">
+                                <span className="rsvp-label">
+                                    {t.rsvp.attendingQuestion}
+                                </span>
+                                <div className="rsvp-radio-row">
+                                    {/* Yes Card */}
+                                    <button
+                                        type="button"
+                                        role="radio"
+                                        aria-checked={attendance === "attending"}
+                                        onClick={() => setAttendance("attending")}
+                                        className={`rsvp-radio-card ${
+                                            attendance === "attending"
+                                                ? "rsvp-radio-card-active"
+                                                : ""
+                                        }`}
+                                    >
+                                        <Image
+                                            src={`${RSVP_DIR}/radio_frame.png`}
+                                            alt=""
+                                            fill
+                                            className="rsvp-frame-img"
+                                            unoptimized
+                                            priority
+                                        />
+                                        <span className="rsvp-radio-circle">
+                                            {attendance === "attending" && (
+                                                <span className="rsvp-radio-dot" />
+                                            )}
+                                        </span>
+                                        <span className="rsvp-radio-text">
+                                            {t.rsvp.yesOption}
+                                        </span>
+                                    </button>
+
+                                    {/* No Card */}
+                                    <button
+                                        type="button"
+                                        role="radio"
+                                        aria-checked={attendance === "declined"}
+                                        onClick={() => {
+                                            setAttendance("declined");
+                                            setGuestsCount(0);
+                                        }}
+                                        className={`rsvp-radio-card ${
+                                            attendance === "declined"
+                                                ? "rsvp-radio-card-active"
+                                                : ""
+                                        }`}
+                                    >
+                                        <Image
+                                            src={`${RSVP_DIR}/radio_frame.png`}
+                                            alt=""
+                                            fill
+                                            className="rsvp-frame-img"
+                                            unoptimized
+                                            priority
+                                        />
+                                        <span className="rsvp-radio-circle">
+                                            {attendance === "declined" && (
+                                                <span className="rsvp-radio-dot" />
+                                            )}
+                                        </span>
+                                        <span className="rsvp-radio-text">
+                                            {t.rsvp.noOption}
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* 3. Number of Guests (Visible when Yes is selected) */}
                             {attendance === "attending" && (
-                                <>
-                                    <div
-                                        className="rsvp-field-separator"
-                                        aria-hidden="true"
-                                    />
-                                    <div className="rsvp-field rsvp-guests-field">
-                                        <label className="rsvp-label">
-                                            {t.rsvp.guestsLabel}
-                                        </label>
-                                        <div
-                                            className="rsvp-guests-selector"
-                                            role="radiogroup"
-                                            aria-label={t.rsvp.guestsLabel}
-                                        >
-                                            {[1, 2, 3, 4, 5].map((num) => (
-                                                <button
-                                                    key={num}
-                                                    type="button"
-                                                    role="radio"
-                                                    aria-checked={
-                                                        guestsCount === num
-                                                    }
-                                                    onClick={() =>
-                                                        setGuestsCount(num)
-                                                    }
-                                                    className={`rsvp-guest-pill ${guestsCount === num ? "rsvp-guest-pill-active" : ""}`}
-                                                >
-                                                    {num === 5 ? "5+" : num}
-                                                </button>
-                                            ))}
-                                        </div>
+                                <div className="rsvp-field rsvp-guests-field">
+                                    <label
+                                        htmlFor="rsvp-guests"
+                                        className="rsvp-label"
+                                    >
+                                        {t.rsvp.guestsLabel}
+                                    </label>
+                                    <div className="rsvp-input-frame-box">
+                                        <Image
+                                            src={`${RSVP_DIR}/input_frame.png`}
+                                            alt=""
+                                            fill
+                                            className="rsvp-frame-img"
+                                            unoptimized
+                                        />
+                                        <input
+                                            id="rsvp-guests"
+                                            type="number"
+                                            min={1}
+                                            max={20}
+                                            placeholder={
+                                                t.rsvp.guestsPlaceholder || "1"
+                                            }
+                                            value={guestsCount || ""}
+                                            onChange={(e) => {
+                                                const val = parseInt(
+                                                    e.target.value,
+                                                    10,
+                                                );
+                                                setGuestsCount(
+                                                    isNaN(val)
+                                                        ? 1
+                                                        : Math.max(1, Math.min(20, val)),
+                                                );
+                                            }}
+                                            className="rsvp-input"
+                                        />
                                     </div>
-                                </>
+                                </div>
                             )}
 
-                            {/* Thin separator line */}
-                            <div
-                                className="rsvp-field-separator"
-                                aria-hidden="true"
-                            />
-
-                            {/* ── Message ── */}
+                            {/* 4. Message for the Couple */}
                             <div className="rsvp-field">
                                 <label
                                     htmlFor="rsvp-message"
@@ -330,108 +353,49 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t }) => {
                                 >
                                     {t.rsvp.messageLabel}
                                 </label>
-                                <textarea
-                                    id="rsvp-message"
-                                    rows={3}
-                                    placeholder={t.rsvp.messagePlaceholder}
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    className="rsvp-textarea"
-                                />
+                                <div className="rsvp-textarea-frame-box">
+                                    <Image
+                                        src={`${RSVP_DIR}/textarea_frame.png`}
+                                        alt=""
+                                        fill
+                                        className="rsvp-frame-img"
+                                        unoptimized
+                                    />
+                                    <textarea
+                                        id="rsvp-message"
+                                        rows={3}
+                                        placeholder={t.rsvp.messagePlaceholder}
+                                        value={message}
+                                        onChange={(e) =>
+                                            setMessage(e.target.value)
+                                        }
+                                        className="rsvp-textarea"
+                                    />
+                                </div>
                             </div>
 
-                            {/* ── Send button with leaf flourishes ── */}
-                            <div className="rsvp-btn-wrap">
-                                {/* Left leaf branch */}
-                                <svg
-                                    className="rsvp-btn-leaf rsvp-btn-leaf-left"
-                                    viewBox="0 0 60 20"
-                                    fill="none"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        d="M55 10 C45 6, 35 4, 28 7 C21 10, 24 14, 30 13 C36 12, 42 8, 55 10Z"
-                                        fill="#8C8964"
-                                        fillOpacity="0.55"
-                                    />
-                                    <path
-                                        d="M52 10 C44 8, 36 6, 28 9"
-                                        stroke="#5E6241"
-                                        strokeWidth="0.7"
-                                        fill="none"
-                                    />
-                                    <path
-                                        d="M48 12 C40 14, 30 16, 20 12 C14 10, 10 6, 6 10"
-                                        stroke="#5E6241"
-                                        strokeWidth="0.6"
-                                        fill="none"
-                                    />
-                                    <circle
-                                        cx="9"
-                                        cy="8"
-                                        r="1.8"
-                                        fill="#D98F70"
-                                        fillOpacity="0.45"
-                                    />
-                                    <circle
-                                        cx="16"
-                                        cy="6"
-                                        r="1.2"
-                                        fill="#C9795D"
-                                        fillOpacity="0.35"
-                                    />
-                                </svg>
-
+                            {/* 5. Send Button */}
+                            <div className="rsvp-btn-container">
                                 <button
                                     type="submit"
                                     id="send-rsvp-btn"
                                     disabled={isLoading}
-                                    className="rsvp-send-btn"
+                                    className="rsvp-send-button"
                                 >
-                                    {isLoading
-                                        ? t.rsvp.submittingButton
-                                        : t.rsvp.submitButton}
+                                    <Image
+                                        src={`${RSVP_DIR}/send_button.png`}
+                                        alt=""
+                                        fill
+                                        className="rsvp-send-btn-frame"
+                                        unoptimized
+                                        priority
+                                    />
+                                    <span className="rsvp-send-btn-label">
+                                        {isLoading
+                                            ? t.rsvp.submittingButton
+                                            : `${t.rsvp.submitButton} >`}
+                                    </span>
                                 </button>
-
-                                {/* Right leaf branch */}
-                                <svg
-                                    className="rsvp-btn-leaf rsvp-btn-leaf-right"
-                                    viewBox="0 0 60 20"
-                                    fill="none"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        d="M5 10 C15 6, 25 4, 32 7 C39 10, 36 14, 30 13 C24 12, 18 8, 5 10Z"
-                                        fill="#8C8964"
-                                        fillOpacity="0.55"
-                                    />
-                                    <path
-                                        d="M8 10 C16 8, 24 6, 32 9"
-                                        stroke="#5E6241"
-                                        strokeWidth="0.7"
-                                        fill="none"
-                                    />
-                                    <path
-                                        d="M12 12 C20 14, 30 16, 40 12 C46 10, 50 6, 54 10"
-                                        stroke="#5E6241"
-                                        strokeWidth="0.6"
-                                        fill="none"
-                                    />
-                                    <circle
-                                        cx="51"
-                                        cy="8"
-                                        r="1.8"
-                                        fill="#D98F70"
-                                        fillOpacity="0.45"
-                                    />
-                                    <circle
-                                        cx="44"
-                                        cy="6"
-                                        r="1.2"
-                                        fill="#C9795D"
-                                        fillOpacity="0.35"
-                                    />
-                                </svg>
                             </div>
                         </form>
                     )}

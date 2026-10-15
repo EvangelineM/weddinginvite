@@ -2,15 +2,23 @@
 
 @theme {
     --color-rustic-blush: #e3bdb0;
-    --color-rustic-terracotta: #d28b77;
-    --color-rustic-clay: #bd8167;
-    --color-rustic-deep: #9f4b31;
+    --color-rustic-terracotta: #a45b35;
+    --color-rustic-clay: #875334;
+    --color-rustic-deep: #713b1c;
 
     --color-paper-ivory: #faf7f5;
     --color-paper-warm: #f4ebe6;
     --color-paper-card: #fffdfb;
     --color-dark-espresso: #3d251e;
     --color-muted-cocoa: #6b473c;
+
+    /* SaveTheDate Theme Colors */
+    --color-theme-title: #713b1c;
+    --color-theme-timer: #895a2e;
+    --color-theme-labels: #875334;
+    --color-theme-closing: #a45b35;
+    --color-theme-gold: #af8d60;
+    --color-theme-gold-bright: #d4af37;
 
     --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
     --font-script: var(--font-great-vibes), "Great Vibes", cursive;
@@ -24,33 +32,41 @@
 }
 
 :root {
-    /* NEW RUSTIC COLOR THEME */
-    --rustic-blush: #e3bdb0; /* Soft Blush / Nude: Light backgrounds, soft accents */
-    --rustic-terracotta: #d28b77; /* Dusty Terracotta: Primary accent */
-    --rustic-clay: #bd8167; /* Warm Clay: Secondary accent */
-    --rustic-deep: #9f4b31; /* Deep Terracotta: Dark accent, buttons, strong headings */
+    /* SaveTheDate Theme Palette */
+    --theme-title: #713b1c;
+    --theme-timer: #895a2e;
+    --theme-labels: #875334;
+    --theme-closing: #a45b35;
+    --theme-gold: #af8d60;
+    --theme-gold-bright: #d4af37;
+
+    /* REPLACED WITH SAVETHEDATE COLOR THEMES */
+    --rustic-blush: #e3bdb0;
+    --rustic-terracotta: #a45b35;
+    --rustic-clay: #875334;
+    --rustic-deep: #713b1c;
 
     /* Semantic Design Tokens */
     --color-background: #faf7f5;
     --color-surface: #fffdfb;
     --color-surface-muted: #f5eee9;
     --color-surface-blush: #f0e3de;
-    --color-text-primary: #3d251e;
-    --color-text-secondary: #6b473c;
-    --color-text-muted: #8f6e64;
-    --color-heading: #9f4b31;
-    --color-heading-romantic: #bd8167;
-    --color-heading-warm: #d28b77;
-    --color-primary: #9f4b31;
-    --color-primary-hover: #bd8167;
-    --color-primary-active: #d28b77;
-    --color-accent: #e3bdb0;
-    --color-accent-terracotta: #d28b77;
-    --color-border: rgba(189, 129, 103, 0.22);
-    --color-border-warm: rgba(159, 75, 49, 0.25);
+    --color-text-primary: #713b1c;
+    --color-text-secondary: #875334;
+    --color-text-muted: #af8d60;
+    --color-heading: #713b1c;
+    --color-heading-romantic: #a45b35;
+    --color-heading-warm: #895a2e;
+    --color-primary: #713b1c;
+    --color-primary-hover: #875334;
+    --color-primary-active: #a45b35;
+    --color-accent: #af8d60;
+    --color-accent-terracotta: #a45b35;
+    --color-border: rgba(175, 141, 96, 0.28);
+    --color-border-warm: rgba(113, 59, 28, 0.25);
     --color-border-blush: rgba(227, 189, 176, 0.65);
-    --color-focus: #d28b77;
-    --color-success: #9f4b31;
+    --color-focus: #a45b35;
+    --color-success: #713b1c;
     --color-error: #9c3b3e;
     --color-ivory: #faf7f5;
     --color-ivory-light: #fffdfb;
@@ -294,291 +310,349 @@ body {
     /* Note: no aspect-ratio — the video uses object-cover to fill */
 }
 
+/* ========================================
+   SECTION 3: FORMAL INVITATION ARCH CARD
+   ======================================== */
+
 .section3-section {
     position: relative;
     width: 100%;
     overflow: hidden;
-    background: #f6ead8;
-    background-image: url("/images/section3/invitebg.PNG");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: #FAF7F5;
 }
 
 .section3-artboard {
     position: relative;
     width: 100%;
-    aspect-ratio: 982 / 1602;
+    aspect-ratio: 941 / 1672;
     margin: 0 auto;
     overflow: hidden;
     container-type: inline-size;
 }
 
-.section3-bg {
+.section3-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: fill;
     pointer-events: none;
     user-select: none;
+    z-index: 0;
 }
 
-.section3-overlay {
+.section3-content {
     position: absolute;
     inset: 0;
-    z-index: 1;
-    color: #5c4336;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+    z-index: 2;
+    pointer-events: auto;
     text-align: center;
-    -webkit-font-smoothing: antialiased;
 }
 
-.section3-overlay img {
-    display: block;
+/* Top Golden Leaf Divider */
+.section3-top-divider-wrap {
+    position: absolute;
+    top: 24%;
+    left: 52%;
+    transform: translateX(-50%);
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* 1. Introductory invitation lines */
+
+.section3-intro {
+    position: absolute;
+    top: 29.6%;
+    left: 50%;
+    transform: translateX(-46%);
+    width: 90%;
+    margin: 0;
+}
+
+.section3-intro-line {
+    margin: 0;
+    color: #713B1C;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 2.85cqw;
+    font-weight: 600;
+    letter-spacing: 0.20em;
+    line-height: 1.58;
+    text-transform: uppercase;
+}
+
+/* 2. Couple Names (Groom first, text ampersand with subtle opacity, Bride below) */
+.section3-names-wrap {
+    position: absolute;
+    top: 39.0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88%;
+    height: 21.0%;
+}
+
+.section3-name {
+    margin: 0;
+    color: #843C1D;
+    font-family: var(--font-cara), "Cormorant Garamond", Georgia, serif;
+    font-size: 13.6cqw;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-align: center;
+}
+
+.section3-groom-name {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+.section3-amp-wrap {
+    position: absolute;
+    top: 47.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
+.section3-amp {
+    display: inline-block;
+    color: #af8d60;
+    font-family: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: 15.5cqw;
+    font-weight: 400;
+    line-height: 1;
+    opacity: 0.5;
+}
+
+.section3-bride-name {
+    position: absolute;
+    bottom: -3.7%;
+    left: 50%;
+    transform: translateX(-51%);
+    width: 100%;
+}
+
+.section3-middle-divider-wrap {
+    position: absolute;
+    top: 60.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 39%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* 3. Scripture Verse */
+.section3-verse-wrap {
+    position: absolute;
+    top: 64.0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 84%;
+    margin: 0;
+}
+
+.section3-verse-quote {
+    margin: 0 0 0.8cqw 0;
+    color: #713B1C;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 2.18cqw;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.section3-verse-ref {
+    margin: 0;
+    color: #713B1C;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 2.1cqw;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+}
+
+
+/* 4. Date & Time Block */
+.section3-date-wrap {
+    position: absolute;
+    top: 72.5%;
+    left: 48%;
+    transform: translateX(-50%);
+    width: 84%;
+    margin: 0;
+}
+
+.section3-weekday {
+    margin: 0 1cqw 1.2cqw 0;
+    color: #713B1C;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 2.4cqw;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.section3-date-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.2cqw;
+    margin: 0 0 1.1cqw 0;
+}
+
+.section3-month,
+.section3-year {
+    color: #713B1C;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 3.1cqw;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+
+.section3-v-rule {
+    display: inline-block;
+    width: 1.5px;
+    height: 6.5cqw;
+    background-color: #AF8D60;
+    opacity: 0.85;
+}
+
+.section3-day {
+    color: #713B1C;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 7.6cqw;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    line-height: 1;
+}
+
+/* .section3-time {
+    margin: 0;
+    color: #713B1C;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 2.4cqw;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+} */
+
+/* 5. Golden Leaf Divider */
+.section3-divider-wrap {
+    position: absolute;
+    top: 81.4%;
+    left: 48%;
+    transform: translateX(-50%);
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+.section3-top-divider-wrap .section3-divider-img{
     width: 100%;
     height: auto;
-    user-select: none;
-    pointer-events: none;
+    object-fit: contain;
 }
 
-.section3-cross {
-    position: absolute;
-    top: 7.15%;
-    left: 50%;
-    width: 56%;
-    transform: translateX(-50%);
-}
-
-.section3-blessing {
-    position: absolute;
-    top: 22.2%;
-    left: 10%;
+/* ========================================
+   SECTION 3 TAMIL OVERRIDES
+   ======================================== */
+.section3-ta .section3-intro-line,
+html[lang="ta"] .section3-intro-line {
+    font-size: 2.65cqw;
+    letter-spacing: 0.02em;
+    font-weight: 600;
     width: 80%;
-    margin: 0;
-    color: #5a4336;
-    font-size: 3.35cqw;
-    font-weight: 500;
-    font-style: italic;
-    line-height: 1.38;
-    letter-spacing: 0.01em;
-}
-
-.section3-divider {
-    position: absolute;
-    top: 27.15%;
-    left: 50%;
-    width: 52%;
-    transform: translateX(-50%);
-}
-
-.section3-bride,
-.section3-groom,
-.section3-ampersand,
-.section3-events,
-.section3-venue {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.section3-bride {
-    top: 37.15%;
-    width: 86%;
-}
-
-.section3-bride h2,
-.section3-groom h2 {
-    margin: 0;
-    color: #c17a66;
-    font-family: var(--font-pinyon), "Pinyon Script", cursive;
-    font-size: 11.1cqw;
-    font-weight: 400;
-    line-height: 0.9;
-    letter-spacing: 0.01em;
-}
-
-.section3-relation {
-    margin: 0.35cqw 0 0;
-    color: #6a5348;
-    font-size: 2.55cqw;
-    font-style: italic;
-    font-weight: 500;
-}
-
-.section3-parents {
-    margin: 0.2cqw 0 0;
-    color: #5c4336;
-    font-size: 2.72cqw;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-}
-
-.section3-ampersand {
-    top: 47.35%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42%;
-    height: 6.4%;
-}
-
-.section3-ampersand span {
-    position: relative;
-    z-index: 1;
-    color: #c17a66;
-    font-family: var(--font-pinyon), "Pinyon Script", cursive;
-    font-size: 10.8cqw;
-    line-height: 1;
-    transform: translateY(-0.2cqw);
-}
-
-.section3-sprig {
-    position: absolute;
-    top: 50%;
-    width: 30%;
-}
-
-.section3-sprig-left {
-    left: 2%;
-    transform: translateY(-52%) scaleX(-1);
-}
-
-.section3-sprig-right {
-    right: 2%;
-    transform: translateY(-48%);
-}
-
-.section3-groom {
-    top: 53.2%;
-    width: 86%;
-}
-
-.section3-events {
-    top: 63.6%;
-    display: grid;
-    grid-template-columns: 1fr 1px 1fr;
-    align-items: start;
-    width: 84%;
-}
-
-.section3-event {
-    min-width: 0;
-    padding: 3.1cqw;
-}
-
-.section3-rings {
-    width: 24%;
-    margin: 0 auto 0.2cqw;
-}
-
-.section3-toast {
-    width: 19.5%;
-    margin: 0 auto -0.4cqw;
-}
-
-.section3-event h3,
-.section3-venue h3 {
-    margin: 0.15cqw 0 0;
-    color: #8d5338;
-    font-size: 2.55cqw;
-    font-weight: 600;
-    letter-spacing: 0.34em;
-}
-
-.section3-rule {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.1cqw;
-    width: 72%;
-    margin: 0.7cqw auto 1.3cqw;
-}
-
-.section3-rule::before,
-.section3-rule::after {
-    height: 0.12cqw;
-    flex: 1;
-    background: #b08968;
-    content: "";
-}
-
-.section3-rule span {
-    width: 0.85cqw;
-    height: 0.85cqw;
-    border: 0.14cqw solid #a56b4a;
-    transform: rotate(45deg);
-}
-
-.section3-meta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.1cqw;
-    margin-top: 0.55cqw;
-}
-
-.section3-meta-icon {
-    flex: 0 0 auto;
-}
-
-.section3-cal {
-    width: 5.6cqw;
-}
-
-.section3-clock {
-    width: 5.1cqw;
-}
-
-.section3-meta p,
-.section3-meta-text p {
-    margin: 0;
-    color: #5c4336;
-    font-size: 2.28cqw;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-}
-
-.section3-meta-text {
-    text-align: left;
-}
-
-.section3-meta-text p + p {
-    margin-top: 0.15cqw;
+    margin: 0 auto;
+    line-height: 1.8;
     text-align: center;
+    margin-left: 11%;
 }
 
-.section3-events-rule {
-    width: 1px;
-    height: 78%;
-    margin-top: 8%;
-    background: linear-gradient(
-        180deg,
-        rgba(160, 110, 78, 0) 0%,
-        rgba(160, 110, 78, 0.55) 18%,
-        rgba(160, 110, 78, 0.55) 82%,
-        rgba(160, 110, 78, 0) 100%
-    );
+.section3-ta .section3-name,
+html[lang="ta"] .section3-name {
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 7.0cqw;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin-left: 3%;
 }
 
-.section3-venue {
-    top: 80.35%;
-    width: 78%;
+.section3-ta .section3-groom-name{
+    letter-spacing: 0.01em;
+    top: 6%;
 }
 
-.section3-church {
-    width: 52%;
-    margin: 0 auto 0.15cqw;
+.section3-ta .section3-amp{
+    font-size: 17.5cqw;
+    letter-spacing: 0.01em;
 }
 
-.section3-venue .section3-rule {
-    width: 46%;
-    margin-bottom: 1.1cqw;
+.section3-ta .section3-bride-name{
+    letter-spacing: 0.01em;
+    bottom: 9%;
 }
 
-.section3-venue p {
-    margin: 0.15cqw 0 0;
-    color: #5c4336;
-    font-size: 2.9cqw;
+.section3-ta .section3-verse-quote,
+html[lang="ta"] .section3-verse-quote {
+    font-size: 2.5cqw;
+    letter-spacing: 0.02em;
+    font-weight: 550;
+    line-height: 1.55;
+}
+
+.section3-ta .section3-verse-ref,
+html[lang="ta"] .section3-verse-ref {
+    font-size: 2.4cqw;
+    letter-spacing: 0.04em;
+    font-weight: 550;
+}
+.section3-ta .section3-date-wrap,
+html[lang="ta"].section3-date-wrap {
+    left: 47.0%;
+    align-items: center;
+    top: 73.2%;
+}
+
+.section3-ta .section3-month,
+html[lang="ta"] .section3-month {
+    font-size: 2.5cqw;
+    letter-spacing: 0.03em;
     font-weight: 600;
 }
+
+.section3-ta .section3-weekday,
+html[lang="ta"].section3-weekday {
+    font-size: 1.65cqw;
+    letter-spacing: 0.001em;
+    font-weight: 600;
+    margin-right: -1.5cqw;
+    
+}
+
 
 /* ========================================
    COUNTDOWN / SAVE THE DATE SECTION
@@ -1251,403 +1325,552 @@ main.hero-emerging > #hero-section {
    ======================================== */
 
 .rsvp-section {
+    position: relative;
     width: 100%;
     overflow: hidden;
-    background: #f5ede4;
+    background: #faf7f5;
 }
 
 .rsvp-artboard {
     position: relative;
     width: 100%;
-    aspect-ratio: 1024 / 1536;
+    max-width: 620px;
+    aspect-ratio: 942 / 1670;
     margin: 0 auto;
     overflow: hidden;
     container-type: inline-size;
+    background: #8e4726;
 }
 
 .rsvp-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: fill;
     pointer-events: none;
     user-select: none;
+    z-index: 0;
 }
 
 .rsvp-overlay {
     position: absolute;
     inset: 0;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
+    pointer-events: auto;
     text-align: center;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
     -webkit-font-smoothing: antialiased;
 }
 
-/* ── RSVP Heading: Clean, perfectly positioned below top rose arch ── */
-.rsvp-title {
-    margin: 0;
-    padding-top: 30cqw;
-    color: #7d3e2b;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 8.5cqw;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+/* ── Top Golden Leaf Divider ── */
+.rsvp-top-divider-wrap {
+    position: absolute;
+    top: 19.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 57.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
 }
 
-/* ── Small calligraphic ornament ── */
-.rsvp-ornament {
-    width: 13%;
+.rsvp-divider-img {
+    width: 100%;
     height: auto;
-    margin-top: 0.8cqw;
-    opacity: 0.85;
-}
-
-/* ── Tiny diamond ornament ── */
-.rsvp-tiny-diamond {
-    margin: 1.2cqw auto 1cqw;
-}
-
-.rsvp-tiny-diamond span {
     display: block;
-    width: 0.9cqw;
-    height: 0.9cqw;
-    border: 0.14cqw solid #94533c;
-    transform: rotate(45deg);
 }
 
-/* ── Deadline text ── */
-.rsvp-deadline {
-    margin: 0.6cqw auto 0;
-    max-width: 66%;
-    line-height: 1.35;
-    color: #6e4437;
-    font-size: 2.6cqw;
-    font-weight: 500;
+/* ── RSVP Heading Text ── */
+.rsvp-title-wrap {
+    position: absolute;
+    top: 24.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+.rsvp-title-text {
+    margin: 0;
+    padding: 0;
+    color: #f8e6d3;
+    font-family: var(--font-pinyon), "Pinyon Script", var(--font-cormorant), cursive;
+    font-size: 16.5cqw;
+    font-weight: 400;
     font-style: italic;
-    letter-spacing: 0.02em;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-shadow: 0 2px 12px rgba(70, 25, 10, 0.35);
 }
 
-/* ── Form: Confined to central open area (58% width) to avoid side vines ── */
-.rsvp-form {
+/* ── Deadline Text Lines ── */
+.rsvp-deadline-wrap {
+    position: absolute;
+    top: 40.8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 58%;
-    max-width: 60%;
-    margin-top: 2.4cqw;
+    gap: 0.35cqw;
+    pointer-events: none;
+    user-select: none;
+}
+
+.rsvp-deadline-line {
+    margin: 0;
+    color: #f8e6d3;
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: 2.7cqw;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    line-height: 1.35;
+    text-transform: uppercase;
+}
+
+.rsvp-deadline-date {
+    letter-spacing: 0.22em;
+    font-weight: 500;
+}
+
+/* ── Middle Diamond Floral Divider ── */
+.rsvp-middle-divider-wrap {
+    position: absolute;
+    top: 46.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 61.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ── Interactive RSVP Form ── */
+.rsvp-form {
+    position: absolute;
+    top: 49.0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 69.2%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.6cqw;
 }
 
 .rsvp-field {
     width: 100%;
-    margin-bottom: 1.6cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     text-align: left;
 }
 
 .rsvp-label {
     display: block;
     margin-bottom: 0.8cqw;
-    color: #5c382c;
-    font-size: 2.7cqw;
+    padding-left: 0.4cqw;
+    color: #f8e6d3;
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: 1.8cqw;
     font-weight: 600;
-    font-style: italic;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    line-height: 1.2;
 }
 
-/* Underline-style input */
+/* ── Single-line Input Frame Box ── */
+.rsvp-input-frame-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 660 / 96;
+    display: flex;
+    align-items: center;
+}
+
+.rsvp-frame-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
 .rsvp-input {
+    position: relative;
+    z-index: 2;
     width: 100%;
-    padding: 1.2cqw 0.6cqw;
+    height: 100%;
+    background: transparent;
     border: none;
-    border-bottom: 0.14cqw solid rgba(125, 62, 43, 0.35);
-    border-radius: 0.4cqw;
-    background: rgba(255, 252, 246, 0.45);
-    color: #3d221a;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 2.8cqw;
-    font-weight: 500;
     outline: none;
-    transition:
-        border-color 0.3s ease,
-        background 0.3s ease;
-}
-
-.rsvp-input:focus {
-    border-bottom-color: #9f4b31;
-    background: rgba(255, 252, 246, 0.75);
-}
-
-/* Textarea */
-.rsvp-textarea {
-    width: 100%;
-    padding: 1.6cqw 1.8cqw;
-    border: 0.14cqw solid rgba(125, 62, 43, 0.28);
-    border-radius: 0.8cqw;
-    background: rgba(255, 252, 246, 0.5);
-    color: #3d221a;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+    padding: 0 10cqw 0 3.8cqw;
+    color: #613018;
+    font-family: var(--font-cormorant), Georgia, serif;
     font-size: 2.6cqw;
     font-weight: 500;
-    outline: none;
-    resize: none;
-    min-height: 10.5cqw;
-    transition:
-        border-color 0.3s ease,
-        background 0.3s ease;
+    font-style: italic;
 }
 
-.rsvp-textarea:focus {
-    border-color: #9f4b31;
-    background: rgba(255, 252, 246, 0.8);
+.rsvp-input::placeholder {
+    color: #946042;
+    opacity: 0.85;
+    font-style: italic;
 }
 
-/* ── Thin separator between form sections ── */
-.rsvp-field-separator {
-    width: 100%;
-    height: 0.1cqw;
-    margin: 0.8cqw 0 1.6cqw;
-    background: rgba(125, 62, 43, 0.15);
-}
-
-/* ── Attendance row ── */
-.rsvp-attend-row {
+/* ── Attendance Radio Cards (Yes / No) ── */
+.rsvp-radio-row {
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    gap: 1.2cqw;
+    gap: 3.5cqw;
     width: 100%;
-    margin-bottom: 1.4cqw;
 }
 
-.rsvp-attend-label-inline {
-    margin-bottom: 0.4cqw;
-    white-space: normal;
-    line-height: 1.3;
-    text-align: left;
-    flex: 1 1 60%;
-    word-break: break-word;
-    overflow-wrap: break-word;
-}
-
-.rsvp-checkboxes-inline {
-    display: flex;
-    gap: 2.4cqw;
-    flex-shrink: 0;
-    align-items: center;
-}
-
-.rsvp-checkbox-label {
+.rsvp-radio-card {
+    position: relative;
+    flex: 1;
+    aspect-ratio: 310 / 84;
     display: flex;
     align-items: center;
-    gap: 1.2cqw;
+    padding: 0 7cqw 0 3.2cqw;
+    border: none;
+    background: transparent;
     cursor: pointer;
+    outline: none;
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease;
 }
 
-.rsvp-checkbox-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+.rsvp-radio-card:hover {
+    transform: scale(1.02);
+    filter: brightness(1.04);
 }
 
-.rsvp-checkbox-box {
+.rsvp-radio-card:active {
+    transform: scale(0.98);
+}
+
+.rsvp-radio-circle {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 3.2cqw;
     height: 3.2cqw;
-    border: 0.16cqw solid rgba(125, 62, 43, 0.45);
-    border-radius: 0.4cqw;
-    background: rgba(255, 252, 246, 0.55);
-    transition:
-        border-color 0.25s ease,
-        background 0.25s ease;
+    border-radius: 50%;
+    border: 0.2cqw solid #9b5634;
+    background: rgba(255, 252, 246, 0.4);
+    flex-shrink: 0;
+    transition: border-color 0.2s ease;
 }
 
-.rsvp-checkbox-checked {
-    border-color: #91482f;
-    background: rgba(185, 111, 85, 0.15);
+.rsvp-radio-card-active .rsvp-radio-circle {
+    border-color: #713b1c;
 }
 
-.rsvp-checkmark {
-    width: 2.2cqw;
-    height: 2.2cqw;
+.rsvp-radio-dot {
+    width: 1.8cqw;
+    height: 1.8cqw;
+    border-radius: 50%;
+    background: #713b1c;
+    box-shadow: 0 0 4px rgba(113, 59, 28, 0.35);
 }
 
-.rsvp-checkbox-text {
-    color: #5c382c;
+.rsvp-radio-text {
+    position: relative;
+    z-index: 2;
+    margin-left: 2cqw;
+    color: #613018;
+    font-family: var(--font-cormorant), Georgia, serif;
     font-size: 2.7cqw;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.02em;
 }
 
-/* ── Number of guests selector ── */
+/* ── Guests Field ── */
 .rsvp-guests-field {
-    margin-bottom: 1.4cqw;
+    animation: rsvpFadeIn 0.3s ease-out;
 }
 
-.rsvp-guests-selector {
+@keyframes rsvpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Textarea Frame Box ── */
+.rsvp-textarea-frame-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 660 / 163;
+    display: flex;
+    align-items: stretch;
+}
+
+.rsvp-textarea {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 2.4cqw 10cqw 2.4cqw 3.8cqw;
+    color: #613018;
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: 2.3cqw;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.45;
+}
+
+.rsvp-textarea::placeholder {
+    color: #946042;
+    opacity: 0.85;
+    font-style: italic;
+}
+
+/* ── Send Button Container ── */
+.rsvp-btn-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.2cqw;
+    justify-content: center;
     width: 100%;
-    margin-top: 0.4cqw;
+    margin-top: 1.2cqw;
 }
 
-.rsvp-guest-pill {
-    flex: 1;
-    height: 4.8cqw;
+.rsvp-send-button {
+    position: relative;
+    width: 78%;
+    aspect-ratio: 2172 / 724;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
+}
+
+.rsvp-send-button:hover:not(:disabled) {
+    transform: scale(1.025);
+    filter: brightness(1.08) drop-shadow(0 4px 12px rgba(113, 59, 28, 0.25));
+}
+
+.rsvp-send-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.rsvp-send-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.rsvp-send-btn-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
+.rsvp-send-btn-label {
+    position: relative;
+    z-index: 2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    line-height: 1;
-    border: 0.14cqw solid rgba(125, 62, 43, 0.35);
-    border-radius: 9999px;
-    background: rgba(255, 252, 246, 0.5);
-    color: #5c382c;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 2.8cqw;
+    color: #fff6ee;
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: 2.7cqw;
     font-weight: 600;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    text-align: center;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(70, 25, 10, 0.4);
 }
 
-.rsvp-guest-pill:hover {
-    background: rgba(227, 189, 176, 0.35);
-    border-color: #9f4b31;
-}
-
-.rsvp-guest-pill-active {
-    background: linear-gradient(135deg, #c27660, #a6563f);
-    color: #fffdf8;
-    border-color: #a6563f;
-    box-shadow: 0 2px 8px rgba(159, 75, 49, 0.22);
-}
-
-/* ── Send button with leaf flourishes ── */
-.rsvp-btn-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.8cqw;
-    margin-top: 2.4cqw;
+/* ── Error Banner ── */
+.rsvp-error-banner {
     width: 100%;
-}
-
-.rsvp-btn-leaf {
-    width: 7.5cqw;
-    height: auto;
-    opacity: 0.65;
-}
-
-.rsvp-send-btn {
-    padding: 1.3cqw 5cqw;
-    border: none;
-    border-radius: 9999px;
-    background: linear-gradient(135deg, #c27660, #a6563f);
-    color: #fffdf8;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 2.8cqw;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 12px rgba(159, 75, 49, 0.22);
-}
-
-.rsvp-send-btn:hover {
-    background: linear-gradient(135deg, #cf846e, #b35e47);
-    transform: translateY(-1px);
-    box-shadow: 0 5px 16px rgba(159, 75, 49, 0.28);
-}
-
-.rsvp-send-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(159, 75, 49, 0.2);
-}
-
-.rsvp-send-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-}
-
-/* ── Error banner ── */
-.rsvp-error {
-    width: 100%;
-    margin-bottom: 1.8cqw;
-    padding: 1.2cqw 1.6cqw;
-    border: 0.12cqw solid rgba(156, 59, 62, 0.3);
-    border-radius: 0.8cqw;
-    background: rgba(156, 59, 62, 0.08);
-    color: #9c3b3e;
+    padding: 1cqw 1.5cqw;
+    border-radius: 0.6cqw;
+    background: rgba(156, 59, 62, 0.2);
+    border: 0.14cqw solid rgba(255, 230, 230, 0.5);
+    color: #fff5f5;
+    font-family: var(--font-cormorant), Georgia, serif;
     font-size: 2.2cqw;
     font-weight: 600;
     text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* ── Success state ── */
-.rsvp-success {
+/* ── Submission Results State (Directly on BG with whitish color) ── */
+.rsvp-result-wrap {
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 76%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5cqw;
-    padding: 0 4cqw;
+    text-align: center;
+    gap: 3.5cqw;
+    z-index: 3;
+    background: transparent;
+}
+
+.rsvp-result-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: transparent;
+}
+
+.rsvp-declined-message {
+    margin: 0;
+    color: #f8e6d3;
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: 3.2cqw;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.6;
+    letter-spacing: 0.03em;
+    text-shadow: 0 1px 4px rgba(70, 25, 10, 0.35);
 }
 
 .rsvp-success-heading {
     margin: 0;
-    color: #7d3e2b;
-    font-size: 4.5cqw;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    color: #f8e6d3;
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: 3.6cqw;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-shadow: 0 1px 4px rgba(70, 25, 10, 0.35);
 }
 
 .rsvp-success-message {
     margin: 1.8cqw 0 0;
-    color: #5c382c;
-    font-size: 2.7cqw;
-    font-weight: 500;
+    color: #f8e6d3;
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: 2.8cqw;
     font-style: italic;
     line-height: 1.5;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 4px rgba(70, 25, 10, 0.35);
 }
 
-.rsvp-success-reset {
-    margin-top: 2.5cqw;
-    padding: 1.5cqw 5cqw;
-    border: 0.14cqw solid rgba(125, 62, 43, 0.35);
+.rsvp-reset-button {
+    margin-top: 1cqw;
+    padding: 1.4cqw 4.8cqw;
+    border: 0.16cqw solid rgba(248, 230, 211, 0.65);
     border-radius: 9999px;
-    background: transparent;
-    color: #7d3e2b;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 2.4cqw;
+    background: rgba(113, 59, 28, 0.45);
+    color: #f8e6d3;
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: 2.1cqw;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    transition: all 0.25s ease;
 }
 
-.rsvp-success-reset:hover {
-    background: rgba(125, 62, 43, 0.08);
+.rsvp-reset-button:hover {
+    background: rgba(113, 59, 28, 0.75);
+    border-color: #fff;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
-/* Mobile adjustments for RSVP */
-@media (max-width: 480px) {
-    .rsvp-artboard {
-        width: 100%;
-    }
+/* ── Tamil Typography Specs & Frontend Refinements ── */
+.rsvp-ta .rsvp-deadline-line {
+    font-family: var(--font-sans), sans-serif;
+    font-size: 2.2cqw;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
 
-    .rsvp-form {
-        width: 56%;
-        max-width: 56%;
-    }
+.rsvp-ta .rsvp-label {
+    font-family: var(--font-sans), sans-serif;
+    font-size: 1.65cqw;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.rsvp-ta .rsvp-input,
+.rsvp-ta .rsvp-textarea {
+    font-family: var(--font-sans), sans-serif;
+    font-size: 2.0cqw;
+    font-style: normal;
+}
+
+.rsvp-ta .rsvp-input::placeholder,
+.rsvp-ta .rsvp-textarea::placeholder {
+    font-style: normal;
+}
+
+.rsvp-ta .rsvp-radio-text {
+    font-family: var(--font-sans), sans-serif;
+    font-size: 2.4cqw;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.rsvp-ta .rsvp-send-btn-label {
+    font-family: var(--font-sans), sans-serif;
+    font-size: 2.2cqw;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.rsvp-ta .rsvp-declined-message,
+.rsvp-ta .rsvp-success-heading,
+.rsvp-ta .rsvp-success-message,
+.rsvp-ta .rsvp-reset-button,
+.rsvp-ta .rsvp-error-banner {
+    font-family: var(--font-sans), sans-serif;
+    letter-spacing: 0.03em;
+}
+
+.rsvp-ta .rsvp-declined-message {
+    font-size: 2.2cqw;
+    font-style: normal;
 }
 
 /* Accessibility: prefers-reduced-motion */

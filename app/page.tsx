@@ -114,7 +114,7 @@ export default function WeddingInvitationPage() {
                 <WeddingDetails t={t} lang={currentLang} />
 
                 {/* Page 5: Stationery RSVP */}
-                <RSVPForm t={t} />
+                <RSVPForm t={t} lang={currentLang} />
 
                 {/* Footer Admin Link */}
                 <footer className="w-full py-10 px-4 text-center border-t border-[#E3BDB0]/60 bg-[#F5EEE9]/90">
