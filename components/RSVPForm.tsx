@@ -17,13 +17,29 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
 
     const [attendance, setAttendance] = useState<"attending" | "declined" | "">("");
     const [fullName, setFullName] = useState("");
-    const [guestsCount, setGuestsCount] = useState<number>(1);
+    const [guestsCount, setGuestsCount] = useState<string>("1");
     const [message, setMessage] = useState("");
 
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [lastSubmittedAttendance, setLastSubmittedAttendance] = useState<"attending" | "declined" | "">("");
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    const handleIncrementGuests = (e: React.MouseEvent) => {
+        e.preventDefault();
+        const current = parseInt(guestsCount, 10);
+        const next = isNaN(current) ? 1 : Math.min(20, current + 1);
+        setGuestsCount(String(next));
+        if (errorMessage) setErrorMessage(null);
+    };
+
+    const handleDecrementGuests = (e: React.MouseEvent) => {
+        e.preventDefault();
+        const current = parseInt(guestsCount, 10);
+        const next = isNaN(current) ? 1 : Math.max(1, current - 1);
+        setGuestsCount(String(next));
+        if (errorMessage) setErrorMessage(null);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -39,7 +55,8 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
             return;
         }
 
-        if (attendance === "attending" && (!guestsCount || guestsCount < 1)) {
+        const parsedGuests = parseInt(guestsCount, 10);
+        if (attendance === "attending" && (!guestsCount.trim() || isNaN(parsedGuests) || parsedGuests < 1)) {
             setErrorMessage(t.rsvp.validationGuests || "Please enter the number of guests.");
             return;
         }
@@ -53,7 +70,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                 body: JSON.stringify({
                     full_name: fullName.trim(),
                     attendance,
-                    guests_count: attendance === "attending" ? guestsCount : 0,
+                    guests_count: attendance === "attending" ? parsedGuests : 0,
                     message: message.trim() || undefined,
                 }),
             });
@@ -97,7 +114,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
     const handleReset = () => {
         setIsSuccess(false);
         setFullName("");
-        setGuestsCount(1);
+        setGuestsCount("1");
         setMessage("");
         setAttendance("");
         setLastSubmittedAttendance("");
@@ -135,18 +152,19 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
 
                     {/* ── RSVP Text Heading ── */}
                     <div className="rsvp-title-wrap">
-                        <h2 className="rsvp-title-text">{t.rsvp.title}</h2>
+                        <h2 className="rsvp-title-text">
+                            {t.rsvp.title.includes("\n") ? (
+                                t.rsvp.title.split("\n").map((part, idx) => (
+                                    <span key={idx} className="rsvp-title-line">
+                                        {part.trim()}
+                                    </span>
+                                ))
+                            ) : (
+                                t.rsvp.title
+                            )}
+                        </h2>
                     </div>
 
-                    {/* ── Deadline Text Lines ── */}
-                    <div className="rsvp-deadline-wrap">
-                        <p className="rsvp-deadline-line">
-                            {t.rsvp.deadlineLine1 || "KINDLY REPLY BEFORE"}
-                        </p>
-                        <p className="rsvp-deadline-line rsvp-deadline-date">
-                            {t.rsvp.deadlineLine2 || "28 AUGUST 2026"}
-                        </p>
-                    </div>
 
                     {/* ── Middle Diamond Floral Divider ── */}
                     <div className="rsvp-middle-divider-wrap" aria-hidden="true">
@@ -165,10 +183,15 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                     {isSuccess ? (
                         <div className="rsvp-result-wrap">
                             {lastSubmittedAttendance === "declined" ? (
-                                <div className="rsvp-result-content">
-                                    <p className="rsvp-declined-message">
-                                        {t.rsvp.declinedMessage ||
-                                            "Thank you for letting us know. You’ll be dearly missed! Sending love and blessings your way. 🤎"}
+                                <div className="rsvp-result-content rsvp-declined-content">
+                                    <p className="rsvp-declined-line rsvp-declined-line-1">
+                                        {t.rsvp.declinedLine1 || "Thank you for letting us know."}
+                                    </p>
+                                    <p className="rsvp-declined-line rsvp-declined-line-2">
+                                        {t.rsvp.declinedLine2 || "You’ll be dearly missed!"}
+                                    </p>
+                                    <p className="rsvp-declined-line rsvp-declined-line-3">
+                                        {t.rsvp.declinedLine3 || "Sending love and blessings your way."}
                                     </p>
                                 </div>
                             ) : (
@@ -185,9 +208,19 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                             <button
                                 type="button"
                                 onClick={handleReset}
-                                className="rsvp-reset-button"
+                                className="rsvp-send-button rsvp-reset-button"
                             >
-                                {t.rsvp.sendAnother}
+                                <Image
+                                    src={`${RSVP_DIR}/send_button.png`}
+                                    alt=""
+                                    fill
+                                    className="rsvp-send-btn-frame"
+                                    unoptimized
+                                    priority
+                                />
+                                <span className="rsvp-send-btn-label rsvp-reset-btn-label">
+                                    {t.rsvp?.sendAnother || "SUBMIT AGAIN"}
+                                </span>
                             </button>
                         </div>
                     ) : (
@@ -223,9 +256,10 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                         required
                                         placeholder={t.rsvp.namePlaceholder}
                                         value={fullName}
-                                        onChange={(e) =>
-                                            setFullName(e.target.value)
-                                        }
+                                        onChange={(e) => {
+                                            setFullName(e.target.value);
+                                            if (errorMessage) setErrorMessage(null);
+                                        }}
                                         className="rsvp-input"
                                     />
                                 </div>
@@ -242,7 +276,10 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                         type="button"
                                         role="radio"
                                         aria-checked={attendance === "attending"}
-                                        onClick={() => setAttendance("attending")}
+                                        onClick={() => {
+                                            setAttendance("attending");
+                                            if (errorMessage) setErrorMessage(null);
+                                        }}
                                         className={`rsvp-radio-card ${
                                             attendance === "attending"
                                                 ? "rsvp-radio-card-active"
@@ -275,6 +312,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                         onClick={() => {
                                             setAttendance("declined");
                                             setGuestsCount(0);
+                                            if (errorMessage) setErrorMessage(null);
                                         }}
                                         className={`rsvp-radio-card ${
                                             attendance === "declined"
@@ -311,7 +349,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                     >
                                         {t.rsvp.guestsLabel}
                                     </label>
-                                    <div className="rsvp-input-frame-box">
+                                    <div className="rsvp-input-frame-box rsvp-number-input-frame-box">
                                         <Image
                                             src={`${RSVP_DIR}/input_frame.png`}
                                             alt=""
@@ -327,20 +365,57 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                             placeholder={
                                                 t.rsvp.guestsPlaceholder || "1"
                                             }
-                                            value={guestsCount || ""}
+                                            value={guestsCount}
                                             onChange={(e) => {
-                                                const val = parseInt(
-                                                    e.target.value,
-                                                    10,
-                                                );
-                                                setGuestsCount(
-                                                    isNaN(val)
-                                                        ? 1
-                                                        : Math.max(1, Math.min(20, val)),
-                                                );
+                                                const val = e.target.value;
+                                                if (val === "") {
+                                                    setGuestsCount("");
+                                                    if (errorMessage) setErrorMessage(null);
+                                                    return;
+                                                }
+                                                const cleaned = val.replace(/[^0-9]/g, "");
+                                                if (cleaned === "") {
+                                                    setGuestsCount("");
+                                                } else {
+                                                    const num = parseInt(cleaned, 10);
+                                                    setGuestsCount(String(Math.min(20, Math.max(1, num))));
+                                                }
+                                                if (errorMessage) setErrorMessage(null);
                                             }}
-                                            className="rsvp-input"
+                                            className="rsvp-input rsvp-guests-input"
                                         />
+                                        <div className="rsvp-stepper-arrows">
+                                            <button
+                                                type="button"
+                                                className="rsvp-stepper-btn rsvp-stepper-up"
+                                                onClick={handleIncrementGuests}
+                                                aria-label="Increase guests"
+                                                tabIndex={-1}
+                                            >
+                                                <svg
+                                                    viewBox="0 0 10 6"
+                                                    className="rsvp-stepper-icon"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path d="M5 0.5L9.5 5.5H0.5L5 0.5Z" fill="currentColor" />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="rsvp-stepper-btn rsvp-stepper-down"
+                                                onClick={handleDecrementGuests}
+                                                aria-label="Decrease guests"
+                                                tabIndex={-1}
+                                            >
+                                                <svg
+                                                    viewBox="0 0 10 6"
+                                                    className="rsvp-stepper-icon"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path d="M5 5.5L0.5 0.5H9.5L5 5.5Z" fill="currentColor" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             )}
@@ -393,7 +468,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                     <span className="rsvp-send-btn-label">
                                         {isLoading
                                             ? t.rsvp.submittingButton
-                                            : `${t.rsvp.submitButton} >`}
+                                            : `${t.rsvp.submitButton}`}
                                     </span>
                                 </button>
                             </div>

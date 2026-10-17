@@ -1388,7 +1388,7 @@ main.hero-emerging > #hero-section {
 /* ── RSVP Heading Text ── */
 .rsvp-title-wrap {
     position: absolute;
-    top: 24.5%;
+    top: 30.2%;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
@@ -1397,60 +1397,33 @@ main.hero-emerging > #hero-section {
     justify-content: center;
     pointer-events: none;
     user-select: none;
+    z-index: 2;
 }
 
 .rsvp-title-text {
     margin: 0;
     padding: 0;
     color: #f8e6d3;
-    font-family: var(--font-pinyon), "Pinyon Script", var(--font-cormorant), cursive;
-    font-size: 16.5cqw;
-    font-weight: 400;
+    font-family: "Libre Caslon Condensed", serif;
+    /* font-family: var(--font-cormorant), Georgia, serif; */
+    font-optical-sizing: auto;
+    font-weight: 500;
     font-style: italic;
+    font-size: 16.5cqw;
     line-height: 1;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.13em;
+    /* letter-spacing: 0.04em; */
     text-shadow: 0 2px 12px rgba(70, 25, 10, 0.35);
 }
 
-/* ── Deadline Text Lines ── */
-.rsvp-deadline-wrap {
-    position: absolute;
-    top: 40.8%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.35cqw;
-    pointer-events: none;
-    user-select: none;
-}
-
-.rsvp-deadline-line {
-    margin: 0;
-    color: #f8e6d3;
-    font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 2.7cqw;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    line-height: 1.35;
-    text-transform: uppercase;
-}
-
-.rsvp-deadline-date {
-    letter-spacing: 0.22em;
-    font-weight: 500;
-}
 
 /* ── Middle Diamond Floral Divider ── */
 .rsvp-middle-divider-wrap {
     position: absolute;
-    top: 46.5%;
+    top: 38.0%;
     left: 50%;
     transform: translateX(-50%);
-    width: 61.5%;
+    width: 65.5%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1461,14 +1434,14 @@ main.hero-emerging > #hero-section {
 /* ── Interactive RSVP Form ── */
 .rsvp-form {
     position: absolute;
-    top: 49.0%;
+    top: 48.0%;
     left: 50%;
     transform: translateX(-50%);
-    width: 69.2%;
+    width: 70.2%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 1.6cqw;
+    gap: 1.9cqw;
 }
 
 .rsvp-field {
@@ -1481,15 +1454,15 @@ main.hero-emerging > #hero-section {
 
 .rsvp-label {
     display: block;
-    margin-bottom: 0.8cqw;
+    margin-bottom: 1.0cqw;
     padding-left: 0.4cqw;
     color: #f8e6d3;
     font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 1.8cqw;
+    font-size: 2.2cqw;
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    line-height: 1.2;
+    line-height: 1.6;
 }
 
 /* ── Single-line Input Frame Box ── */
@@ -1523,9 +1496,10 @@ main.hero-emerging > #hero-section {
     padding: 0 10cqw 0 3.8cqw;
     color: #613018;
     font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 2.6cqw;
-    font-weight: 500;
+    font-size: 3.5cqw;
+    font-weight: 600;
     font-style: italic;
+    letter-spacing: 0.04em;
 }
 
 .rsvp-input::placeholder {
@@ -1601,14 +1575,78 @@ main.hero-emerging > #hero-section {
     margin-left: 2cqw;
     color: #613018;
     font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 2.7cqw;
-    font-weight: 500;
+    font-size: 3.6cqw;
+    font-weight: 600;
     letter-spacing: 0.02em;
 }
 
 /* ── Guests Field ── */
 .rsvp-guests-field {
     animation: rsvpFadeIn 0.3s ease-out;
+}
+
+/* ── Custom Stepper Arrows & Input Styling ── */
+.rsvp-guests-input::-webkit-inner-spin-button,
+.rsvp-guests-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.rsvp-guests-input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+    padding-right: 9cqw;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 2.6cqw;
+}
+
+.rsvp-stepper-arrows {
+    position: absolute;
+    right: 6.8cqw;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15cqw;
+    pointer-events: auto;
+}
+
+.rsvp-stepper-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.35cqw 0.7cqw;
+    color: #713b1c; /* Theme warm bronze/terracotta color */
+    line-height: 1;
+    transition: color 0.15s ease, transform 0.15s ease;
+    user-select: none;
+}
+
+.rsvp-stepper-btn:hover {
+    color: #3d1b06;
+    transform: scale(1.18);
+}
+
+.rsvp-stepper-btn:active {
+    transform: scale(0.92);
+}
+
+.rsvp-stepper-icon {
+    width: 2.2cqw;
+    height: 1.3cqw;
+    min-width: 17px;
+    min-height: 6px;
+    max-width: 14px;
+    max-height: 9px;
+    fill: currentColor;
+    display: block;
 }
 
 @keyframes rsvpFadeIn {
@@ -1643,8 +1681,9 @@ main.hero-emerging > #hero-section {
     padding: 2.4cqw 10cqw 2.4cqw 3.8cqw;
     color: #613018;
     font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 2.3cqw;
-    font-weight: 500;
+    font-size: 3.2cqw;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     font-style: italic;
     line-height: 1.45;
 }
@@ -1661,7 +1700,7 @@ main.hero-emerging > #hero-section {
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-top: 1.2cqw;
+    margin-top: 0.5cqw;
 }
 
 .rsvp-send-button {
@@ -1708,15 +1747,15 @@ main.hero-emerging > #hero-section {
 
 .rsvp-send-btn-label {
     position: relative;
-    z-index: 2;
+    z-index: 10;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: #fff6ee;
     font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 2.7cqw;
+    font-size: 3.6cqw;
     font-weight: 600;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     text-shadow: 0 1px 3px rgba(70, 25, 10, 0.4);
 }
@@ -1739,15 +1778,15 @@ main.hero-emerging > #hero-section {
 /* ── Submission Results State (Directly on BG with whitish color) ── */
 .rsvp-result-wrap {
     position: absolute;
-    top: 54%;
+    top: 52%;
     left: 50%;
     transform: translateX(-50%);
-    width: 76%;
+    width: 78%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 3.5cqw;
+    gap: 3.2cqw;
     z-index: 3;
     background: transparent;
 }
@@ -1760,11 +1799,46 @@ main.hero-emerging > #hero-section {
     background: transparent;
 }
 
+.rsvp-declined-content {
+    gap: 1.2cqw;
+}
+
+.rsvp-declined-line {
+    margin: 0;
+    color: #f8e6d3;
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: 3.8cqw;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    text-shadow: 0 1px 4px rgba(70, 25, 10, 0.35);
+    white-space: nowrap;
+}
+
+.rsvp-declined-line-1 {
+    font-size: 5.4cqw;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.3cqw;
+}
+
+.rsvp-declined-line-2 {
+    font-size: 5.4cqw;
+    font-weight: 500;
+    margin-bottom: 1cqw;
+}
+
+.rsvp-declined-line-3 {
+    font-size: 4.5cqw;
+    font-weight: 500;
+}
+
 .rsvp-declined-message {
     margin: 0;
     color: #f8e6d3;
     font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 3.2cqw;
+    font-size: 4.5cqw;
     font-weight: 500;
     font-style: italic;
     line-height: 1.6;
@@ -1776,9 +1850,10 @@ main.hero-emerging > #hero-section {
     margin: 0;
     color: #f8e6d3;
     font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 3.6cqw;
+    font-size: 5.5cqw;
+    font-style: italic;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     text-shadow: 0 1px 4px rgba(70, 25, 10, 0.35);
 }
 
@@ -1786,7 +1861,7 @@ main.hero-emerging > #hero-section {
     margin: 1.8cqw 0 0;
     color: #f8e6d3;
     font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 2.8cqw;
+    font-size: 5.0cqw;
     font-style: italic;
     line-height: 1.5;
     letter-spacing: 0.04em;
@@ -1794,37 +1869,18 @@ main.hero-emerging > #hero-section {
 }
 
 .rsvp-reset-button {
-    margin-top: 1cqw;
-    padding: 1.4cqw 4.8cqw;
-    border: 0.16cqw solid rgba(248, 230, 211, 0.65);
-    border-radius: 9999px;
-    background: rgba(113, 59, 28, 0.45);
-    color: #f8e6d3;
-    font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 2.1cqw;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    cursor: pointer;
-    backdrop-filter: blur(4px);
-    transition: all 0.25s ease;
+    width: 90%;
+    margin-top: 1.5cqw;
 }
 
-.rsvp-reset-button:hover {
-    background: rgba(113, 59, 28, 0.75);
-    border-color: #fff;
-    color: #fff;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+.rsvp-reset-btn-label {
+    font-size: 3.2cqw;
+    letter-spacing: 0.14em;
+    padding: 0 3cqw;
+    white-space: nowrap;
 }
 
 /* ── Tamil Typography Specs & Frontend Refinements ── */
-.rsvp-ta .rsvp-deadline-line {
-    font-family: var(--font-sans), sans-serif;
-    font-size: 2.2cqw;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-}
 
 .rsvp-ta .rsvp-label {
     font-family: var(--font-sans), sans-serif;
@@ -1833,44 +1889,135 @@ main.hero-emerging > #hero-section {
     letter-spacing: 0.03em;
 }
 
-.rsvp-ta .rsvp-input,
-.rsvp-ta .rsvp-textarea {
-    font-family: var(--font-sans), sans-serif;
-    font-size: 2.0cqw;
-    font-style: normal;
-}
-
 .rsvp-ta .rsvp-input::placeholder,
 .rsvp-ta .rsvp-textarea::placeholder {
+    font-family: var(--font-sans), sans-serif;
+    font-size: 2.2cqw;
     font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.02em;
 }
+
 
 .rsvp-ta .rsvp-radio-text {
     font-family: var(--font-sans), sans-serif;
-    font-size: 2.4cqw;
+    font-size: 2.5cqw;
     font-weight: 600;
     letter-spacing: 0.02em;
 }
 
 .rsvp-ta .rsvp-send-btn-label {
     font-family: var(--font-sans), sans-serif;
-    font-size: 2.2cqw;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-size: 2.9cqw;
+    font-weight: 600;
+    letter-spacing: 0.15em;
 }
 
-.rsvp-ta .rsvp-declined-message,
-.rsvp-ta .rsvp-success-heading,
-.rsvp-ta .rsvp-success-message,
-.rsvp-ta .rsvp-reset-button,
-.rsvp-ta .rsvp-error-banner {
-    font-family: var(--font-sans), sans-serif;
-    letter-spacing: 0.03em;
+/* ── Tamil RSVP Title (Divided into 2 lines) ── */
+.rsvp-ta .rsvp-title-wrap {
+    top: 30%;
+    width: 86%;
+}
+
+.rsvp-ta .rsvp-title-text {
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    font-size: clamp(1.5rem, 5.2cqw, 2.1rem);
+    font-weight: 700;
+    font-style: normal;
+    line-height: 1.40;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 10px rgba(70, 25, 10, 0.45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6cqw;
+    white-space: pre-line;
+}
+
+.rsvp-ta .rsvp-title-line {
+    display: block;
+    white-space: nowrap;
+}
+
+/* ── Tamil RSVP Results Wrap ── */
+.rsvp-ta .rsvp-result-wrap {
+    width: 84%;
+    top: 50.5%;
+    gap: 2.8cqw;
+}
+
+/* ── Tamil RSVP Success Message ── */
+.rsvp-ta .rsvp-success-heading {
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    font-size: clamp(1.0rem,4.4cqw,1.7rem);
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    line-height: 1.8;
+    color: #f8e6d3;
+    text-shadow: 0 1px 4px rgba(70, 25, 10, 0.35);
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+
+/* ── Tamil RSVP Decline Message (3 separate responsive lines) ── */
+.rsvp-ta .rsvp-declined-content {
+    gap: 1.0cqw;
+    width: 100%;
+}
+
+.rsvp-ta .rsvp-declined-line {
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    color: #f8e6d3;
+    text-shadow: 0 1px 4px rgba(70, 25, 10, 0.35);
+    white-space: nowrap;
+}
+
+.rsvp-ta .rsvp-declined-line-1 {
+    font-size: clamp(1.0rem, 4.4cqw, 1.7rem);
+    font-weight: 500;
+    margin-bottom: 0.5cqw;
+}
+
+.rsvp-ta .rsvp-declined-line-2 {
+    font-size: clamp(1.0rem, 3.2cqw, 1.25rem);
+    font-weight: 500;
+    margin-bottom: 0.5cqw;
+}
+
+.rsvp-ta .rsvp-declined-line-3 {
+    font-size: clamp(1.0rem, 3.1cqw, 1.2rem);
+    font-weight: 500;
 }
 
 .rsvp-ta .rsvp-declined-message {
-    font-size: 2.2cqw;
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    font-size: clamp(0.82rem, 3.2cqw, 1.25rem);
     font-style: normal;
+    line-height: 1.6;
+}
+
+/* ── Tamil RSVP Reset Button & Error ── */
+.rsvp-ta .rsvp-reset-button {
+    width: 90%;
+    margin-top: 1.2cqw;
+}
+
+.rsvp-ta .rsvp-reset-btn-label {
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    font-size: clamp(0.7rem, 2.3cqw, 1.0rem);
+    letter-spacing: 0.04em;
+    font-weight: 600;
+}
+
+.rsvp-ta .rsvp-error-banner {
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.03em;
 }
 
 /* Accessibility: prefers-reduced-motion */
@@ -1938,10 +2085,6 @@ main.hero-emerging > #hero-section {
     letter-spacing: 0.06em !important;
 }
 
-.lang-ta .rsvp-deadline {
-    font-size: 2.3cqw;
-    max-width: 70%;
-}
 
 .lang-ta .rsvp-label {
     font-size: 2.5cqw;

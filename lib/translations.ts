@@ -65,9 +65,6 @@ export interface TranslationContent {
     };
     rsvp: {
         title: string;
-        deadline: string;
-        deadlineLine1?: string;
-        deadlineLine2?: string;
         attendingQuestion: string;
         yesOption: string;
         noOption: string;
@@ -87,6 +84,9 @@ export interface TranslationContent {
         successMessage: string;
         declinedHeading?: string;
         declinedMessage?: string;
+        declinedLine1?: string;
+        declinedLine2?: string;
+        declinedLine3?: string;
         errorMessage: string;
         validationName: string;
         validationEmail: string;
@@ -172,9 +172,6 @@ export const translations: Record<Language, TranslationContent> = {
         },
         rsvp: {
             title: "RSVP",
-            deadline: "Kindly reply before 28 August 2026.",
-            deadlineLine1: "KINDLY REPLY BEFORE",
-            deadlineLine2: "28 AUGUST 2026",
             attendingQuestion: "WILL YOU ATTEND?",
             yesOption: "Yes",
             noOption: "No",
@@ -193,14 +190,17 @@ export const translations: Record<Language, TranslationContent> = {
             successHeading: "Thank you for celebrating with us.",
             successMessage: "We can't wait to see you!",
             declinedHeading: "Thank you for letting us know.",
+            declinedLine1: "Thank you for letting us know.",
+            declinedLine2: "You’ll be dearly missed!",
+            declinedLine3: "Sending love and blessings your way.",
             declinedMessage:
-                "Thank you for letting us know. You’ll be dearly missed! Sending love and blessings your way. 🤎",
+                "Thank you for letting us know. You’ll be dearly missed! Sending love and blessings your way.",
             errorMessage: "Something went wrong. Please try again.",
             validationName: "Please enter your full name.",
             validationEmail: "Please provide a valid email address.",
             validationAttendance: "Please indicate whether you will attend.",
             validationGuests: "Please enter the number of guests.",
-            sendAnother: "Submit another response",
+            sendAnother: "Submit Again",
         },
         final: {
             names: "Irene & Franklin",
@@ -279,15 +279,12 @@ export const translations: Record<Language, TranslationContent> = {
             closing: "தங்களை அன்புடன் \n வரவேற்க ஆவலுடன் \n காத்திருக்கிறோம்!",
         },
         rsvp: {
-            title: "RSVP",
-            deadline: "28 ஆகஸ்ட் 2026-க்குள் தங்களின் வருகையைத் தெரிவிக்கவும்.",
-            deadlineLine1: "வருகையைத் தெரிவிக்கவும்",
-            deadlineLine2: "28 ஆகஸ்ட் 2026-க்குள்",
-            attendingQuestion: "தாங்கள் கலந்துகொள்வீர்களா?",
+            title: "வருகை\nஉறுதிப்படுத்தல்",
+            attendingQuestion: "வருவீர்களா?",
             yesOption: "ஆம்",
             noOption: "இல்லை",
             nameLabel: "முழுப் பெயர்",
-            namePlaceholder: "தங்களின் முழுப் பெயர்",
+            namePlaceholder: "உங்கள் முழுப் பெயர்",
             guestsLabel: "விருந்தினர்களின் எண்ணிக்கை",
             guestsPlaceholder: "1",
             emailLabel: "மின்னஞ்சல் முகவரி",
@@ -295,16 +292,19 @@ export const translations: Record<Language, TranslationContent> = {
             dietaryLabel: "உணவு ஒவ்வாமைகள் அல்லது சிறப்பு உணவுத் தேவைகள்",
             dietaryPlaceholder:
                 "எ.கா. சைவம், குளூட்டன் இல்லாத உணவு, பருப்பு வகை ஒவ்வாமை",
-            messageLabel: "மணமக்களுக்கு வாழ்த்து",
-            messagePlaceholder: "வாழ்த்துச் செய்தியைப் பகிருங்கள்...",
-            submitButton: "அனுப்புக",
+            messageLabel: "மணமக்களுக்கு செய்தி",
+            messagePlaceholder: "உங்கள் வாழ்த்துகளைப் பகிருங்கள்...",
+            submitButton: "அனுப்பவும்",
             submittingButton: "அனுப்பப்படுகிறது...",
             successHeading:
-                "எங்களுடன் இணைந்து இவ்விழாவை சிறப்பித்தமைக்கு நன்றி.",
-            successMessage: "தங்களை அன்புடன் வரவேற்க ஆவலுடன் காத்திருக்கிறோம்!",
-            declinedHeading: "தெரிவித்தமைக்கு நன்றி.",
+                "உங்கள் வருகையை அன்புடன் எதிர்நோக்கிக் காத்திருக்கிறோம்!",
+            successMessage: "",
+            declinedHeading: "தங்களின் அன்பான",
+            declinedLine1: "தங்களின் அன்பான",
+            declinedLine2: "வாழ்த்துகளுடன் எங்களை",
+            declinedLine3: "நினைவுகூருங்கள்.",
             declinedMessage:
-                "தெரிவித்தமைக்கு நன்றி. தங்களின் வருகையை நாங்கள் மிகவும் தவறவிடுவோம்! எங்களின் அன்பும் ஆசிகளும் என்றும் உங்களுடன். 🤎",
+                "தங்களின் அன்பான வாழ்த்துகளுடன் எங்களை நினைவுகூருங்கள்.",
             errorMessage:
                 "ஏதோ ஒரு பிழை ஏற்பட்டுள்ளது. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.",
             validationName: "தங்களின் முழுப் பெயரை உள்ளிடவும்.",
@@ -312,7 +312,7 @@ export const translations: Record<Language, TranslationContent> = {
             validationAttendance:
                 "தாங்கள் கலந்துகொள்வீர்களா என்பதைத் தெரிவிக்கவும்.",
             validationGuests: "விருந்தினர்களின் எண்ணிக்கையை உள்ளிடவும்.",
-            sendAnother: "மற்றொரு பதிலைச் சமர்ப்பிக்கவும்",
+            sendAnother: "மீண்டும் தெரிவிக்க",
         },
         final: {
             names: "Irene & Franklin",
