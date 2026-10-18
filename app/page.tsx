@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Language, translations } from "@/lib/translations";
 import { InvitationIntro } from "@/components/InvitationIntro";
@@ -13,7 +13,7 @@ import { Section3 } from "@/components/Section3";
 import { WeddingDetails } from "@/components/WeddingDetails";
 import { RSVPForm } from "@/components/RSVPForm";
 
-export default function WeddingInvitationPage() {
+function WeddingInvitationContent() {
     const [currentLang, setCurrentLang] = useState<Language>("EN");
     const [isUnlocked, setIsUnlocked] = useState(false);
     const [isHeroEmerging, setIsHeroEmerging] = useState(false);
@@ -130,5 +130,13 @@ export default function WeddingInvitationPage() {
                 </footer>
             </main>
         </div>
+    );
+}
+
+export default function WeddingInvitationPage() {
+    return (
+        <Suspense fallback={null}>
+            <WeddingInvitationContent />
+        </Suspense>
     );
 }
