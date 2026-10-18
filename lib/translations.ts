@@ -139,9 +139,9 @@ export const translations: Record<Language, TranslationContent> = {
         },
         venue: {
             title: "Venue",
-            subtitle: "WHERE WE CELEBRATE",
+            subtitle: "Join us as we begin our forever!",
             churchName: "C.S.I. St. Paul's Church",
-            location: "KeelKatalai, Chennai",
+            location: "KeelKantalai, Chennai",
             date: "November 16, 2026",
             weddingLabel: "WEDDING",
             weddingTime: "10:30 AM",
@@ -194,9 +194,8 @@ export const translations: Record<Language, TranslationContent> = {
             declinedHeading: "Thank you for letting us know.",
             declinedLine1: "Thank you for letting us know.",
             declinedLine2: "You’ll be dearly missed!",
-            declinedLine3: "Sending love and blessings your way.",
             declinedMessage:
-                "Thank you for letting us know. You’ll be dearly missed! Sending love and blessings your way.",
+                "Thank you for letting us know. You’ll be dearly missed!",
             errorMessage: "Something went wrong. Please try again.",
             validationName: "Please enter your full name.",
             validationEmail: "Please provide a valid email address.",

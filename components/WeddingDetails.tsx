@@ -7,9 +7,9 @@ import { TranslationContent, Language } from "@/lib/translations";
 
 const VENUE = "/images/venue";
 const VIDEO_WEBM =
-    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792347971/Fairytale_wedding_video_opening_20261018032819.webm";
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792359071/img.webm";
 const VIDEO_MP4 =
-    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792354785/church.mp4";
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792358647/IMG_9929_1.mov";
 
 interface WeddingDetailsProps {
     t: TranslationContent;
@@ -119,7 +119,7 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
                 <div className={`venue-card ${isTamil ? "venue-card-ta" : ""}`}>
                     {/* Card frame image */}
                     <Image
-                        src={`${VENUE}/card.png`}
+                        src={`${VENUE}/venue_bg.png`}
                         alt=""
                         fill
                         sizes="(max-width: 620px) 88vw, 520px"

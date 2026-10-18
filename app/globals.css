@@ -820,10 +820,10 @@ html[lang="ta"].section3-weekday {
     left: 51%;
     transform: translateX(-50%);
     margin: 0;
-    color: #713b1c;
+    color: #6b2f1b;
     font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
-    font-size: 7.2cqw;
-    font-weight: 500;
+    font-size: 7.5cqw;
+    font-weight: 700;
     letter-spacing: 0.23em;
     text-transform: uppercase;
     white-space: nowrap;
@@ -859,7 +859,7 @@ html[lang="ta"].section3-weekday {
     color: #713b1c;
     font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
     font-size: 7cqw;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     white-space: nowrap;
@@ -962,7 +962,7 @@ html[lang="ta"] .countdown-card .countdown-title {
 
 .countdown-card-ta .countdown-date,
 html[lang="ta"] .countdown-card .countdown-date {
-    top: 36%;
+    top: 35%;
     font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
     font-size: 7.4cqw;
     letter-spacing: 0.03em;
@@ -971,9 +971,9 @@ html[lang="ta"] .countdown-card .countdown-date {
 
 .countdown-card-ta .countdown-weekday,
 html[lang="ta"] .countdown-card .countdown-weekday {
-    top: 43.5%;
+    top: 43.6%;
     font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
-    font-size: 6cqw;
+    font-size: 5.2cqw;
     letter-spacing: 0.03em;
     font-weight: 550;
 }
@@ -981,11 +981,11 @@ html[lang="ta"] .countdown-card .countdown-weekday {
 .countdown-card-ta .countdown-labels,
 html[lang="ta"] .countdown-card .countdown-labels {
     top: 61.5%;
-    width: 60%;
+    width: 65%;
     font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
-    font-size: 1.45cqw;
+    font-size: 1.8cqw;
     letter-spacing: 0;
-    font-weight: 650;
+    font-weight: 700;
 }
 
 .countdown-card-ta .countdown-closing,
@@ -1180,7 +1180,7 @@ main.hero-emerging > #hero-section {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
     -webkit-font-smoothing: antialiased;
     opacity: 0;
     transform: translate3d(0, 8px, 0);
@@ -1202,7 +1202,7 @@ main.hero-emerging > #hero-section {
     margin: 0;
     padding-top: 31%;
     color: #923e16;
-    font-family: var(--font-great-vibes), "Great Vibes", cursive;
+    font-family: var(--font-cara), "Cormorant Garamond", Georgia, serif;
     font-size: 21cqw;
     font-weight: 400;
     line-height: 0.85;
@@ -1212,11 +1212,11 @@ main.hero-emerging > #hero-section {
 /* ── "WHERE WE CELEBRATE" ── */
 .venue-subtitle {
     margin: 1.8cqw 0 0;
-    color: #4a2818;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 2.7cqw;
+    color: #713b1c;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 2.8cqw;
     font-weight: 600;
-    letter-spacing: 0.36em;
+    letter-spacing: 0.20em;
     text-transform: uppercase;
 }
 
@@ -1247,10 +1247,10 @@ main.hero-emerging > #hero-section {
 /* ── Church name ── */
 .venue-church-name {
     margin: 0;
-    color: #3b1b12;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 6.6cqw;
-    font-weight: 700;
+    color: #6b2f1b;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 6.4cqw;
+    font-weight: 600;
     line-height: 1.15;
     letter-spacing: 0.01em;
 }
@@ -1258,11 +1258,11 @@ main.hero-emerging > #hero-section {
 /* ── Location line ── */
 .venue-location {
     margin: 0.6cqw 0 0;
-    color: #552f20;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 4.2cqw;
-    font-weight: 600;
-    font-style: italic;
+    color: #6b2f1b;;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 4.1cqw;
+    font-weight: 500;
+   font-style: italic;
     letter-spacing: 0.01em;
 }
 
@@ -1270,9 +1270,9 @@ main.hero-emerging > #hero-section {
 .venue-wedding-date {
     margin: 0 0 2cqw;
     color: #7a3a20;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 3.5cqw;
-    font-weight: 700;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 3.3cqw;
+    font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     text-align: center;
@@ -1283,8 +1283,9 @@ main.hero-emerging > #hero-section {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    width: 82%;
+    width: 74%;
     margin: 0 auto;
+
 }
 
 .venue-event {
@@ -1292,18 +1293,18 @@ main.hero-emerging > #hero-section {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 0 1cqw;
+    padding: 0 2.1cqw;
 }
 
 /* ── Event label (WEDDING / RECEPTION) ── */
 .venue-event-label {
-    margin: 0 0 1.2cqw;
+    margin: 0 0 1.9cqw;
     color: #843c1d;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 2.6cqw;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 3.4cqw;
     font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: 0.32em;
+    line-height: 1.5;
+    letter-spacing: 0.20em;
     text-transform: uppercase;
     text-align: center;
 }
@@ -1313,7 +1314,7 @@ main.hero-emerging > #hero-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.4cqw;
+    gap: 1.6cqw;
 }
 
 .venue-cal-icon {
@@ -1325,13 +1326,12 @@ main.hero-emerging > #hero-section {
 }
 
 .venue-time-text {
-    color: #552719;
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+    color: #6b2f1b;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
     font-size: 2.7cqw;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     white-space: nowrap;
-    text-transform: uppercase;
 }
 
 /* ── Central divider matching reference image (top line, middle diamond, bottom line) ── */
@@ -1339,12 +1339,12 @@ main.hero-emerging > #hero-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 1.2cqw;
+    padding: 1.6cqw 0;
     align-self: stretch;
 }
 
 .venue-events-divider-svg {
-    width: 2.2cqw;
+    width: 4.2cqw;
     height: 10.5cqw;
     color: #a05530;
     display: block;
@@ -1356,9 +1356,9 @@ main.hero-emerging > #hero-section {
     align-items: center;
     justify-content: center;
     gap: 1.6cqw;
-    margin-top: 3.6cqw;
+    margin-top: 5cqw;
     padding: 1.8cqw 5.6cqw;
-    background: #eab492;
+    background: #c38a66;
     border: 0.18cqw solid #bd6e45;
     border-radius: 9999px;
     box-shadow: 0 2px 8px rgba(189, 110, 69, 0.2);
@@ -1386,12 +1386,12 @@ main.hero-emerging > #hero-section {
 }
 
 .venue-maps-label {
-    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 2.7cqw;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 3cqw;
     font-weight: 600;
-    letter-spacing: 0.32em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: #6e1c0a;
+    color: #711200;
 }
 
 /* ── Tamil overrides for venue card ── */
@@ -1542,14 +1542,12 @@ main.hero-emerging > #hero-section {
     padding: 0;
     color: #f8e6d3;
     font-family: "Libre Caslon Condensed", serif;
-    /* font-family: var(--font-cormorant), Georgia, serif; */
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: italic;
     font-size: 16.5cqw;
     line-height: 1;
     letter-spacing: 0.13em;
-    /* letter-spacing: 0.04em; */
     text-shadow: 0 2px 12px rgba(70, 25, 10, 0.35);
 }
 
@@ -1593,7 +1591,7 @@ main.hero-emerging > #hero-section {
     margin-bottom: 1cqw;
     padding-left: 0.4cqw;
     color: #f8e6d3;
-    font-family: var(--font-cormorant), Georgia, serif;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
     font-size: 2.2cqw;
     font-weight: 600;
     letter-spacing: 0.22em;
@@ -1711,8 +1709,8 @@ main.hero-emerging > #hero-section {
     margin-left: 2cqw;
     color: #613018;
     font-family: var(--font-cormorant), Georgia, serif;
-    font-size: 3.6cqw;
-    font-weight: 600;
+    font-size: 3.8cqw;
+    font-weight: 700;
     letter-spacing: 0.02em;
 }
 
@@ -2025,7 +2023,7 @@ main.hero-emerging > #hero-section {
     font-size: 5.4cqw;
     font-weight: 600;
     letter-spacing: 0.04em;
-    margin-bottom: 0.3cqw;
+    margin-bottom: 0.4cqw;
 }
 
 .rsvp-declined-line-2 {
@@ -2034,13 +2032,9 @@ main.hero-emerging > #hero-section {
     margin-bottom: 1cqw;
 }
 
-.rsvp-declined-line-3 {
-    font-size: 4.5cqw;
-    font-weight: 500;
-}
 
 .rsvp-declined-message {
-    margin: 0;
+    margin : 0;
     color: #f8e6d3;
     font-family: var(--font-cormorant), Georgia, serif;
     font-size: 4.5cqw;
@@ -2049,6 +2043,7 @@ main.hero-emerging > #hero-section {
     line-height: 1.6;
     letter-spacing: 0.03em;
     text-shadow: 0 1px 4px rgba(70, 25, 10, 0.35);
+    
 }
 
 .rsvp-success-heading {

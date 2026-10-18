@@ -135,7 +135,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
             <div className={`rsvp-artboard ${isTamil ? "rsvp-ta" : ""}`}>
                 {/* 1. Botanical Framed Background */}
                 <Image
-                    src={`${RSVP_DIR}/rsvp_bg.png`}
+                    src={`${RSVP_DIR}/rsvp_bg2.png`}
                     alt="RSVP Background"
                     fill
                     sizes="(max-width: 620px) 100vw, 620px"
@@ -204,10 +204,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                         {t.rsvp.declinedLine2 ||
                                             "You’ll be dearly missed!"}
                                     </p>
-                                    <p className="rsvp-declined-line rsvp-declined-line-3">
-                                        {t.rsvp.declinedLine3 ||
-                                            "Sending love and blessings your way."}
-                                    </p>
+                            
                                 </div>
                             ) : (
                                 <div className="rsvp-result-content">
