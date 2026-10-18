@@ -35,6 +35,7 @@ export interface TranslationContent {
         subtitle: string;
         churchName: string;
         location: string;
+        date: string;
         weddingLabel: string;
         weddingTime: string;
         receptionLabel: string;
@@ -140,9 +141,10 @@ export const translations: Record<Language, TranslationContent> = {
             title: "Venue",
             subtitle: "WHERE WE CELEBRATE",
             churchName: "C.S.I. St. Paul's Church",
-            location: "Keelkatalai, Tamil Nadu",
+            location: "KeelKatalai, Chennai",
+            date: "November 16, 2026",
             weddingLabel: "WEDDING",
-            weddingTime: "10:00 AM",
+            weddingTime: "10:30 AM",
             receptionLabel: "RECEPTION",
             receptionTime: "1:00 PM ONWARDS",
             openInMaps: "OPEN IN MAPS",
@@ -248,11 +250,12 @@ export const translations: Record<Language, TranslationContent> = {
             title: "திருமண இடம்",
             subtitle: "எங்கள் திருமண இடம்",
             churchName: "C.S.I. செயிண்ட் பால்ஸ் ஆலயம்",
-            location: "கீழ்கட்டளை, தமிழ்நாடு",
+            location: "கீழ்கட்டளை, சென்னை",
+            date: "16 நவம்பர் 2026",
             weddingLabel: "திருமணம்",
-            weddingTime: "காலை 10:00 மணி",
+            weddingTime: "காலை 10:30 மணி",
             receptionLabel: "வரவேற்பு",
-            receptionTime: "மதியம் 1:00 மணி",
+            receptionTime: "மதியம் 1:00 மணி முதல்",
             openInMaps: "வரைபடத்தில் காண்க",
         },
         welcome: {

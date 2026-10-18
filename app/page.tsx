@@ -116,19 +116,11 @@ export default function WeddingInvitationPage() {
                 {/* Page 5: Stationery RSVP */}
                 <RSVPForm t={t} lang={currentLang} />
 
-                {/* Footer Admin Link */}
+                {/* Footer */}
                 <footer className="w-full py-10 px-4 text-center border-t border-[#E3BDB0]/60 bg-[#F5EEE9]/90">
                     <p className="font-serif italic text-sm text-[#9F4B31]">
                         {t.footer.namesAndLocation}
                     </p>
-                    <div className="mt-2.5">
-                        <a
-                            href="/admin/rsvps"
-                            className="text-[10px] font-sans uppercase tracking-[0.25em] text-[#8F6E64] hover:text-[#9F4B31] transition-colors"
-                        >
-                            {t.footer.guestlistPortal}
-                        </a>
-                    </div>
                 </footer>
             </main>
         </div>

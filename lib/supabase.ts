@@ -1,175 +1,120 @@
-import { createClient, SupabaseClient } from "@supabase/supabase-js";
+
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 export interface RSVPRecord {
-    id: string;
-    full_name: string;
-    email: string | null;
-    attendance: "attending" | "declined";
-    guests_count?: number | null;
-    dietary_requirements: string | null;
-    message: string | null;
-    created_at: string;
+  id: number;
+  full_name: string;
+  attendance: "attending" | "declined";
+  guests_count: number;
+  message: string | null;
+  created_at: string;
 }
 
 export type RSVPInput = {
-    full_name: string;
-    email?: string;
-    attendance: "attending" | "declined";
-    guests_count?: number;
-    dietary_requirements?: string;
-    message?: string;
+  full_name: string;
+  attendance: "attending" | "declined";
+  guests_count: number;
+  message?: string;
 };
 
-// Check if valid Supabase credentials exist
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const supabaseKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-    "";
+function createSupabaseClient(
+  key: string | undefined
+): SupabaseClient | null {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
-const isConfigured =
-    supabaseUrl.startsWith("http") &&
-    !supabaseUrl.includes("your-project") &&
-    supabaseKey.length > 10;
+  if (!url || !url.startsWith("https://") || !key) {
+    return null;
+  }
 
-let serverSupabaseClient: SupabaseClient | null = null;
-if (isConfigured) {
-    serverSupabaseClient = createClient(supabaseUrl, supabaseKey, {
-        auth: { persistSession: false },
-    });
+  return createClient(url, key, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  });
 }
 
-// Global in-memory / local fallback cache for development or when Supabase keys are not yet configured
-declare global {
-    // eslint-disable-next-line no-var
-    var __mock_rsvps__: RSVPRecord[] | undefined;
-}
+// Public submissions use the publishable/anon key or server admin client.
+const publicSupabase = createSupabaseClient(
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
-if (!global.__mock_rsvps__) {
-    global.__mock_rsvps__ = [
-        {
-            id: "demo-1",
-            full_name: "Lady Danbury",
-            email: "danbury@mayfair.co.uk",
-            attendance: "attending",
-            dietary_requirements:
-                "Strictly Earl Grey & delicate cucumber sandwiches",
-            message:
-                "Dearest Irene & Franklin, an invitation of such supreme elegance could never be refused!",
-            created_at: new Date(Date.now() - 86400000 * 2).toISOString(),
-        },
-        {
-            id: "demo-2",
-            full_name: "Viscount Anthony Bridgerton",
-            email: "anthony@bridgertonhouse.co.uk",
-            attendance: "attending",
-            dietary_requirements: "None",
-            message:
-                "Warmest congratulations to you both. Looking forward to celebrating in France.",
-            created_at: new Date(Date.now() - 86400000 * 1).toISOString(),
-        },
-        {
-            id: "demo-3",
-            full_name: "Lord Featherington",
-            email: "featherington@london.co.uk",
-            attendance: "declined",
-            dietary_requirements: "",
-            message:
-                "Regretfully away on estate business. Wishing you a lifetime of joy and happiness!",
-            created_at: new Date(Date.now() - 3600000 * 12).toISOString(),
-        },
-    ];
-}
+// Admin operations use a server-only secret, never exposed to client.
+const adminSupabase = createSupabaseClient(
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 export async function insertRSVP(
-    input: RSVPInput,
+  input: RSVPInput
 ): Promise<{ data: RSVPRecord | null; error: string | null }> {
-    try {
-        if (serverSupabaseClient) {
-            const { data, error } = await serverSupabaseClient
-                .from("rsvps")
-                .insert([
-                    {
-                        full_name: input.full_name.trim(),
-                        email: input.email
-                            ? input.email.trim().toLowerCase()
-                            : null,
-                        attendance: input.attendance,
-                        guests_count:
-                            input.attendance === "attending"
-                                ? input.guests_count || 1
-                                : 0,
-                        dietary_requirements: input.dietary_requirements
-                            ? input.dietary_requirements.trim()
-                            : null,
-                        message: input.message ? input.message.trim() : null,
-                    },
-                ])
-                .select()
-                .single();
+  // Use admin client on the server to ensure insertion succeeds with Supabase RLS
+  const client = adminSupabase || publicSupabase;
 
-            if (error) {
-                console.error("Supabase insert error:", error);
-                return { data: null, error: error.message };
-            }
+  if (!client) {
+    return {
+      data: null,
+      error: "Supabase is not configured. Check your environment variables.",
+    };
+  }
 
-            return { data: data as RSVPRecord, error: null };
-        }
+  try {
+    const { data, error } = await client
+      .from("wedding_rsvps")
+      .insert({
+        full_name: input.full_name.trim(),
+        attendance: input.attendance,
+        guests_count: input.guests_count,
+        message: input.message?.trim() || null,
+      })
+      .select("id, full_name, attendance, guests_count, message, created_at")
+      .single();
 
-        // Fallback store
-        const newRecord: RSVPRecord = {
-            id: `rsvp_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-            full_name: input.full_name.trim(),
-            email: input.email ? input.email.trim().toLowerCase() : null,
-            attendance: input.attendance,
-            guests_count:
-                input.attendance === "attending" ? input.guests_count || 1 : 0,
-            dietary_requirements: input.dietary_requirements
-                ? input.dietary_requirements.trim()
-                : null,
-            message: input.message ? input.message.trim() : null,
-            created_at: new Date().toISOString(),
-        };
-
-        global.__mock_rsvps__ = [newRecord, ...(global.__mock_rsvps__ || [])];
-        return { data: newRecord, error: null };
-    } catch (err: unknown) {
-        console.error("Error inserting RSVP:", err);
-        return {
-            data: null,
-            error: err instanceof Error ? err.message : "Unknown server error",
-        };
+    if (error) {
+      console.error("Supabase RSVP insert error:", error.message);
+      return { data: null, error: error.message };
     }
+
+    return { data: data as RSVPRecord, error: null };
+  } catch (err: unknown) {
+    console.error("RSVP insertion failed:", err);
+
+    return {
+      data: null,
+      error: err instanceof Error ? err.message : "Unknown server error",
+    };
+  }
 }
 
 export async function fetchAllRSVPs(): Promise<{
-    data: RSVPRecord[];
-    error: string | null;
+  data: RSVPRecord[];
+  error: string | null;
 }> {
-    try {
-        if (serverSupabaseClient) {
-            const { data, error } = await serverSupabaseClient
-                .from("rsvps")
-                .select("*")
-                .order("created_at", { ascending: false });
+  if (!adminSupabase) {
+    return {
+      data: [],
+      error: "Admin database access is not configured.",
+    };
+  }
 
-            if (error) {
-                console.error("Supabase fetch error:", error);
-                return {
-                    data: global.__mock_rsvps__ || [],
-                    error: error.message,
-                };
-            }
+  try {
+    const { data, error } = await adminSupabase
+      .from("wedding_rsvps")
+      .select("id, full_name, attendance, guests_count, message, created_at")
+      .order("created_at", { ascending: false });
 
-            return { data: (data as RSVPRecord[]) || [], error: null };
-        }
-
-        return { data: global.__mock_rsvps__ || [], error: null };
-    } catch (err: unknown) {
-        console.error("Error fetching RSVPs:", err);
-        return {
-            data: global.__mock_rsvps__ || [],
-            error: err instanceof Error ? err.message : "Unknown server error",
-        };
+    if (error) {
+      console.error("Supabase RSVP fetch error:", error.message);
+      return { data: [], error: error.message };
     }
+
+    return { data: (data ?? []) as RSVPRecord[], error: null };
+  } catch (err: unknown) {
+    console.error("RSVP fetch failed:", err);
+
+    return {
+      data: [],
+      error: err instanceof Error ? err.message : "Unknown server error",
+    };
+  }
 }

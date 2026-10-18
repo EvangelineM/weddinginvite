@@ -1,124 +1,152 @@
+
 import { NextRequest, NextResponse } from "next/server";
-import { insertRSVP, fetchAllRSVPs, RSVPInput } from "@/lib/supabase";
+import {
+  insertRSVP,
+  fetchAllRSVPs,
+  type RSVPInput,
+} from "@/lib/supabase";
 
 export async function POST(request: NextRequest) {
-    try {
-        const body = await request.json();
-        const {
-            full_name,
-            email,
-            attendance,
-            guests_count,
-            dietary_requirements,
-            message,
-        } = body;
+  try {
+    const body = await request.json();
 
-        // Validation
-        if (!full_name || typeof full_name !== "string" || !full_name.trim()) {
-            return NextResponse.json(
-                { success: false, error: "Full name is required." },
-                { status: 400 },
-            );
-        }
+    const {
+      full_name,
+      attendance,
+      guests_count,
+      message,
+    } = body;
 
-        if (
-            !attendance ||
-            (attendance !== "attending" && attendance !== "declined")
-        ) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    error: "Attendance status must be attending or declined.",
-                },
-                { status: 400 },
-            );
-        }
-
-        // Email validation if provided
-        if (email && typeof email === "string" && email.trim()) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email.trim())) {
-                return NextResponse.json(
-                    {
-                        success: false,
-                        error: "Please enter a valid email address.",
-                    },
-                    { status: 400 },
-                );
-            }
-        }
-
-        const input: RSVPInput = {
-            full_name: full_name.trim(),
-            email: email ? email.trim() : undefined,
-            attendance,
-            guests_count:
-                attendance === "attending" ? Number(guests_count) || 1 : 0,
-            dietary_requirements: dietary_requirements
-                ? dietary_requirements.trim()
-                : undefined,
-            message: message ? message.trim() : undefined,
-        };
-
-        const { data, error } = await insertRSVP(input);
-
-        if (error) {
-            console.error("RSVP insertion error:", error);
-            return NextResponse.json(
-                {
-                    success: false,
-                    error: "Failed to record RSVP. Please try again.",
-                },
-                { status: 500 },
-            );
-        }
-
-        return NextResponse.json({
-            success: true,
-            message: "RSVP submitted successfully.",
-            data,
-        });
-    } catch (err: unknown) {
-        console.error("RSVP POST handler exception:", err);
-        return NextResponse.json(
-            { success: false, error: "An unexpected error occurred." },
-            { status: 500 },
-        );
+    // Validate full name
+    if (
+      typeof full_name !== "string" ||
+      full_name.trim().length < 2 ||
+      full_name.trim().length > 120
+    ) {
+      return NextResponse.json(
+        { success: false, error: "Please enter a valid full name." },
+        { status: 400 }
+      );
     }
+
+    // Validate attendance
+    if (
+      attendance !== "attending" &&
+      attendance !== "declined"
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Attendance must be attending or declined.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Validate guest count
+    const guestCount = Number(guests_count);
+
+    if (
+      !Number.isInteger(guestCount) ||
+      (attendance === "attending" &&
+        (guestCount < 1 || guestCount > 20)) ||
+      (attendance === "declined" && guestCount !== 0)
+    ) {
+      return NextResponse.json(
+        { success: false, error: "Invalid number of guests." },
+        { status: 400 }
+      );
+    }
+
+    // Validate optional message
+    if (
+      message !== undefined &&
+      message !== null &&
+      (typeof message !== "string" || message.length > 1000)
+    ) {
+      return NextResponse.json(
+        { success: false, error: "Invalid message." },
+        { status: 400 }
+      );
+    }
+
+    const input: RSVPInput = {
+      full_name: full_name.trim(),
+      attendance,
+      guests_count: guestCount,
+      message:
+        typeof message === "string" && message.trim()
+          ? message.trim()
+          : undefined,
+    };
+
+    const { data, error } = await insertRSVP(input);
+
+    if (error) {
+      console.error("RSVP insertion error:", error);
+
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Failed to record RSVP. Please try again.",
+        },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "RSVP submitted successfully.",
+      data,
+    });
+  } catch (err: unknown) {
+    console.error("RSVP POST handler exception:", err);
+
+    return NextResponse.json(
+      { success: false, error: "An unexpected error occurred." },
+      { status: 500 }
+    );
+  }
 }
 
 export async function GET(request: NextRequest) {
-    try {
-        const adminKey =
-            request.headers.get("x-admin-key") ||
-            request.nextUrl.searchParams.get("key");
-        const configuredKey = process.env.ADMIN_SECRET_KEY || "chateau2026";
+  try {
+    const adminKey = request.headers.get("x-admin-key");
+    const configuredKey = process.env.ADMIN_SECRET_KEY || process.env.ADMIN_PASSWORD;
+    const cookieToken = request.cookies.get("wedding_admin_session")?.value;
 
-        if (!adminKey || adminKey !== configuredKey) {
-            return NextResponse.json(
-                { success: false, error: "Unauthorized: Invalid admin key." },
-                { status: 401 },
-            );
-        }
+    const { verifySessionToken } = await import("@/lib/adminAuth");
+    const isSessionValid = verifySessionToken(cookieToken);
+    const isKeyValid = configuredKey && adminKey && adminKey === configuredKey;
 
-        const { data, error } = await fetchAllRSVPs();
-
-        if (error) {
-            return NextResponse.json(
-                { success: false, error: "Failed to fetch RSVPs." },
-                { status: 500 },
-            );
-        }
-
-        return NextResponse.json({
-            success: true,
-            data,
-        });
-    } catch (err: unknown) {
-        console.error("RSVP GET handler exception:", err);
-        return NextResponse.json(
-            { success: false, error: "An unexpected error occurred." },
-            { status: 500 },
-        );
+    if (!isSessionValid && !isKeyValid) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized." },
+        { status: 401 }
+      );
     }
+
+    const { data, error } = await fetchAllRSVPs();
+
+    if (error) {
+      console.error("RSVP fetch error:", error);
+
+      return NextResponse.json(
+        { success: false, error: "Failed to fetch RSVPs." },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      data,
+    });
+  } catch (err: unknown) {
+    console.error("RSVP GET handler exception:", err);
+
+    return NextResponse.json(
+      { success: false, error: "An unexpected error occurred." },
+      { status: 500 }
+    );
+  }
 }

@@ -1021,7 +1021,7 @@ main.hero-emerging > #hero-section {
 }
 
 /* ========================================
-   VENUE SECTION (Page 4)
+   VENUE SECTION (Page 4) — Video + Card
    ======================================== */
 
 .venue-section {
@@ -1032,32 +1032,63 @@ main.hero-emerging > #hero-section {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    padding: 2rem 0;
+    background: #0a0604;
 }
 
-.venue-outer-bg {
+/* ── Full-bleed background video ── */
+.venue-video-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    z-index: 0;
+}
+
+/* ── Card wrapper — ultra-smooth, natural organic reveal ── */
+.venue-card-wrapper {
+    position: relative;
+    z-index: 2;
+    width: min(82vw, 470px, calc(74svh * 1024 / 1536));
+    aspect-ratio: 1024 / 1536;
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.975);
+    transition:
+        opacity 1.8s cubic-bezier(0.25, 1, 0.35, 1),
+        transform 2.1s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: opacity, transform;
+}
+
+.venue-card-wrapper.venue-card-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    pointer-events: auto;
+}
+
+/* ── Card shell ── */
+.venue-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1024 / 1536;
+    container-type: inline-size;
+}
+
+.venue-card-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
     pointer-events: none;
     user-select: none;
     z-index: 0;
 }
 
-.venue-artboard {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    aspect-ratio: 750 / 1200;
-    margin: 0 auto;
-    container-type: inline-size;
-}
-
-.venue-frame-bg {
-    object-fit: fill;
-    pointer-events: none;
-    user-select: none;
-}
-
-.venue-overlay {
+/* ── Content positioned inside the card — softly blooms into focus ── */
+.venue-card-content {
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -1067,95 +1098,107 @@ main.hero-emerging > #hero-section {
     text-align: center;
     font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
     -webkit-font-smoothing: antialiased;
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+    transition:
+        opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.25s,
+        transform 1.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: opacity, transform;
 }
 
-.venue-overlay img {
-    display: block;
-    width: 100%;
-    height: auto;
-    user-select: none;
-    pointer-events: none;
+.venue-card-wrapper.venue-card-visible .venue-card-content {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
 }
 
-/* "Venue" script heading — matches reference's elegant cursive */
+/* ── "Venue" script heading — Great Vibes font matching reference image ── */
 .venue-title {
     margin: 0;
-    padding-top: 27%;
-    color: #a05540;
-    font-family: var(--font-pinyon), "Pinyon Script", cursive;
-    font-size: 16cqw;
+    padding-top: 31%;
+    color: #923e16;
+    font-family: var(--font-great-vibes), "Great Vibes", cursive;
+    font-size: 21cqw;
     font-weight: 400;
     line-height: 0.85;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
 }
 
-/* "WHERE WE CELEBRATE" subtitle */
+/* ── "WHERE WE CELEBRATE" ── */
 .venue-subtitle {
-    margin: 2.2cqw 0 0;
-    color: #6b4a3c;
+    margin: 1.8cqw 0 0;
+    color: #4a2818;
     font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 2.8cqw;
+    font-size: 2.7cqw;
     font-weight: 600;
-    letter-spacing: 0.38em;
+    letter-spacing: 0.36em;
     text-transform: uppercase;
 }
 
-/* Diamond rule dividers */
-.venue-rule {
+/* ── Leaf dividers ── */
+.venue-leaf-divider {
+    width: 46%;
+    margin: 2cqw auto 2.2cqw;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.3cqw;
-    width: 38%;
-    margin: 1.8cqw auto 2.5cqw;
+    pointer-events: none;
+    user-select: none;
 }
 
-.venue-rule::before,
-.venue-rule::after {
-    height: 0.14cqw;
-    flex: 1;
-    background: #b08968;
-    content: "";
+.venue-leaf-divider-2 {
+    margin: 1.8cqw auto 2.2cqw;
+    width: 40%;
 }
 
-.venue-rule span {
-    width: 1.1cqw;
-    height: 1.1cqw;
-    border: 0.16cqw solid #a56b4a;
-    transform: rotate(45deg);
+.venue-leaf-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none;
+    user-select: none;
 }
 
-.venue-rule-lower {
-    margin: 1.6cqw auto 2cqw;
-    width: 30%;
-}
-
-/* Church name */
+/* ── Church name ── */
 .venue-church-name {
     margin: 0;
-    color: #4a3028;
+    color: #3b1b12;
     font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 5.6cqw;
+    font-size: 6.6cqw;
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: 0.01em;
 }
 
-/* Location line */
+/* ── Location line ── */
 .venue-location {
-    margin: 0.5cqw 0 0;
-    color: #5c4336;
+    margin: 0.6cqw 0 0;
+    color: #552f20;
     font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 3.8cqw;
+    font-size: 4.2cqw;
     font-weight: 600;
+    font-style: italic;
     letter-spacing: 0.01em;
 }
 
-/* Events two-column grid */
+/* ── Wedding Date above timings ── */
+.venue-wedding-date {
+    margin: 0 0 2cqw;
+    color: #7a3a20;
+    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+    font-size: 3.5cqw;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* ── Wedding & Reception two-column grid ── */
 .venue-events {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    align-items: stretch;
+    align-items: center;
     width: 82%;
     margin: 0 auto;
 }
@@ -1168,36 +1211,10 @@ main.hero-emerging > #hero-section {
     padding: 0 1cqw;
 }
 
-/* Event icons with fixed bounding box for equal vertical alignment */
-.venue-event-icon {
-    width: 12cqw;
-    height: 7.5cqw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0.8cqw;
-}
-
-.venue-rings-img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-}
-
-.venue-toast-img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-}
-
-/* Event label (WEDDING / RECEPTION) */
+/* ── Event label (WEDDING / RECEPTION) ── */
 .venue-event-label {
-    margin: 0;
-    color: #8d5338;
+    margin: 0 0 1.2cqw;
+    color: #843c1d;
     font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
     font-size: 2.6cqw;
     font-weight: 600;
@@ -1207,90 +1224,70 @@ main.hero-emerging > #hero-section {
     text-align: center;
 }
 
-/* Time row with clock icon */
+/* ── Time row with calendar icon ── */
 .venue-time-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.2cqw;
-    margin-top: 1cqw;
+    gap: 1.4cqw;
 }
 
-.venue-clock-icon {
-    width: 4.8cqw;
-    height: 4.8cqw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.venue-cal-icon {
+    width: 4.2cqw;
+    height: 4.2cqw;
+    color: #7a220e;
+    stroke: #7a220e;
     flex: 0 0 auto;
 }
 
-.venue-clock-img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-}
-
 .venue-time-text {
-    color: #5c4336;
+    color: #552719;
     font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 2.5cqw;
-    font-weight: 600;
+    font-size: 2.7cqw;
+    font-weight: 700;
     letter-spacing: 0.04em;
     white-space: nowrap;
+    text-transform: uppercase;
 }
 
-/* Central divider between WEDDING and RECEPTION */
+/* ── Central divider matching reference image (top line, middle diamond, bottom line) ── */
 .venue-events-divider {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0;
-    padding: 0 1cqw;
+    padding: 0 1.2cqw;
+    align-self: stretch;
 }
 
-.venue-events-diamond {
-    width: 1cqw;
-    height: 1cqw;
-    border: 0.16cqw solid #a56b4a;
-    transform: rotate(45deg);
-    margin-bottom: 0.8cqw;
+.venue-events-divider-svg {
+    width: 2.2cqw;
+    height: 10.5cqw;
+    color: #a05530;
+    display: block;
 }
 
-.venue-events-line {
-    width: 0.14cqw;
-    height: 12cqw;
-    background: linear-gradient(
-        180deg,
-        rgba(160, 110, 78, 0.55) 0%,
-        rgba(160, 110, 78, 0.55) 80%,
-        rgba(160, 110, 78, 0) 100%
-    );
-}
-
-/* "OPEN IN MAPS" button */
+/* ── "OPEN IN MAPS" button — Exact reference colors (#EAB492 background, #BD6E45 border, #6E1C0A text) ── */
 .venue-maps-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 1.5cqw;
+    gap: 1.6cqw;
     margin-top: 3.6cqw;
-    padding: 1.8cqw 5cqw;
-    background: rgba(210, 175, 150, 0.5);
-    border: 0.16cqw solid #b89070;
+    padding: 1.8cqw 5.6cqw;
+    background: #eab492;
+    border: 0.18cqw solid #bd6e45;
     border-radius: 9999px;
-    color: #7a4a32;
+    box-shadow: 0 2px 8px rgba(189, 110, 69, 0.2);
+    color: #6e1c0a;
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .venue-maps-btn:hover {
-    background: rgba(210, 175, 150, 0.75);
+    background: #e2a580;
+    border-color: #a85832;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(159, 75, 49, 0.15);
+    box-shadow: 0 4px 14px rgba(110, 28, 10, 0.25);
 }
 
 .venue-maps-btn:active {
@@ -1298,25 +1295,81 @@ main.hero-emerging > #hero-section {
 }
 
 .venue-maps-pin {
-    width: 3.3cqw;
-    height: 3.3cqw;
-    stroke: #8d5338;
+    width: 3.4cqw;
+    height: 3.4cqw;
+    stroke: #711200;
     fill: none;
 }
 
 .venue-maps-label {
     font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-    font-size: 2.6cqw;
-    font-weight: 700;
-    letter-spacing: 0.3em;
+    font-size: 2.7cqw;
+    font-weight: 600;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: #7a4a32;
+    color: #6e1c0a;
 }
 
-/* Mobile adjustments for venue section */
+/* ── Tamil overrides for venue card ── */
+.venue-card-ta .venue-title {
+    padding-top: calc(31% + 2cqw);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 8cqw;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0;
+    color: #923e16;
+}
+
+.venue-card-ta .venue-subtitle {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 2.4cqw;
+    letter-spacing: 0.1em;
+    color: #4a2818;
+}
+
+.venue-card-ta .venue-church-name {
+    font-size: 5cqw;
+    color: #3b1b12;
+}
+
+.venue-card-ta .venue-location {
+    font-size: 3.6cqw;
+    color: #552f20;
+}
+
+.venue-card-ta .venue-wedding-date {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 2.8cqw;
+    letter-spacing: 0.08em;
+    color: #7a3a20;
+}
+
+.venue-card-ta .venue-event-label {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 2.8cqw;
+    letter-spacing: 0.08em;
+    color: #843c1d;
+}
+
+.venue-card-ta .venue-time-text {
+    font-size: 2.3cqw;
+    text-transform: none;
+    white-space: normal;
+    color: #552719;
+}
+
+.venue-card-ta .venue-maps-label {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 2.3cqw;
+    letter-spacing: 0.06em;
+    color: #6e1c0a;
+}
+
+/* ── Mobile adjustments ── */
 @media (max-width: 480px) {
-    .venue-artboard {
-        width: 96%;
+    .venue-card-wrapper {
+        width: 92%;
     }
 }
 
@@ -2042,10 +2095,6 @@ main.hero-emerging > #hero-section {
 .lang-ta .save-date-card-heading,
 .lang-ta .save-date-date span,
 .lang-ta .section3-event h3,
-.lang-ta .section3-venue h3,
-.lang-ta .venue-subtitle,
-.lang-ta .venue-event-label,
-.lang-ta .venue-maps-label,
 .lang-ta .rsvp-title,
 .lang-ta .rsvp-send-btn {
     letter-spacing: 0.04em !important;
@@ -2055,8 +2104,7 @@ main.hero-emerging > #hero-section {
     font-size: clamp(0.72rem, 1.4vw, 0.95rem);
 }
 
-.lang-ta .section3-event h3,
-.lang-ta .section3-venue h3 {
+.lang-ta .section3-event h3 {
     font-size: 2.2cqw;
 }
 
@@ -2064,25 +2112,6 @@ main.hero-emerging > #hero-section {
 .lang-ta .section3-meta-text p {
     font-size: 2.05cqw;
     white-space: normal;
-}
-
-.lang-ta .venue-subtitle {
-    font-size: 2.5cqw;
-    letter-spacing: 0.1em !important;
-}
-
-.lang-ta .venue-event-label {
-    font-size: 3.2cqw;
-}
-
-.lang-ta .venue-time-text {
-    font-size: 2.1cqw;
-    white-space: normal;
-}
-
-.lang-ta .venue-maps-label {
-    font-size: 2.3cqw;
-    letter-spacing: 0.06em !important;
 }
 
 
@@ -2112,20 +2141,7 @@ main.hero-emerging > #hero-section {
     line-height: 0.8;
 }
 
-.lang-ta .venue-title {
-    padding-top: calc(27% + 3cqw);
-    font-size: 8.5cqw;
-    line-height: 1.1;
-    letter-spacing: 0;
-}
 
-.lang-ta .venue-church-name {
-    font-size: 4.8cqw;
-}
-
-.lang-ta .venue-location {
-    font-size: 3.4cqw;
-}
 
 .lang-ta .save-date-title-curved text {
     font-size: 78px;
@@ -2161,9 +2177,6 @@ main.hero-emerging > #hero-section {
     letter-spacing: 0;
 }
 
-.lang-ta .section3-venue p {
-    font-size: 2.5cqw;
-}
 
 /* BACKGROUND */
 
