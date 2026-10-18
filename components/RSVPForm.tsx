@@ -311,7 +311,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                         aria-checked={attendance === "declined"}
                                         onClick={() => {
                                             setAttendance("declined");
-                                            setGuestsCount(0);
+                                            setGuestsCount("0");
                                             if (errorMessage) setErrorMessage(null);
                                         }}
                                         className={`rsvp-radio-card ${
