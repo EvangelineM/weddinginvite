@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import { TranslationContent, Language } from "@/lib/translations";
 
@@ -16,11 +15,10 @@ export function Section3({ t, lang = "EN" }: Section3Props) {
     const isTamil = lang === "TA" || t.countdown.days === "நாட்கள்";
 
     return (
-        <section
-            id="section-3"
-            className="section3-section"
-        >
-            <div className={`section3-artboard ${isTamil ? "section3-ta" : ""}`}>
+        <section id="section-3" className="section3-section">
+            <div
+                className={`section3-artboard ${isTamil ? "section3-ta" : ""}`}
+            >
                 {/* Full-bleed Arch background with floral frames */}
                 <Image
                     src={ARCH_BG}
@@ -34,7 +32,10 @@ export function Section3({ t, lang = "EN" }: Section3Props) {
 
                 {/* Content Overlay */}
                 <div className="section3-content">
-                    <div className="section3-top-divider-wrap" aria-hidden="true">
+                    <div
+                        className="section3-top-divider-wrap"
+                        aria-hidden="true"
+                    >
                         <Image
                             src={LEAF_DIVIDER}
                             alt=""
@@ -47,9 +48,15 @@ export function Section3({ t, lang = "EN" }: Section3Props) {
 
                     {/* 1. Introductory lines */}
                     <div className="section3-intro">
-                        <p className="section3-intro-line">{t.section3.inviteLine1}</p>
-                        <p className="section3-intro-line">{t.section3.inviteLine2}</p>
-                        <p className="section3-intro-line">{t.section3.inviteLine3}</p>
+                        <p className="section3-intro-line">
+                            {t.section3.inviteLine1}
+                        </p>
+                        <p className="section3-intro-line">
+                            {t.section3.inviteLine2}
+                        </p>
+                        <p className="section3-intro-line">
+                            {t.section3.inviteLine3}
+                        </p>
                     </div>
 
                     {/* 2. Couple Names: Groom first, Text Ampersand, Bride below */}
@@ -81,7 +88,10 @@ export function Section3({ t, lang = "EN" }: Section3Props) {
                         </p>
                     </div>
 
-                    <div className="section3-middle-divider-wrap" aria-hidden="true">
+                    <div
+                        className="section3-middle-divider-wrap"
+                        aria-hidden="true"
+                    >
                         <Image
                             src={LEAF_DIVIDER}
                             alt=""
@@ -94,19 +104,27 @@ export function Section3({ t, lang = "EN" }: Section3Props) {
 
                     {/* 4. Date & Time Block */}
                     <div className="section3-date-wrap">
-            
-
                         <div className="section3-date-row">
-                            <span className="section3-month">{t.section3.month}</span>
-                            <span className="section3-v-rule" aria-hidden="true" />
-                            <span className="section3-day">{t.section3.day}</span>
-                            <span className="section3-v-rule" aria-hidden="true" />
-                            <span className="section3-year">{t.section3.year}</span>
+                            <span className="section3-month">
+                                {t.section3.month}
+                            </span>
+                            <span
+                                className="section3-v-rule"
+                                aria-hidden="true"
+                            />
+                            <span className="section3-day">
+                                {t.section3.day}
+                            </span>
+                            <span
+                                className="section3-v-rule"
+                                aria-hidden="true"
+                            />
+                            <span className="section3-year">
+                                {t.section3.year}
+                            </span>
                         </div>
 
-                        <p className="section3-weekday">
-                            {t.section3.weekday}
-                        </p>
+                        <p className="section3-weekday">{t.section3.weekday}</p>
                     </div>
 
                     {/* 5. Golden Leaf Divider */}

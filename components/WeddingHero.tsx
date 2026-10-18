@@ -45,6 +45,74 @@ function HeroFitStage({ children }: { children: React.ReactNode }) {
             >
                 {children}
             </div>
+
+            {/* Scroll-down indicator — pinned at bottom of the hero stage */}
+
+            <div className="hero-scroll-indicator" aria-hidden="true">
+                <svg
+                    className="hero-scroll-ornament"
+                    viewBox="0 0 88 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M4 15C17 12 27 12 38 15"
+                        stroke="#AF8D60"
+                        strokeWidth="0.9"
+                        strokeLinecap="round"
+                    />
+                    <path
+                        d="M50 15C61 12 71 12 84 15"
+                        stroke="#AF8D60"
+                        strokeWidth="0.9"
+                        strokeLinecap="round"
+                    />
+                    <path
+                        d="M44 15C37 8 32 10 30 5C36 13 40 14 44 15C51 8 56 10 58 5C52 13 48 14 44 15Z"
+                        fill="#875334"
+                    />
+                    <path
+                        d="M44 15C39 19 37 23 38 26C42 24 44 20 44 15Z"
+                        fill="#AF8D60"
+                    />
+                    <path
+                        d="M44 15C49 19 51 23 50 26C46 24 44 20 44 15Z"
+                        fill="#A45B35"
+                    />
+                    <circle cx="44" cy="15" r="1.5" fill="#D4AF37" />
+                </svg>
+
+                <div className="hero-scroll-arrow-stack">
+                    <svg
+                        className="hero-scroll-arrow hero-scroll-arrow-1"
+                        viewBox="0 0 20 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M3 3L10 9L17 3"
+                            stroke="currentColor"
+                            strokeWidth="1.25"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                    <svg
+                        className="hero-scroll-arrow hero-scroll-arrow-2"
+                        viewBox="0 0 20 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M3 3L10 9L17 3"
+                            stroke="currentColor"
+                            strokeWidth="1.25"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                </div>
+            </div>
         </section>
     );
 }
@@ -113,7 +181,7 @@ function HeroBackground({
             className="absolute inset-0 h-full w-full object-cover object-top"
         >
             <source
-                src="https://res.cloudinary.com/jcjsrbvw/video/upload/v1790413402/Animate_wedding_invitation_image__20260926040209.mp4"
+                src="https://res.cloudinary.com/jcjsrbvw/video/upload/v1792347205/Animate_wedding_invitation_image__20260926040209.webm"
                 type="video/mp4"
             />
         </video>
@@ -160,14 +228,12 @@ function HeroInvitationText({
                 }}
             >
                 {t.hero.verseLine1}
-                
-                )
-                {
 
+                {
                     <span
                         className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block font-libre-bodoni font-normal  not-italic"
                         style={{ fontSize: "0.66em" }}
-                        >
+                    >
                         {t.hero.verseRef}
                     </span>
                 }

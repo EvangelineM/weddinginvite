@@ -10,9 +10,9 @@ interface InvitationIntroProps {
     onHeroRevealStart?: () => void;
 }
 
-const LOCAL_VIDEO_URL = "/videos/envelope_opening.mp4";
+const LOCAL_VIDEO_URL = "/videos/envelope_opening.webm";
 const CLOUDINARY_VIDEO_URL =
-    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1790957357/White_envelope_opening_with_light_20260930025419.mp4";
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792346046/envelope_opening.webm";
 const POSTER_IMAGE_URL = "/videos/envelope_poster.jpg";
 
 export const InvitationIntro: React.FC<InvitationIntroProps> = ({
@@ -203,7 +203,7 @@ export const InvitationIntro: React.FC<InvitationIntroProps> = ({
 
                 {/* Text prompt only visible before tap: Pure clean typography without lines, boxes, or circles */}
                 {!isPlaying && (
-                    <p className="absolute bottom-[7%] left-1/2 -translate-x-1/2 z-20 whitespace-nowrap font-serif text-[11px] sm:text-xs uppercase tracking-[0.3em] text-[#fff5e9]/90 drop-shadow-md pointer-events-none transition-opacity duration-300">
+                    <p className="absolute top-[65%] left-1/2 -translate-x-1/2 z-20 whitespace-nowrap font-serif text-[11px] sm:text-xs uppercase tracking-[0.3em] text-[#fff5e9] drop-shadow-md pointer-events-none transition-opacity duration-300 font-extrabold">
                         {t.envelope.clickToOpen}
                     </p>
                 )}

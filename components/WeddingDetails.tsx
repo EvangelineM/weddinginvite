@@ -7,7 +7,7 @@ import { TranslationContent, Language } from "@/lib/translations";
 
 const VENUE = "/images/venue";
 const VIDEO_SRC =
-    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792327432/Fairytale_wedding_video_opening_20261018032819.mp4";
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792347971/Fairytale_wedding_video_opening_20261018032819.webm";
 
 interface WeddingDetailsProps {
     t: TranslationContent;
@@ -94,13 +94,8 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
         triggerCardReveal();
     };
 
-
     return (
-        <section
-            id="venue-section"
-            className="venue-section"
-            ref={sectionRef}
-        >
+        <section id="venue-section" className="venue-section" ref={sectionRef}>
             {/* ── Full-bleed background video ── */}
             <video
                 ref={videoRef}
@@ -117,9 +112,7 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
             <div
                 className={`venue-card-wrapper ${cardVisible ? "venue-card-visible" : ""}`}
             >
-                <div
-                    className={`venue-card ${isTamil ? "venue-card-ta" : ""}`}
-                >
+                <div className={`venue-card ${isTamil ? "venue-card-ta" : ""}`}>
                     {/* Card frame image */}
                     <Image
                         src={`${VENUE}/card.png`}
@@ -139,10 +132,7 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
                         <p className="venue-subtitle">{t.venue.subtitle}</p>
 
                         {/* Leaf divider 1 */}
-                        <div
-                            className="venue-leaf-divider"
-                            aria-hidden="true"
-                        >
+                        <div className="venue-leaf-divider" aria-hidden="true">
                             <Image
                                 src={`${VENUE}/leaf_divider.png`}
                                 alt=""
@@ -177,9 +167,7 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
                         </div>
 
                         {/* Wedding Date above timings */}
-                        <p className="venue-wedding-date">
-                            {t.venue.date}
-                        </p>
+                        <p className="venue-wedding-date">{t.venue.date}</p>
 
                         {/* Wedding & Reception columns */}
                         <div className="venue-events">

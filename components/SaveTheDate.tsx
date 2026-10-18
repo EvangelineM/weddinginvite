@@ -45,6 +45,7 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
     const isTamil = lang === "TA" || t.countdown.days === "நாட்கள்";
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft);
     const sectionRef = useRef<HTMLElement>(null);
+    const hasFiredRef = useRef(false);
 
     const tick = useCallback(() => {
         setTimeLeft(getTimeLeft());
@@ -60,9 +61,6 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
     useEffect(() => {
         const el = sectionRef.current;
         if (!el) return;
-
-        let cooldownTimer: NodeJS.Timeout | null = null;
-        let canTrigger = true;
 
         const triggerThemeConfetti = () => {
             // Theme shades: Warm Antique Gold, Tuscan Terracotta, Peach & Champagne
@@ -126,25 +124,21 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting && canTrigger) {
-                        canTrigger = false;
+                    // Fire once and never again — even if the user scrolls away & back
+                    if (entry.isIntersecting && !hasFiredRef.current) {
+                        hasFiredRef.current = true;
                         triggerThemeConfetti();
-                    } else if (!entry.isIntersecting) {
-                        if (cooldownTimer) clearTimeout(cooldownTimer);
-                        cooldownTimer = setTimeout(() => {
-                            canTrigger = true;
-                        }, 4000);
                     }
                 });
             },
-            { threshold: 0.3 }
+            // Fire when at least 50% of the section is in view
+            { threshold: 0.5 }
         );
 
         observer.observe(el);
 
         return () => {
             observer.disconnect();
-            if (cooldownTimer) clearTimeout(cooldownTimer);
         };
     }, []);
 
@@ -214,7 +208,11 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
                         </p>
 
                         {/* Live countdown timer: 157:23:41:44 */}
-                        <p className="countdown-numbers" aria-live="polite">
+                        <p
+                            className="countdown-numbers"
+                            aria-live="polite"
+                            suppressHydrationWarning
+                        >
                             {countdownStr}
                         </p>
 
