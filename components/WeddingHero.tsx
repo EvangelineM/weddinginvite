@@ -15,6 +15,11 @@ const TEXT_MUTED = "#5A3628";
 /** Playback time (in seconds) of the 6s hero video when the copy fades up. */
 const TEXT_REVEAL_AT_SECONDS = 3;
 
+const HERO_VIDEO_WEBM =
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792347205/Animate_wedding_invitation_image__20260926040209.webm";
+const HERO_VIDEO_MP4 =
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792354724/wedding_dance.mp4";
+
 const SHARP_TYPE: React.CSSProperties = {
     WebkitFontSmoothing: "antialiased",
     MozOsxFontSmoothing: "grayscale",
@@ -181,10 +186,8 @@ function HeroBackground({
             onEnded={onEnded}
             className="absolute inset-0 h-full w-full object-cover object-top"
         >
-            <source
-                src="https://res.cloudinary.com/jcjsrbvw/video/upload/v1792347205/Animate_wedding_invitation_image__20260926040209.webm"
-                type="video/mp4"
-            />
+            <source src={HERO_VIDEO_WEBM} type="video/webm" />
+            <source src={HERO_VIDEO_MP4} type="video/mp4" />
         </video>
     );
 }

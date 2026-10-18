@@ -6,8 +6,10 @@ import { CalendarHeart } from "lucide-react";
 import { TranslationContent, Language } from "@/lib/translations";
 
 const VENUE = "/images/venue";
-const VIDEO_SRC =
+const VIDEO_WEBM =
     "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792347971/Fairytale_wedding_video_opening_20261018032819.webm";
+const VIDEO_MP4 =
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792354785/church.mp4";
 
 interface WeddingDetailsProps {
     t: TranslationContent;
@@ -100,13 +102,15 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
             <video
                 ref={videoRef}
                 className="venue-video-bg"
-                src={VIDEO_SRC}
                 muted
                 playsInline
                 preload="auto"
                 onTimeUpdate={handleTimeUpdate}
                 onEnded={handleVideoEnded}
-            />
+            >
+                <source src={VIDEO_WEBM} type="video/webm" />
+                <source src={VIDEO_MP4} type="video/mp4" />
+            </video>
 
             {/* ── Card overlay — smoothly reveals at 10s after video starts ── */}
             <div
