@@ -9,10 +9,13 @@ const LEAF_DIVIDER = "/images/section3/leaf_divider.png";
 interface Section3Props {
     t: TranslationContent;
     lang?: Language;
+    groomFirst?: boolean;
 }
 
-export function Section3({ t, lang = "EN" }: Section3Props) {
+export function Section3({ t, lang = "EN", groomFirst = true }: Section3Props) {
     const isTamil = lang === "TA" || t.countdown.days === "நாட்கள்";
+    const firstName = groomFirst ? t.section3.groom : t.section3.bride;
+    const secondName = groomFirst ? t.section3.bride : t.section3.groom;
 
     return (
         <section id="section-3" className="section3-section">
@@ -59,10 +62,10 @@ export function Section3({ t, lang = "EN" }: Section3Props) {
                         </p>
                     </div>
 
-                    {/* 2. Couple Names: Groom first, Text Ampersand, Bride below */}
+                    {/* 2. Couple Names */}
                     <div className="section3-names-wrap">
                         <h2 className="section3-name section3-groom-name">
-                            {t.section3.groom}
+                            {firstName}
                         </h2>
 
                         <div className="section3-amp-wrap" aria-hidden="true">
@@ -72,7 +75,7 @@ export function Section3({ t, lang = "EN" }: Section3Props) {
                         </div>
 
                         <h2 className="section3-name section3-bride-name">
-                            {t.section3.bride}
+                            {secondName}
                         </h2>
                     </div>
 

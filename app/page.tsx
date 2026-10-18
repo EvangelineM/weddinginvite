@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Language, translations } from "@/lib/translations";
 import { InvitationIntro } from "@/components/InvitationIntro";
 import { LanguageToggle } from "@/components/LanguageToggle";
@@ -16,6 +17,10 @@ export default function WeddingInvitationPage() {
     const [currentLang, setCurrentLang] = useState<Language>("EN");
     const [isUnlocked, setIsUnlocked] = useState(false);
     const [isHeroEmerging, setIsHeroEmerging] = useState(false);
+
+    const searchParams = useSearchParams();
+    // flag=1 (or absent) → groom & bride; flag=0 → bride & groom
+    const groomFirst = searchParams.get("flag") !== "0";
 
     const t = translations[currentLang];
 
@@ -102,13 +107,14 @@ export default function WeddingInvitationPage() {
                     t={t}
                     lang={currentLang}
                     isActive={isUnlocked || isHeroEmerging}
+                    groomFirst={groomFirst}
                 />
 
                 {/* Page 2: Countdown */}
                 <SaveTheDate t={t} lang={currentLang} />
 
                 {/* Page 3: Formal wedding invitation details */}
-                <Section3 t={t} lang={currentLang} />
+                <Section3 t={t} lang={currentLang} groomFirst={groomFirst} />
 
                 {/* Page 4: Welcome / Location */}
                 <WeddingDetails t={t} lang={currentLang} />

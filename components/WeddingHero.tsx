@@ -25,6 +25,7 @@ interface WeddingHeroProps {
     t: TranslationContent;
     lang: Language;
     isActive: boolean;
+    groomFirst?: boolean;
 }
 
 /**
@@ -196,11 +197,15 @@ function HeroBackground({
 function HeroInvitationText({
     t,
     isRevealed,
+    groomFirst = true,
 }: {
     t: TranslationContent;
     lang: Language;
     isRevealed: boolean;
+    groomFirst?: boolean;
 }) {
+    const first = groomFirst ? t.hero.groom : t.hero.bride;
+    const second = groomFirst ? t.hero.bride : t.hero.groom;
     return (
         <div
             className="hero-invitation-overlay absolute inset-0 z-2 pointer-events-none select-none"
@@ -259,8 +264,8 @@ function HeroInvitationText({
                     letterSpacing: "0.027em",
                 }}
             >
-                {t.hero.groom} <span className="font-cara">&amp;</span>{" "}
-                {t.hero.bride}
+                {first} <span className="font-cara">&amp;</span>{" "}
+                {second}
             </p>
 
             {/* Desktop View */}
@@ -272,11 +277,11 @@ function HeroInvitationText({
                     letterSpacing: "0.027em",
                 }}
             >
-                <div className="text-left ml-[12%]">{t.hero.groom}</div>
+                <div className="text-left ml-[12%]">{first}</div>
                 <div className="text-center text-[0.7em] my-2">
                     <span className="font-cara">&amp;</span>
                 </div>
-                <div className="text-right mr-[25%]">{t.hero.bride}</div>
+                <div className="text-right mr-[25%]">{second}</div>
             </div>
 
             <div
@@ -316,6 +321,7 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
     t,
     lang,
     isActive,
+    groomFirst = true,
 }) => {
     const [isVideoEnded, setIsVideoEnded] = React.useState(false);
 
@@ -326,7 +332,12 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
                 onRevealStart={() => setIsVideoEnded(true)}
                 onEnded={() => setIsVideoEnded(true)}
             />
-            <HeroInvitationText t={t} lang={lang} isRevealed={isVideoEnded} />
+            <HeroInvitationText
+                t={t}
+                lang={lang}
+                isRevealed={isVideoEnded}
+                groomFirst={groomFirst}
+            />
         </HeroFitStage>
     );
 };
