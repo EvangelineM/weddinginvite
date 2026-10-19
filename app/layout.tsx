@@ -58,7 +58,7 @@ const siteUrl =
         ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
         : process.env.VERCEL_URL
             ? `https://${process.env.VERCEL_URL}`
-            : "http://localhost:3000");
+            : "https://youre-cordially-invited.vercel.app");
 
 export const metadata: Metadata = {
     metadataBase: new URL(siteUrl),
@@ -85,8 +85,8 @@ export const metadata: Metadata = {
         images: [
             {
                 url: "/og.jpg",
-                width: 1024,
-                height: 1536,
+                width: 1200,
+                height: 630,
                 alt: "Wedding Invitation",
                 type: "image/jpeg",
             },
@@ -114,6 +114,15 @@ export default function RootLayout({
             className={`${cormorant.variable} ${greatVibes.variable} ${pinyonScript.variable} ${dmSans.variable} ${carattere.variable} ${libreBodoni.variable} h-full`}
         >
             <head>
+                <meta property="og:image" content={`${siteUrl}/og.jpg`} />
+                <meta
+                    property="og:image:secure_url"
+                    content={`${siteUrl}/og.jpg`}
+                />
+                <meta property="og:image:type" content="image/jpeg" />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <link rel="image_src" href={`${siteUrl}/og.jpg`} />
                 <link
                     rel="apple-touch-icon"
                     sizes="180x180"
