@@ -52,17 +52,19 @@ const dmSans = DM_Sans({
     display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-    ? process.env.NEXT_PUBLIC_SITE_URL
-    : process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
+const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+        : process.env.VERCEL_URL
+            ? `https://${process.env.VERCEL_URL}`
+            : "http://localhost:3000");
 
 export const metadata: Metadata = {
     metadataBase: new URL(siteUrl),
-    title: "The Wedding of Irene & Franklin",
+    title: "Wedding Invitation",
     description:
-        "Join us to celebrate the wedding of Irene & Franklin on 16 November 2026",
+        "Join us to celebrate!",
     icons: {
         icon: [
             { url: "/favicon.ico" },
@@ -75,18 +77,18 @@ export const metadata: Metadata = {
     },
     manifest: "/site.webmanifest",
     openGraph: {
-        title: "The Wedding of Irene & Franklin",
+        title: "Wedding Invitation",
         description:
-            "Join us to celebrate the wedding of Irene & Franklin on 16 November 2026",
+            "Join us to celebrate!",
         url: "/",
-        siteName: "The Wedding of Irene & Franklin",
+        siteName: "Wedding Invitation",
         images: [
             {
-                url: "/og.webp",
+                url: "/og.jpg",
                 width: 1024,
                 height: 1536,
-                alt: "The Wedding of Irene & Franklin - 16 November 2026",
-                type: "image/webp",
+                alt: "Wedding Invitation",
+                type: "image/jpeg",
             },
         ],
         locale: "en_US",
@@ -94,17 +96,10 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "The Wedding of Irene & Franklin",
+        title: "Wedding Invitation",
         description:
-            "Join us to celebrate the wedding of Irene & Franklin on 16 November 2026",
-        images: [
-            {
-                url: "/og.webp",
-                width: 1024,
-                height: 1536,
-                alt: "The Wedding of Irene & Franklin - 16 November 2026",
-            },
-        ],
+            "Join us to celebrate!",
+        images: ["/og.jpg"],
     },
 };
 
