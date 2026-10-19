@@ -6,6 +6,7 @@ import { CalendarHeart } from "lucide-react";
 import { TranslationContent, Language } from "@/lib/translations";
 
 const VENUE = "/images/venue";
+const VENUE_FALLBACK_IMAGE = `${VENUE}/venuefallback.webp`;
 const VIDEO_WEBM =
     "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792359071/img.webm";
 const VIDEO_MP4 =
@@ -105,6 +106,7 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
                 muted
                 playsInline
                 preload="auto"
+                poster={VENUE_FALLBACK_IMAGE}
                 onTimeUpdate={handleTimeUpdate}
                 onEnded={handleVideoEnded}
             >

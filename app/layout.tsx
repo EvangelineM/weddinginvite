@@ -52,14 +52,59 @@ const dmSans = DM_Sans({
     display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+    ? process.env.NEXT_PUBLIC_SITE_URL
+    : process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
+
 export const metadata: Metadata = {
+    metadataBase: new URL(siteUrl),
     title: "The Wedding of Irene & Franklin",
     description:
         "Join us to celebrate the wedding of Irene & Franklin on 16 November 2026",
+    icons: {
+        icon: [
+            { url: "/favicon.ico" },
+            { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+            { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        ],
+        apple: [
+            { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+        ],
+    },
+    manifest: "/site.webmanifest",
     openGraph: {
         title: "The Wedding of Irene & Franklin",
-        description: "16 November 2026",
+        description:
+            "Join us to celebrate the wedding of Irene & Franklin on 16 November 2026",
+        url: "/",
+        siteName: "The Wedding of Irene & Franklin",
+        images: [
+            {
+                url: "/og.webp",
+                width: 1024,
+                height: 1536,
+                alt: "The Wedding of Irene & Franklin - 16 November 2026",
+                type: "image/webp",
+            },
+        ],
+        locale: "en_US",
         type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "The Wedding of Irene & Franklin",
+        description:
+            "Join us to celebrate the wedding of Irene & Franklin on 16 November 2026",
+        images: [
+            {
+                url: "/og.webp",
+                width: 1024,
+                height: 1536,
+                alt: "The Wedding of Irene & Franklin - 16 November 2026",
+            },
+        ],
     },
 };
 
@@ -74,6 +119,24 @@ export default function RootLayout({
             className={`${cormorant.variable} ${greatVibes.variable} ${pinyonScript.variable} ${dmSans.variable} ${carattere.variable} ${libreBodoni.variable} h-full`}
         >
             <head>
+                <link
+                    rel="apple-touch-icon"
+                    sizes="180x180"
+                    href="/apple-touch-icon.png"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes="32x32"
+                    href="/favicon-32x32.png"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes="16x16"
+                    href="/favicon-16x16.png"
+                />
+                <link rel="manifest" href="/site.webmanifest" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
                     rel="preconnect"

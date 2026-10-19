@@ -227,9 +227,9 @@ export const InvitationIntro: React.FC<InvitationIntroProps> = ({
                             />
                         </defs>
                         <text
-                            className="font-serif"
+                            className="font-sans"
                             fill="#4a230c"
-                            fontSize="14"
+                            fontSize="15"
                             fontWeight="900"
                             letterSpacing="3.2"
                             textAnchor="middle"
