@@ -84,11 +84,11 @@ export const metadata: Metadata = {
         siteName: "Wedding Invitation",
         images: [
             {
-                url: "/og.jpg",
+                url: "/og.webp",
                 width: 1024,
                 height: 1536,
                 alt: "Wedding Invitation",
-                type: "image/jpeg",
+                type: "image/webp",
             },
         ],
         locale: "en_US",
@@ -99,7 +99,7 @@ export const metadata: Metadata = {
         title: "Wedding Invitation",
         description:
             "Join us to celebrate!",
-        images: ["/og.jpg"],
+        images: ["/og.webp"],
     },
 };
 
