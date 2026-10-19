@@ -5,12 +5,9 @@ import Image from "next/image";
 import confetti from "canvas-confetti";
 import { TranslationContent, Language } from "@/lib/translations";
 
-const BACKGROUND =
-    "/images/savedate/savedate_bg.png";
-const FRAME =
-    "/images/savedate/frame.png";
-const DIVIDER =
-    "/images/savedate/leaf_divider.png";
+const BACKGROUND = "/images/savedate/savedate_bg.webp";
+const FRAME = "/images/savedate/frame.webp";
+const DIVIDER = "/images/common/leaf_divider.webp";
 
 const WEDDING_DATE = new Date("2026-11-16T10:00:00+05:30");
 
@@ -132,7 +129,7 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
                 });
             },
             // Fire when at least 50% of the section is in view
-            { threshold: 0.5 }
+            { threshold: 0.5 },
         );
 
         observer.observe(el);
@@ -156,14 +153,16 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
                     src={BACKGROUND}
                     alt="Tuscan Sunset Terrace in Bloom"
                     fill
-                    priority
+                    // priority
                     sizes="(max-width: 620px) 100vw, 620px"
                     className="countdown-bg-img"
                     unoptimized
                 />
 
                 {/* The Save the Date Card positioned exactly over open sky */}
-                <div className={`countdown-card ${isTamil ? "countdown-card-ta" : ""}`}>
+                <div
+                    className={`countdown-card ${isTamil ? "countdown-card-ta" : ""}`}
+                >
                     {/* Double-line warm gold frame */}
                     <Image
                         src={FRAME}
@@ -171,6 +170,7 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
                         fill
                         className="countdown-frame-img"
                         unoptimized
+                        // priority
                     />
 
                     {/* Inner content */}
@@ -186,7 +186,10 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
                         </h2>
 
                         {/* Golden leaf divider with flanking lines */}
-                        <div className="countdown-divider-wrap" aria-hidden="true">
+                        <div
+                            className="countdown-divider-wrap"
+                            aria-hidden="true"
+                        >
                             <Image
                                 src={DIVIDER}
                                 alt=""
@@ -194,13 +197,12 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
                                 height={213}
                                 className="countdown-divider-img"
                                 unoptimized
+                                // priority
                             />
                         </div>
 
                         {/* Date: NOVEMBER 16, 2026 */}
-                        <p className="countdown-date">
-                            {t.countdown.date}
-                        </p>
+                        <p className="countdown-date">{t.countdown.date}</p>
 
                         {/* Weekday: MONDAY */}
                         <p className="countdown-weekday">
@@ -218,10 +220,18 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
 
                         {/* Time labels: DAYS  HOURS  MINUTES  SECONDS */}
                         <div className="countdown-labels">
-                            <span className="countdown-label-item">{t.countdown.days}</span>
-                            <span className="countdown-label-item">{t.countdown.hours}</span>
-                            <span className="countdown-label-item">{t.countdown.minutes}</span>
-                            <span className="countdown-label-item">{t.countdown.seconds}</span>
+                            <span className="countdown-label-item">
+                                {t.countdown.days}
+                            </span>
+                            <span className="countdown-label-item">
+                                {t.countdown.hours}
+                            </span>
+                            <span className="countdown-label-item">
+                                {t.countdown.minutes}
+                            </span>
+                            <span className="countdown-label-item">
+                                {t.countdown.seconds}
+                            </span>
                         </div>
 
                         {/* Closing script message */}
@@ -234,4 +244,3 @@ export function SaveTheDate({ t, lang = "EN" }: SaveTheDateProps) {
         </section>
     );
 }
-

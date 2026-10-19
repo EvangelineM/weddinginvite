@@ -105,7 +105,7 @@ export interface TranslationContent {
 export const translations: Record<Language, TranslationContent> = {
     EN: {
         envelope: {
-            clickToOpen: "Click to open the invitation",
+            clickToOpen: "Click to open",
             tapPrompt: "Tap the seal to reveal the invitation",
         },
         hero: {
@@ -206,7 +206,7 @@ export const translations: Record<Language, TranslationContent> = {
     },
     TA: {
         envelope: {
-            clickToOpen: "முத்திரையைத் தட்டி திறக்கவும்",
+            clickToOpen: "திறக்க க்ளிக் செய்யவும்",
             tapPrompt: "அழைப்பிதழைக் காண முத்திரையைத் தட்டவும்",
         },
 
@@ -251,7 +251,7 @@ export const translations: Record<Language, TranslationContent> = {
             receptionTime: "1:00 PM முதல்",
             openInMaps: "கூகுள் மேப்ஸ்",
         },
-    
+
         countdown: {
             title: "இனிய நாளை நோக்கி…",
             subtitlePrefix: "இன்னும்",

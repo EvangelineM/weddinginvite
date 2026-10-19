@@ -8,17 +8,13 @@ import { Language, TranslationContent } from "@/lib/translations";
 const HERO_W = 720;
 const HERO_H = 1280;
 
-/** Reference typography colors sampled from the artwork. */
-const TEXT_PRIMARY = "#3B2422";
-const TEXT_MUTED = "#5A3628";
-
 /** Playback time (in seconds) of the 6s hero video when the copy fades up. */
 const TEXT_REVEAL_AT_SECONDS = 3;
 
 const HERO_VIDEO_WEBM =
     "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792347205/Animate_wedding_invitation_image__20260926040209.webm";
 const HERO_VIDEO_MP4 =
-    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792354724/wedding_dance.mp4";
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792426016/wedding_dance_1.mp4";
 
 const SHARP_TYPE: React.CSSProperties = {
     WebkitFontSmoothing: "antialiased",
@@ -147,10 +143,6 @@ function HeroInvitationText({
     const isTamil = lang === "TA" || t.countdown.days === "நாட்கள்";
     const firstName = groomFirst ? t.hero.groom : t.hero.bride;
     const secondName = groomFirst ? t.hero.bride : t.hero.groom;
-    const day = t.hero.day || t.section3.day || "16";
-    const month = t.hero.month || t.section3.month;
-    const year = t.hero.year || t.section3.year || "2026";
-    const weekday = t.hero.weekday || t.section3.weekday;
 
     return (
         <div
@@ -166,12 +158,13 @@ function HeroInvitationText({
             {/* Top Cross */}
             <div className="hero-cross-wrap absolute left-[59.5%] -translate-x-1/2 top-[8.2%] flex h-[8.2%] justify-center pointer-events-none select-none">
                 <Image
-                    src="/images/cross.png"
+                    src="/images/hero/cross.webp"
                     alt=""
                     width={768}
                     height={1024}
                     unoptimized
                     className="h-full w-auto object-contain"
+                    // priority
                 />
             </div>
 
@@ -192,12 +185,13 @@ function HeroInvitationText({
             {/* Top Divider */}
             <div className="hero-divider-top absolute left-[59.5%] -translate-x-1/2 top-[25.7%] flex justify-center pointer-events-none select-none">
                 <Image
-                    src="/images/leaf_divider.png"
+                    src="/images/common/leaf_divider.webp"
                     alt=""
                     width={2088}
                     height={213}
                     unoptimized
                     className="h-auto w-[36cqi] max-w-none object-contain"
+                    // priority
                 />
             </div>
 
@@ -214,12 +208,13 @@ function HeroInvitationText({
             {/* Bottom Divider */}
             <div className="hero-divider-bottom absolute left-[59.5%] -translate-x-1/2 top-[37.6%] flex justify-center pointer-events-none select-none">
                 <Image
-                    src="/images/leaf_divider.png"
+                    src="/images/common/leaf_divider.webp"
                     alt=""
                     width={2088}
                     height={213}
                     unoptimized
                     className="h-auto w-[30cqi] max-w-none object-contain"
+                    // priority
                 />
             </div>
         </div>
@@ -240,41 +235,53 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
 
         if (hasNudgedRef.current) return;
         if (typeof window === "undefined") return;
-
-        // Only nudge if the user is still at the top and hasn't already scrolled down
         if (window.scrollY > 60) return;
 
-        hasNudgedRef.current = true;
+        window.setTimeout(() => {
+            if (hasNudgedRef.current || window.scrollY > 60) return;
+            hasNudgedRef.current = true;
 
-        // Peek down slightly into the next section to show the user they can scroll
-        const peekDistance = Math.min(Math.round(window.innerHeight * 0.28), 240);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const lenis = (window as any).__lenis;
+            const peek = Math.min(Math.round(window.innerHeight * 0.14), 110);
+            const DURATION = 2000; // total ms, down and back
 
-        if (lenis) {
-            lenis.scrollTo(peekDistance, {
-                duration: 0.95,
-                easing: (t: number) => 1 - Math.pow(1 - t, 3),
-                onComplete: () => {
-                    window.setTimeout(() => {
-                        // Return to hero section if user hasn't started manually scrolling away
-                        if (Math.abs(window.scrollY - peekDistance) < 60) {
-                            lenis.scrollTo(0, {
-                                duration: 0.95,
-                                easing: (t: number) => 1 - Math.pow(1 - t, 3),
-                            });
-                        }
-                    }, 650);
-                },
-            });
-        } else {
-            window.scrollTo({ top: peekDistance, behavior: "smooth" });
-            window.setTimeout(() => {
-                if (Math.abs(window.scrollY - peekDistance) < 60) {
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+            // 0 -> peek -> 0 as one smooth wave (zero velocity at start, middle and end)
+            const wave = (p: number) => (1 - Math.cos(2 * Math.PI * p)) / 2;
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const lenis = (window as any).__lenis;
+            const setY = (y: number) => {
+                if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
+                else window.scrollTo(0, y);
+            };
+
+            let cancelled = false;
+            const cancel = () => {
+                cancelled = true;
+                cleanup();
+            };
+            const events = ["wheel", "touchstart", "keydown"] as const;
+            const cleanup = () =>
+                events.forEach((e) => window.removeEventListener(e, cancel));
+            events.forEach((e) =>
+                window.addEventListener(e, cancel, { passive: true }),
+            );
+
+            const startTime = performance.now();
+            const frame = (now: number) => {
+                if (cancelled) return;
+                const p = Math.min((now - startTime) / DURATION, 1);
+
+                setY(peek * wave(p));
+
+                if (p < 1) {
+                    requestAnimationFrame(frame);
+                } else {
+                    setY(0);
+                    cleanup();
                 }
-            }, 1300);
-        }
+            };
+            requestAnimationFrame(frame);
+        }, 500);
     }, []);
 
     return (

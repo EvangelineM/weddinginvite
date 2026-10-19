@@ -135,12 +135,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
             <div className={`rsvp-artboard ${isTamil ? "rsvp-ta" : ""}`}>
                 {/* 1. Botanical Framed Background */}
                 <Image
-                    src={`${RSVP_DIR}/rsvp_bg2.png`}
+                    src={`${RSVP_DIR}/rsvp_bg2.webp`}
                     alt="RSVP Background"
                     fill
                     sizes="(max-width: 620px) 100vw, 620px"
                     className="rsvp-bg"
-                    priority
+                    // priority
                     unoptimized
                 />
 
@@ -149,12 +149,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                     {/* ── Top Golden Leaf Divider ── */}
                     <div className="rsvp-top-divider-wrap" aria-hidden="true">
                         <Image
-                            src={`${RSVP_DIR}/top_divider.png`}
+                            src={`${RSVP_DIR}/top_divider.webp`}
                             alt=""
                             width={2172}
                             height={724}
                             className="rsvp-divider-img"
-                            priority
+                            // priority
                             unoptimized
                         />
                     </div>
@@ -181,12 +181,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                         aria-hidden="true"
                     >
                         <Image
-                            src={`${RSVP_DIR}/middle_divider.png`}
+                            src={`${RSVP_DIR}/middle_divider.webp`}
                             alt=""
                             width={2172}
                             height={724}
                             className="rsvp-divider-img"
-                            priority
+                            // priority
                             unoptimized
                         />
                     </div>
@@ -204,7 +204,6 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                         {t.rsvp.declinedLine2 ||
                                             "You’ll be dearly missed!"}
                                     </p>
-                            
                                 </div>
                             ) : (
                                 <div className="rsvp-result-content">
@@ -223,12 +222,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                 className="rsvp-send-button rsvp-reset-button"
                             >
                                 <Image
-                                    src={`${RSVP_DIR}/send_button.png`}
+                                    src={`${RSVP_DIR}/send_button.webp`}
                                     alt=""
                                     fill
                                     className="rsvp-send-btn-frame"
                                     unoptimized
-                                    priority
+                                    // priority
                                 />
                                 <span className="rsvp-send-btn-label rsvp-reset-btn-label">
                                     {t.rsvp?.sendAnother || "SUBMIT AGAIN"}
@@ -255,12 +254,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                 </label>
                                 <div className="rsvp-input-frame-box">
                                     <Image
-                                        src={`${RSVP_DIR}/input_frame.png`}
+                                        src={`${RSVP_DIR}/input_frame.webp`}
                                         alt=""
                                         fill
                                         className="rsvp-frame-img"
                                         unoptimized
-                                        priority
+                                        // priority
                                     />
                                     <input
                                         id="rsvp-fullname"
@@ -303,12 +302,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                         }`}
                                     >
                                         <Image
-                                            src={`${RSVP_DIR}/radio_frame.png`}
+                                            src={`${RSVP_DIR}/radio_frame.webp`}
                                             alt=""
                                             fill
                                             className="rsvp-frame-img"
                                             unoptimized
-                                            priority
+                                            // priority
                                         />
                                         <span className="rsvp-radio-circle">
                                             {attendance === "attending" && (
@@ -338,12 +337,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                         }`}
                                     >
                                         <Image
-                                            src={`${RSVP_DIR}/radio_frame.png`}
+                                            src={`${RSVP_DIR}/radio_frame.webp`}
                                             alt=""
                                             fill
                                             className="rsvp-frame-img"
                                             unoptimized
-                                            priority
+                                            // priority
                                         />
                                         <span className="rsvp-radio-circle">
                                             {attendance === "declined" && (
@@ -368,11 +367,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                     </label>
                                     <div className="rsvp-input-frame-box rsvp-number-input-frame-box">
                                         <Image
-                                            src={`${RSVP_DIR}/input_frame.png`}
+                                            src={`${RSVP_DIR}/input_frame.webp`}
                                             alt=""
                                             fill
                                             className="rsvp-frame-img"
                                             unoptimized
+                                            // priority
                                         />
                                         <input
                                             id="rsvp-guests"
@@ -471,11 +471,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                 </label>
                                 <div className="rsvp-textarea-frame-box">
                                     <Image
-                                        src={`${RSVP_DIR}/textarea_frame.png`}
+                                        src={`${RSVP_DIR}/textarea_frame.webp`}
                                         alt=""
                                         fill
                                         className="rsvp-frame-img"
                                         unoptimized
+                                        // priority
                                     />
                                     <textarea
                                         id="rsvp-message"
@@ -499,12 +500,12 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ t, lang = "EN" }) => {
                                     className="rsvp-send-button"
                                 >
                                     <Image
-                                        src={`${RSVP_DIR}/send_button.png`}
+                                        src={`${RSVP_DIR}/send_button.webp`}
                                         alt=""
                                         fill
                                         className="rsvp-send-btn-frame"
                                         unoptimized
-                                        priority
+                                        // priority
                                     />
                                     <span className="rsvp-send-btn-label">
                                         {isLoading ? (

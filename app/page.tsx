@@ -123,11 +123,6 @@ function WeddingInvitationContent() {
                 <RSVPForm t={t} lang={currentLang} />
 
                 {/* Footer */}
-                <footer className="w-full py-10 px-4 text-center border-t border-[#E3BDB0]/60 bg-[#F5EEE9]/90">
-                    <p className="font-serif italic text-sm text-[#9F4B31]">
-                        {t.footer.namesAndLocation}
-                    </p>
-                </footer>
             </main>
         </div>
     );

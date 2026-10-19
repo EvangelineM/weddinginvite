@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { TranslationContent, Language } from "@/lib/translations";
 
-const ARCH_BG = "/images/section3/archbg.png";
-const LEAF_DIVIDER = "/images/section3/leaf_divider.png";
+const ARCH_BG = "/images/section3/archbg.webp";
+const LEAF_DIVIDER = "/images/common/leaf_divider.webp";
 
 interface Section3Props {
     t: TranslationContent;
@@ -27,7 +27,7 @@ export function Section3({ t, lang = "EN", groomFirst = true }: Section3Props) {
                     src={ARCH_BG}
                     alt="Wedding Invitation Arch Background"
                     fill
-                    priority
+                    // priority
                     sizes="(max-width: 620px) 100vw, 620px"
                     className="section3-bg-img"
                     unoptimized
@@ -46,6 +46,7 @@ export function Section3({ t, lang = "EN", groomFirst = true }: Section3Props) {
                             height={213}
                             className="section3-divider-img"
                             unoptimized
+                            // priority
                         />
                     </div>
 
@@ -102,6 +103,7 @@ export function Section3({ t, lang = "EN", groomFirst = true }: Section3Props) {
                             height={213}
                             className="section3-divider-img"
                             unoptimized
+                            // priority
                         />
                     </div>
 
@@ -139,6 +141,7 @@ export function Section3({ t, lang = "EN", groomFirst = true }: Section3Props) {
                             height={213}
                             className="section3-divider-img"
                             unoptimized
+                            // priority
                         />
                     </div>
                 </div>

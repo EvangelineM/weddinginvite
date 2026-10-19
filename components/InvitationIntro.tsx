@@ -10,13 +10,13 @@ interface InvitationIntroProps {
     onHeroRevealStart?: () => void;
 }
 
-const LOCAL_VIDEO_WEBM = "/videos/envelope_opening.webm";
-// const CLOUDINARY_VIDEO_WEBM =
-//     "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792409212/Envelope_transitioning_to_weddin__20261019164451.mp4";
+const LOCAL_VIDEO_WEBM = "/videos/env_new.webm";
+const CLOUDINARY_VIDEO_WEBM =
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792431133/env_new.webm";
 const CLOUDINARY_VIDEO_MP4 =
-    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792409212/Envelope_transitioning_to_weddin__20261019164451.mp4";
-const LOCAL_VIDEO_MP4 = "Envelope_transitioning_to_weddin__20261019164451.mp4";
-const POSTER_IMAGE_URL = "/videos/envelope.png";
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792431045/envelope-new_1.mp4";
+const LOCAL_VIDEO_MP4 = "/videos/envelope-new.mp4";
+const POSTER_IMAGE_URL = "/videos/envelope.webp";
 
 export const InvitationIntro: React.FC<InvitationIntroProps> = ({
     t,
@@ -167,7 +167,7 @@ export const InvitationIntro: React.FC<InvitationIntroProps> = ({
                         src={POSTER_IMAGE_URL}
                         alt=""
                         fill
-                        priority
+                        // priority
                         sizes="100vw"
                         className="object-cover"
                     />
@@ -200,18 +200,49 @@ export const InvitationIntro: React.FC<InvitationIntroProps> = ({
                     onEnded={handleVideoEnded}
                     className="h-full w-full object-cover pointer-events-none"
                 >
-                    {/* <source src={LOCAL_VIDEO_WEBM} type="video/webm" />
-                    <source src={CLOUDINARY_VIDEO_WEBM} type="video/webm" /> */}
+                    <source src={LOCAL_VIDEO_WEBM} type="video/webm" />
+                    <source src={CLOUDINARY_VIDEO_WEBM} type="video/webm" />
                     <source src={CLOUDINARY_VIDEO_MP4} type="video/mp4" />
                     <source src={LOCAL_VIDEO_MP4} type="video/mp4" />
                 </video>
 
-                {/* Text prompt only visible before tap: Pure clean typography without lines, boxes, or circles */}
-                {!isPlaying && (
-                    <p className="absolute top-[65%] left-1/2 -translate-x-1/2 z-20 whitespace-nowrap font-serif text-[11px] sm:text-xs uppercase tracking-[0.3em] text-[#fff5e9] drop-shadow-md pointer-events-none transition-opacity duration-300 font-extrabold">
-                        {t.envelope.clickToOpen}
-                    </p>
-                )}
+                {/* Click-to-open seal overlay */}
+                <div
+                    className={`pointer-events-none absolute z-20 w-[56%] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 ease-out ${
+                        isPlaying ? "opacity-0" : "opacity-100"
+                    }`}
+                    style={{ left: "51%", top: "56%" }} // seal center, tune these
+                    aria-hidden="true"
+                >
+                    <svg
+                        viewBox="0 0 200 200"
+                        className="h-auto w-full overflow-visible"
+                    >
+                        <defs>
+                            {/* Left to right through the bottom, so glyph tops face the seal */}
+                            <path
+                                id="click-to-open-arc"
+                                d="M 6 100 A 94 94 0 0 0 194 100"
+                                fill="none"
+                            />
+                        </defs>
+                        <text
+                            className="font-serif"
+                            fill="#4a230c"
+                            fontSize="14"
+                            fontWeight="900"
+                            letterSpacing="3.2"
+                            textAnchor="middle"
+                        >
+                            <textPath
+                                href="#click-to-open-arc"
+                                startOffset="50%"
+                            >
+                                {t.envelope.clickToOpen.toUpperCase()}
+                            </textPath>
+                        </text>
+                    </svg>
+                </div>
             </div>
 
             {/* Radiant golden transition wash during hero handoff */}

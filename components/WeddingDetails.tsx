@@ -9,8 +9,8 @@ const VENUE = "/images/venue";
 const VIDEO_WEBM =
     "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792359071/img.webm";
 const VIDEO_MP4 =
-    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792358647/IMG_9929_1.mov";
-
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792426037/church_1.mp4";
+const LEAF_DIVIDER = "/images/common/leaf_divider.webp";
 interface WeddingDetailsProps {
     t: TranslationContent;
     lang?: Language;
@@ -30,7 +30,7 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     const googleMapsUrl =
-        "https://www.google.com/maps/search/?api=1&query=C.S.I.+St.+Paul%27s+Church+Keelkantalai+Tamil+Nadu";
+        "https://www.google.com/maps/search/?api=1&query=C.S.I.+St.+Paul%27s+Church+Keelkattalai+Tamil+Nadu";
 
     /* ── Trigger card reveal ── */
     const triggerCardReveal = useCallback(() => {
@@ -119,12 +119,13 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
                 <div className={`venue-card ${isTamil ? "venue-card-ta" : ""}`}>
                     {/* Card frame image */}
                     <Image
-                        src={`${VENUE}/venue_bg.png`}
+                        src={`${VENUE}/venue_bg.webp`}
                         alt=""
                         fill
                         sizes="(max-width: 620px) 88vw, 520px"
                         className="venue-card-bg"
-                        priority
+                        // priority
+                        unoptimized
                     />
 
                     {/* Content overlay */}
@@ -138,12 +139,13 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
                         {/* Leaf divider 1 */}
                         <div className="venue-leaf-divider" aria-hidden="true">
                             <Image
-                                src={`${VENUE}/leaf_divider.png`}
+                                src={LEAF_DIVIDER}
                                 alt=""
                                 width={2088}
                                 height={213}
                                 className="venue-leaf-img"
                                 unoptimized
+                                // priority
                             />
                         </div>
 
@@ -161,12 +163,13 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
                             aria-hidden="true"
                         >
                             <Image
-                                src={`${VENUE}/leaf_divider.png`}
+                                src={LEAF_DIVIDER}
                                 alt=""
                                 width={2088}
                                 height={213}
                                 className="venue-leaf-img"
                                 unoptimized
+                                // priority
                             />
                         </div>
 
