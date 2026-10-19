@@ -11,7 +11,11 @@ export interface TranslationContent {
         groom: string;
         date: string;
         month: string;
+        day?: string;
+        year?: string;
+        weekday?: string;
         verseLine1: string;
+        verseLine2?: string;
         verseRef: string;
     };
     section3: {
@@ -42,15 +46,7 @@ export interface TranslationContent {
         receptionTime: string;
         openInMaps: string;
     };
-    welcome: {
-        titleLine1: string;
-        titleLine2: string;
-        description: string;
-        timeLocationTitle: string;
-        venueLine: string;
-        time: string;
-        googleMapsButton: string;
-    };
+
     countdown: {
         title: string;
         subtitlePrefix: string;
@@ -109,17 +105,21 @@ export interface TranslationContent {
 export const translations: Record<Language, TranslationContent> = {
     EN: {
         envelope: {
-            clickToOpen: "PRESS SEAL TO OPEN",
+            clickToOpen: "Click to open the invitation",
             tapPrompt: "Tap the seal to reveal the invitation",
         },
         hero: {
             bride: "Irene",
             ampersand: "&",
             groom: "Franklin",
-            date: "16 NOVEMBER 2026",
-            month: "NOVEMBER",
-            verseLine1: "May your fountain be blessed",
-            verseRef: "— Proverbs 5:18 (NIV)",
+            date: "NOVEMBER 16, 2026",
+            month: "NOV",
+            day: "16",
+            year: "2026",
+            weekday: "MONDAY",
+            verseLine1: "“He has made everything",
+            verseLine2: "beautiful in its time.”",
+            verseRef: "-Ecclesiastes 3:11",
         },
         section3: {
             inviteLine1: "TOGETHER WITH OUR FAMILIES",
@@ -130,7 +130,7 @@ export const translations: Record<Language, TranslationContent> = {
             bride: "Irene",
             verseLine1: "“THEREFORE WHAT GOD HAS JOINED TOGETHER,",
             verseLine2: "LET NO ONE SEPARATE.”",
-            verseRef: "MARK 10:9",
+            verseRef: "-MARK 10:9",
             weekday: "MONDAY",
             month: "NOV",
             day: "16",
@@ -141,23 +141,13 @@ export const translations: Record<Language, TranslationContent> = {
             title: "Venue",
             subtitle: "Join us as we begin our forever!",
             churchName: "C.S.I. St. Paul's Church",
-            location: "KeelKantalai, Chennai",
+            location: "KeelKattalai, Chennai",
             date: "November 16, 2026",
             weddingLabel: "WEDDING",
             weddingTime: "10:30 AM",
             receptionLabel: "RECEPTION",
             receptionTime: "1:00 PM ONWARDS",
             openInMaps: "OPEN IN MAPS",
-        },
-        welcome: {
-            titleLine1: "Join Us To Celebrate",
-            titleLine2: "Our Wedding",
-            description:
-                "We are so excited to celebrate this special day with you.",
-            timeLocationTitle: "Time & Location",
-            venueLine: "C.S.I. St. Paul's Church, Keelkatalai, Tamil Nadu",
-            time: "10:00 AM",
-            googleMapsButton: "OPEN IN GOOGLE MAPS",
         },
         countdown: {
             title: "Countdown",
@@ -223,22 +213,26 @@ export const translations: Record<Language, TranslationContent> = {
         hero: {
             bride: "ஐரீன்",
             ampersand: "&",
-            groom: "பிராங்க்ளின்",
+            groom: "ஃபிராங்க்ளின்",
             date: "16 நவம்பர் 2026",
             month: "நவம்பர்",
-            verseLine1: "உன் ஊற்றுக்கண் ஆசீர்வதிக்கப்படுவதாக",
-            verseRef: "— நீதிமொழிகள் 5:18",
+            day: "16",
+            year: "2026",
+            weekday: "திங்கட்கிழமை",
+            verseLine1: "“அவர் சகலத்தையும் அதினதின் காலத்திலே",
+            verseLine2: "நேர்த்தியாகச் செய்திருக்கிறார்.”",
+            verseRef: "- பிரசங்கி 3:11",
         },
         section3: {
             inviteLine1: "எங்கள் குடும்பத்தாரின் ஆசிகளுடன்",
             inviteLine2: "எங்கள் திருமண நன்னாளைக் கொண்டாட",
             inviteLine3: "தங்களை அன்புடன் அழைக்கிறோம்",
-            groom: "பிராங்க்ளின்",
+            groom: "ஃபிராங்க்ளின்",
             ampersand: "&",
             bride: "ஐரீன்",
             verseLine1: "“ தேவன் இணைத்ததை",
             verseLine2: "மனுஷன் பிரிக்காதிருக்கக்கடவன்.”",
-            verseRef: "மாற்கு 10:9",
+            verseRef: "- மாற்கு 10:9",
             weekday: "திங்கட்கிழமை",
             month: "நவம்பர்",
             day: "16",
@@ -246,27 +240,18 @@ export const translations: Record<Language, TranslationContent> = {
             time: "காலை 10:00 மணி",
         },
         venue: {
-            title: "திருமண இடம்",
-            subtitle: "எங்கள் திருமண இடம்",
+            title: "நிகழ்விடம்",
+            subtitle: "அன்புடன் அழைக்கிறோம்!",
             churchName: "C.S.I. செயிண்ட் பால்ஸ் ஆலயம்",
             location: "கீழ்கட்டளை, சென்னை",
             date: "16 நவம்பர் 2026",
             weddingLabel: "திருமணம்",
-            weddingTime: "காலை 10:30 மணி",
-            receptionLabel: "வரவேற்பு",
-            receptionTime: "மதியம் 1:00 மணி முதல்",
-            openInMaps: "வரைபடத்தில் காண்க",
+            weddingTime: "10:30 AM",
+            receptionLabel: "ரிசப்ஷன்",
+            receptionTime: "1:00 PM முதல்",
+            openInMaps: "கூகுள் மேப்ஸ்",
         },
-        welcome: {
-            titleLine1: "எங்கள் திருமண விழாவில்",
-            titleLine2: "பங்கேற்று சிறப்பிக்கவும்",
-            description:
-                "எங்கள் வாழ்வின் இந்த இனிய நாளை தங்களுடன் இணைந்து கொண்டாடுவதில் பேருவகை கொள்கிறோம்.",
-            timeLocationTitle: "நேரம் & இடம்",
-            venueLine: "C.S.I. செயிண்ட் பால்ஸ் ஆலயம், கீழ்கட்டளை, தமிழ்நாடு",
-            time: "காலை 10:00 மணி",
-            googleMapsButton: "GOOGLE MAPS-ல் காண்க",
-        },
+    
         countdown: {
             title: "இனிய நாளை நோக்கி…",
             subtitlePrefix: "இன்னும்",

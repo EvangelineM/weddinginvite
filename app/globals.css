@@ -651,94 +651,132 @@ html[lang="ta"].section3-weekday {
 }
 
 /* ========================================
-   HERO SCROLL-DOWN INDICATOR
+   HERO INVITATION OVERLAY — STYLED TO MATCH SECTION 3
    ======================================== */
 
-.hero-scroll-indicator {
+.hero-verse-wrap {
     position: absolute;
-    bottom: clamp(22px, 4vh, 40px);
-    left: 50%;
+    top: 17.5%;
+    left: 59.5%;
     transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 20;
-    pointer-events: none;
+    width: 80%;
+    text-align: center;
+    margin: 0;
+    line-height: 1.13;
+}
+
+.hero-verse-quote {
+    margin: 0 0 0.45cqi 0;
     color: #713b1c;
+    font-size: 4.3cqi;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    font-family: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
 }
 
-.hero-scroll-ornament {
-    width: 46px;
-    height: auto;
-    opacity: 0;
-    animation: scrollOrnamentReveal 1.2s ease-out 0.5s forwards;
-    filter: drop-shadow(0 1px 1px rgba(255, 253, 251, 0.8));
-}
-
-.hero-scroll-arrow-stack {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-}
-
-.hero-scroll-arrow {
-    display: block;
-    width: 22px;
-    height: 13px;
+.hero-verse-ref {
+    margin: 0;
     color: #713b1c;
-    opacity: 0;
-    filter: drop-shadow(0 1px 1px rgba(255, 253, 251, 0.9));
-    animation: weddingScroll 2.2s ease-in-out infinite;
+    font-size: 2.1cqi;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif, cursive;
+    line-height: 1.7;
+    font-style: italic;
 }
 
-.hero-scroll-arrow-1 {
-    animation-delay: 0.15s;
+/* 2. Couple Names — Single line: Franklin & Irene */
+.hero-names-single {
+    position: absolute;
+    top: 27.8%;
+    left: 59%;
+    transform: translateX(-50%);
+    width: 82%;
+    text-align: center;
+    white-space: nowrap;
+    margin: 0;
+    color: #843c1d;
+    font-family: var(--font-cara), "Cormorant Garamond", Georgia, serif;
+    font-size: 10.5cqi;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 0.018em;
 }
 
-.hero-scroll-arrow-2 {
-    animation-delay: 0.4s;
+.hero-names-amp {
+    display: inline-block;
+    margin: 0 0.25em;
+    color: #843c1d;
+    font-family: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: 1.05em;
+    
 }
 
-@keyframes scrollOrnamentReveal {
-    from {
-        opacity: 0;
-        transform: translateY(-4px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes weddingScroll {
-    0%,
-    100% {
-        opacity: 0.2;
-        transform: translateY(-1px);
-    }
-    40% {
-        opacity: 1;
-        transform: translateY(2px);
-    }
-    75% {
-        opacity: 0.7;
-        transform: translateY(5px);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .hero-scroll-ornament,
-    .hero-scroll-arrow {
-        animation: none;
-        opacity: 1;
-        transform: none;
-    }
+/* 3. Date Block — Single line matching reference: NOVEMBER 16, 2026 */
+.hero-date-single {
+    position: absolute;
+    top: 35%;
+    left: 59.0%;
+    transform: translateX(-50%);
+    width: 78%;
+    text-align: center;
+    white-space: nowrap;
+    margin: 0;
+    color: #713b1c;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 2.5cqi;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
 }
 
 /* ========================================
-   COUNTDOWN / SAVE THE DATE SECTION
+   HERO TAMIL OVERRIDES
    ======================================== */
+.hero-ta .hero-verse-quote,
+html[lang="ta"] .hero-verse-quote {
+    font-size: 2.5cqi;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    line-height: 1.7;
+    margin-top: 1.3cqi;
+    margin-left: 2.7cqi;
+}
+
+.hero-ta .hero-verse-ref,
+html[lang="ta"] .hero-verse-ref {
+    font-size: 2.0cqi;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+}
+
+.hero-ta .hero-names-single,
+html[lang="ta"] .hero-names-single {
+    font-family: var(--font-sans), "Noto Sans Tamil", sans-serif;
+    font-size: 5.0cqi;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin-top: 2.6cqi;
+    margin-left: 0.5cqi;
+}
+
+.hero-ta .hero-names-amp,
+html[lang="ta"] .hero-names-amp {
+    font-size: 1.25em;
+    margin: 0 0.35em;
+    font-family: var(--font-serif), "cormorant Garamond", Georgia, serif;
+    font-style: normal;
+}
+
+.hero-ta .hero-date-single,
+html[lang="ta"] .hero-date-single {
+    font-size: 2.7cqi;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-top: -2cqi;
+}
 
 .countdown-section {
     position: relative;
@@ -1394,62 +1432,136 @@ main.hero-emerging > #hero-section {
     color: #711200;
 }
 
-/* ── Tamil overrides for venue card ── */
+/* ── Tamil overrides for venue card ──
+   Frontend specs (colors, font-families, font-weights, line-heights, margins) strictly match
+   the English layout; font sizes and letter-spacings are calibrated to prevent overflow
+   and maintain identical proportional breathing room.
+*/
 .venue-card-ta .venue-title {
-    padding-top: calc(31% + 2cqw);
-    font-family: var(--font-sans), system-ui, sans-serif;
-    font-size: 8cqw;
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: 0;
+    padding-top: 33%;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 8.4cqw;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
     color: #923e16;
 }
 
 .venue-card-ta .venue-subtitle {
-    font-family: var(--font-sans), system-ui, sans-serif;
-    font-size: 2.4cqw;
-    letter-spacing: 0.1em;
-    color: #4a2818;
+    margin: 1.8cqw 0 0;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 3.05cqw;
+    font-weight: 600;
+    letter-spacing: 0.20em;
+    color: #713b1c;
+    margin-top: 3.5%;
+}
+
+.venue-card-ta .venue-leaf-divider {
+        width: 47%;
+        margin: 2.5cqw auto 2.2cqw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        user-select: none;
+}
+
+.venue-card-ta .venue-leaf-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+}
+
+.venue-card-ta .venue-leaf-divider-2 {
+    margin: 1.8cqw auto 2.2cqw;
+    width: 40%;
 }
 
 .venue-card-ta .venue-church-name {
-    font-size: 5cqw;
-    color: #3b1b12;
+    margin-top: 1.0cqw;
+    width: 75%;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 5.5cqw;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.03em;
+    color: #6b2f1b;
 }
 
 .venue-card-ta .venue-location {
-    font-size: 3.6cqw;
-    color: #552f20;
+    margin: 0.7cqw 0 0;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 3.85cqw;
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin-top: 1.7%;
+    color: #6b2f1b;
 }
 
 .venue-card-ta .venue-wedding-date {
-    font-family: var(--font-sans), system-ui, sans-serif;
-    font-size: 2.8cqw;
-    letter-spacing: 0.08em;
+    margin: 0 0 2cqw;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 3.3cqw;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     color: #7a3a20;
 }
 
+.venue-card-ta .venue-events {
+    width: 78%;
+}
+
+.venue-card-ta .venue-event {
+    padding: 0 1.2cqw;
+}
+
 .venue-card-ta .venue-event-label {
-    font-family: var(--font-sans), system-ui, sans-serif;
-    font-size: 2.8cqw;
+    margin: -1.9cqw 0 1.6cqw;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 3.2cqw;
+    font-weight: 700;
+    line-height: 1.55;
     letter-spacing: 0.08em;
     color: #843c1d;
 }
 
+.venue-card-ta .venue-time-row {
+    gap: 1.6cqw;
+}
+
 .venue-card-ta .venue-time-text {
-    font-size: 2.3cqw;
-    text-transform: none;
-    white-space: normal;
-    color: #552719;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 2.9cqw;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    color: #5f220e;
+}
+
+.venue-card-ta .venue-maps-btn {
+    gap: 1.7cqw;
+    margin-top: 3.5cqw;
+    padding: 1.8cqw 5.6cqw;
 }
 
 .venue-card-ta .venue-maps-label {
-    font-family: var(--font-sans), system-ui, sans-serif;
-    font-size: 2.3cqw;
-    letter-spacing: 0.06em;
-    color: #6e1c0a;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
+    font-size: 3.5cqw;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #711200;
 }
 
+.venue-card-ta .venue-maps-pin {
+    width: 3.7cqw;
+    height: 3.8cqw;
+    stroke: #711200;
+    fill: none;
+}
 /* ── Mobile adjustments ── */
 @media (max-width: 480px) {
     .venue-card-wrapper {
@@ -2292,22 +2404,7 @@ main.hero-emerging > #hero-section {
     padding: 1.3cqw 4cqw;
 }
 
-/* Hero names: Latin script fonts lack Tamil glyphs, so the fallback is much wider */
-.lang-ta .hero-names-mobile {
-    font-size: clamp(1.5rem, 6.4cqi, 2.6rem) !important;
-    letter-spacing: 0 !important;
-}
 
-.lang-ta .hero-names-desktop {
-    font-size: clamp(1.4rem, 4.6cqi, 2.3rem) !important;
-    letter-spacing: 0 !important;
-    line-height: 1;
-}
-
-.lang-ta .hero-names-desktop > div:nth-child(2) {
-    margin-block: 0;
-    line-height: 0.8;
-}
 
 .lang-ta .save-date-title-curved text {
     font-size: 78px;

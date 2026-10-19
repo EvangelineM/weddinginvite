@@ -11,12 +11,12 @@ interface InvitationIntroProps {
 }
 
 const LOCAL_VIDEO_WEBM = "/videos/envelope_opening.webm";
-const CLOUDINARY_VIDEO_WEBM =
-    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792346046/envelope_opening.webm";
+// const CLOUDINARY_VIDEO_WEBM =
+//     "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792409212/Envelope_transitioning_to_weddin__20261019164451.mp4";
 const CLOUDINARY_VIDEO_MP4 =
-    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792354130/White_envelope_opening_with_light_20260930025419.mp4";
-const LOCAL_VIDEO_MP4 = "/videos/envelope_opening.mp4";
-const POSTER_IMAGE_URL = "/videos/envelope_poster.jpg";
+    "https://res.cloudinary.com/jcjsrbvw/video/upload/v1792409212/Envelope_transitioning_to_weddin__20261019164451.mp4";
+const LOCAL_VIDEO_MP4 = "Envelope_transitioning_to_weddin__20261019164451.mp4";
+const POSTER_IMAGE_URL = "/videos/envelope.png";
 
 export const InvitationIntro: React.FC<InvitationIntroProps> = ({
     t,
@@ -200,8 +200,8 @@ export const InvitationIntro: React.FC<InvitationIntroProps> = ({
                     onEnded={handleVideoEnded}
                     className="h-full w-full object-cover pointer-events-none"
                 >
-                    <source src={LOCAL_VIDEO_WEBM} type="video/webm" />
-                    <source src={CLOUDINARY_VIDEO_WEBM} type="video/webm" />
+                    {/* <source src={LOCAL_VIDEO_WEBM} type="video/webm" />
+                    <source src={CLOUDINARY_VIDEO_WEBM} type="video/webm" /> */}
                     <source src={CLOUDINARY_VIDEO_MP4} type="video/mp4" />
                     <source src={LOCAL_VIDEO_MP4} type="video/mp4" />
                 </video>

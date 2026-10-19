@@ -51,74 +51,6 @@ function HeroFitStage({ children }: { children: React.ReactNode }) {
             >
                 {children}
             </div>
-
-            {/* Scroll-down indicator — pinned at bottom of the hero stage */}
-
-            <div className="hero-scroll-indicator" aria-hidden="true">
-                <svg
-                    className="hero-scroll-ornament"
-                    viewBox="0 0 88 30"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M4 15C17 12 27 12 38 15"
-                        stroke="#AF8D60"
-                        strokeWidth="0.9"
-                        strokeLinecap="round"
-                    />
-                    <path
-                        d="M50 15C61 12 71 12 84 15"
-                        stroke="#AF8D60"
-                        strokeWidth="0.9"
-                        strokeLinecap="round"
-                    />
-                    <path
-                        d="M44 15C37 8 32 10 30 5C36 13 40 14 44 15C51 8 56 10 58 5C52 13 48 14 44 15Z"
-                        fill="#875334"
-                    />
-                    <path
-                        d="M44 15C39 19 37 23 38 26C42 24 44 20 44 15Z"
-                        fill="#AF8D60"
-                    />
-                    <path
-                        d="M44 15C49 19 51 23 50 26C46 24 44 20 44 15Z"
-                        fill="#A45B35"
-                    />
-                    <circle cx="44" cy="15" r="1.5" fill="#D4AF37" />
-                </svg>
-
-                <div className="hero-scroll-arrow-stack">
-                    <svg
-                        className="hero-scroll-arrow hero-scroll-arrow-1"
-                        viewBox="0 0 20 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M3 3L10 9L17 3"
-                            stroke="currentColor"
-                            strokeWidth="1.25"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                    <svg
-                        className="hero-scroll-arrow hero-scroll-arrow-2"
-                        viewBox="0 0 20 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M3 3L10 9L17 3"
-                            stroke="currentColor"
-                            strokeWidth="1.25"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                </div>
-            </div>
         </section>
     );
 }
@@ -141,6 +73,10 @@ function HeroBackground({
 
         if (video.currentTime >= TEXT_REVEAL_AT_SECONDS) {
             onRevealStart();
+        }
+
+        if (video.duration > 0 && video.currentTime >= video.duration - 0.2) {
+            onEnded();
         }
     };
 
@@ -199,6 +135,7 @@ function HeroBackground({
  */
 function HeroInvitationText({
     t,
+    lang,
     isRevealed,
     groomFirst = true,
 }: {
@@ -207,15 +144,27 @@ function HeroInvitationText({
     isRevealed: boolean;
     groomFirst?: boolean;
 }) {
-    const first = groomFirst ? t.hero.groom : t.hero.bride;
-    const second = groomFirst ? t.hero.bride : t.hero.groom;
+    const isTamil = lang === "TA" || t.countdown.days === "நாட்கள்";
+    const firstName = groomFirst ? t.hero.groom : t.hero.bride;
+    const secondName = groomFirst ? t.hero.bride : t.hero.groom;
+    const day = t.hero.day || t.section3.day || "16";
+    const month = t.hero.month || t.section3.month;
+    const year = t.hero.year || t.section3.year || "2026";
+    const weekday = t.hero.weekday || t.section3.weekday;
+
     return (
         <div
-            className="hero-invitation-overlay absolute inset-0 z-2 pointer-events-none select-none"
+            className={`hero-invitation-overlay absolute inset-0 z-2 pointer-events-none select-none transition-opacity duration-1000 ${
+                isTamil ? "hero-ta" : ""
+            }`}
             data-revealed={isRevealed}
-            style={SHARP_TYPE}
+            style={{
+                ...SHARP_TYPE,
+                opacity: isRevealed ? 1 : 0,
+            }}
         >
-            <div className="absolute left-[26%] right-[6%] top-[8.2%] flex h-[7.8%] justify-center">
+            {/* Top Cross */}
+            <div className="hero-cross-wrap absolute left-[59.5%] -translate-x-1/2 top-[8.2%] flex h-[8.2%] justify-center pointer-events-none select-none">
                 <Image
                     src="/images/cross.png"
                     alt=""
@@ -226,94 +175,51 @@ function HeroInvitationText({
                 />
             </div>
 
-            <p
-                className="absolute left-[27%] right-[7%] top-[17.2%] text-center font-serif italic leading-[1.12]"
-                style={{
-                    fontSize: "clamp(0.85rem, 3.9cqi, 1.25rem)",
-                    color: TEXT_PRIMARY,
-                    fontWeight: 650,
-                    fontStyle: "italic",
-                }}
-            >
-                {t.hero.verseLine1}
+            {/* 1. Scripture Verse — frontend specs same as Section 3 */}
+            <div className="hero-verse-wrap">
+                <p className="hero-verse-quote">
+                    {t.hero.verseLine1}
+                    {t.hero.verseLine2 && (
+                        <>
+                            <br />
+                            {t.hero.verseLine2}
+                        </>
+                    )}
+                </p>
+                <p className="hero-verse-ref">{t.hero.verseRef}</p>
+            </div>
 
-                {
-                    <span
-                        className="mt-[clamp(0.27rem,0.7cqi,0.45rem)] block font-libre-bodoni font-normal  not-italic"
-                        style={{ fontSize: "0.66em" }}
-                    >
-                        {t.hero.verseRef}
-                    </span>
-                }
-            </p>
-
-            <div className="absolute left-[27%] right-[8.5%] top-[23.3%] flex justify-center">
+            {/* Top Divider */}
+            <div className="hero-divider-top absolute left-[59.5%] -translate-x-1/2 top-[25.7%] flex justify-center pointer-events-none select-none">
                 <Image
-                    src="/images/datedivider.png"
+                    src="/images/leaf_divider.png"
                     alt=""
-                    width={1920}
-                    height={1080}
+                    width={2088}
+                    height={213}
                     unoptimized
-                    className="h-auto w-[49%] max-w-none object-contain"
+                    className="h-auto w-[36cqi] max-w-none object-contain"
                 />
             </div>
 
-            {/* Mobile View */}
-            <p
-                className="hero-names-mobile absolute left-[23%] right-[5%] top-[28.9%] whitespace-nowrap text-center font-cara leading-none md:hidden"
-                style={{
-                    fontSize: "clamp(3.08rem, 10.2cqi, 4.8rem)",
-                    color: TEXT_MUTED,
-                    letterSpacing: "0.027em",
-                }}
-            >
-                {first} <span className="font-cara">&amp;</span>{" "}
-                {second}
-            </p>
+            {/* 2. Couple Names in a single line: Franklin & Irene */}
+            <h2 className="hero-names-single">
+                <span>{firstName}</span>
+                <span className="hero-names-amp">&amp;</span>
+                <span>{secondName}</span>
+            </h2>
 
-            {/* Desktop View */}
-            <div
-                className="hero-names-desktop absolute left-[23%] right-[5%] top-[30%] hidden md:flex flex-col text-center font-cara leading-[0.55]"
-                style={{
-                    fontSize: "clamp(3rem, 8cqi, 4rem)",
-                    color: TEXT_MUTED,
-                    letterSpacing: "0.027em",
-                }}
-            >
-                <div className="text-left ml-[12%]">{first}</div>
-                <div className="text-center text-[0.7em] my-2">
-                    <span className="font-cara">&amp;</span>
-                </div>
-                <div className="text-right mr-[25%]">{second}</div>
-            </div>
+            {/* 3. Date in a single line matching reference: NOVEMBER 16, 2026 */}
+            <p className="hero-date-single">{t.hero.date}</p>
 
-            <div
-                className="absolute left-[20%] right-[0%] top-[35.7%] md:top-[41%] flex items-center justify-center gap-[clamp(0.4rem,1.7cqi,1rem)] whitespace-nowrap"
-                style={{
-                    fontSize: "clamp(0.75rem, 2.65cqi, 1.55rem)",
-                    color: TEXT_PRIMARY,
-                    letterSpacing: "0.12em",
-                }}
-            >
-                <span className="font-libre-bodoni font-normal opacity-80">
-                    16
-                </span>
-                <span className="font-serif font-normal opacity-100">|</span>
-                <span className="font-serif font-semibold">{t.hero.month}</span>
-                <span className="font-serif font-normal opacity-100">|</span>
-                <span className="font-libre-bodoni font-normal opacity-80">
-                    2026
-                </span>
-            </div>
-
-            <div className="absolute left-[27%] right-[12%] top-[37.2%] md:top-[42.5%] flex justify-center">
+            {/* Bottom Divider */}
+            <div className="hero-divider-bottom absolute left-[59.5%] -translate-x-1/2 top-[37.6%] flex justify-center pointer-events-none select-none">
                 <Image
-                    src="/images/datedivider.png"
+                    src="/images/leaf_divider.png"
                     alt=""
-                    width={1920}
-                    height={1080}
+                    width={2088}
+                    height={213}
                     unoptimized
-                    className="h-auto w-[35%] max-w-none object-contain"
+                    className="h-auto w-[30cqi] max-w-none object-contain"
                 />
             </div>
         </div>
@@ -327,13 +233,56 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
     groomFirst = true,
 }) => {
     const [isVideoEnded, setIsVideoEnded] = React.useState(false);
+    const hasNudgedRef = React.useRef(false);
+
+    const handleVideoEnded = React.useCallback(() => {
+        setIsVideoEnded(true);
+
+        if (hasNudgedRef.current) return;
+        if (typeof window === "undefined") return;
+
+        // Only nudge if the user is still at the top and hasn't already scrolled down
+        if (window.scrollY > 60) return;
+
+        hasNudgedRef.current = true;
+
+        // Peek down slightly into the next section to show the user they can scroll
+        const peekDistance = Math.min(Math.round(window.innerHeight * 0.28), 240);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const lenis = (window as any).__lenis;
+
+        if (lenis) {
+            lenis.scrollTo(peekDistance, {
+                duration: 0.95,
+                easing: (t: number) => 1 - Math.pow(1 - t, 3),
+                onComplete: () => {
+                    window.setTimeout(() => {
+                        // Return to hero section if user hasn't started manually scrolling away
+                        if (Math.abs(window.scrollY - peekDistance) < 60) {
+                            lenis.scrollTo(0, {
+                                duration: 0.95,
+                                easing: (t: number) => 1 - Math.pow(1 - t, 3),
+                            });
+                        }
+                    }, 650);
+                },
+            });
+        } else {
+            window.scrollTo({ top: peekDistance, behavior: "smooth" });
+            window.setTimeout(() => {
+                if (Math.abs(window.scrollY - peekDistance) < 60) {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+            }, 1300);
+        }
+    }, []);
 
     return (
         <HeroFitStage>
             <HeroBackground
                 isActive={isActive}
                 onRevealStart={() => setIsVideoEnded(true)}
-                onEnded={() => setIsVideoEnded(true)}
+                onEnded={handleVideoEnded}
             />
             <HeroInvitationText
                 t={t}
