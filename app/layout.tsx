@@ -52,19 +52,12 @@ const dmSans = DM_Sans({
     display: "swap",
 });
 
-const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-        : process.env.VERCEL_URL
-            ? `https://${process.env.VERCEL_URL}`
-            : "http://localhost:3000");
+const siteUrl = "https://youre-cordially-invited.vercel.app";
 
 export const metadata: Metadata = {
     metadataBase: new URL(siteUrl),
     title: "Wedding Invitation",
-    description:
-        "Join us to celebrate!",
+    description: "Join us to celebrate!",
     icons: {
         icon: [
             { url: "/favicon.ico" },
@@ -72,23 +65,26 @@ export const metadata: Metadata = {
             { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
         ],
         apple: [
-            { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+            {
+                url: "/apple-touch-icon.png",
+                sizes: "180x180",
+                type: "image/png",
+            },
         ],
     },
     manifest: "/site.webmanifest",
     openGraph: {
         title: "Wedding Invitation",
-        description:
-            "Join us to celebrate!",
+        description: "Join us to celebrate!",
         url: "/",
         siteName: "Wedding Invitation",
         images: [
             {
-                url: "/og.webp",
+                url: "/og-v2.jpg",
                 width: 1024,
                 height: 1536,
                 alt: "Wedding Invitation",
-                type: "image/webp",
+                type: "image/jpeg",
             },
         ],
         locale: "en_US",
@@ -97,9 +93,8 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Wedding Invitation",
-        description:
-            "Join us to celebrate!",
-        images: ["/og.webp"],
+        description: "Join us to celebrate!",
+        images: ["og-v2.jpg"],
     },
 };
 
