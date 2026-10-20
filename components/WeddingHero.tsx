@@ -156,7 +156,7 @@ function HeroInvitationText({
             }}
         >
             {/* Top Cross */}
-            <div className="hero-cross-wrap absolute left-[59.5%] -translate-x-1/2 top-[14.6cqi] flex h-[14.6cqi] justify-center pointer-events-none select-none">
+            <div className="hero-cross-wrap absolute left-[59.5%] -translate-x-1/2 top-[8.2%] flex h-[8.2%] justify-center pointer-events-none select-none">
                 <Image
                     src="/images/hero/cross.webp"
                     alt=""
@@ -164,6 +164,7 @@ function HeroInvitationText({
                     height={1024}
                     unoptimized
                     className="h-full w-auto object-contain"
+                    // priority
                 />
             </div>
 
@@ -182,7 +183,7 @@ function HeroInvitationText({
             </div>
 
             {/* Top Divider */}
-            <div className="hero-divider-top absolute left-[59.5%] -translate-x-1/2 top-[45.7cqi] flex justify-center pointer-events-none select-none">
+            <div className="hero-divider-top absolute left-[59.5%] -translate-x-1/2 top-[25.7%] flex justify-center pointer-events-none select-none">
                 <Image
                     src="/images/common/leaf_divider.webp"
                     alt=""
@@ -190,24 +191,30 @@ function HeroInvitationText({
                     height={213}
                     unoptimized
                     className="h-auto w-[36cqi] max-w-none object-contain"
+                    // priority
                 />
             </div>
 
             {/* 2. Couple Names in a single line: Franklin & Irene */}
-            <div className="hero-title-block">
-                <h2 className="hero-names-single">
-                    <span>{firstName}</span>
-                    <span className="hero-names-amp">&amp;</span>
-                    <span>{secondName}</span>
-                </h2>
-                <p className="hero-date-single">{t.hero.date}</p>
+            <h2 className="hero-names-single">
+                <span>{firstName}</span>
+                <span className="hero-names-amp">&amp;</span>
+                <span>{secondName}</span>
+            </h2>
+
+            {/* 3. Date in a single line matching reference: NOVEMBER 16, 2026 */}
+            <p className="hero-date-single">{t.hero.date}</p>
+
+            {/* Bottom Divider */}
+            <div className="hero-divider-bottom absolute left-[59.5%] -translate-x-1/2 top-[37.6%] flex justify-center pointer-events-none select-none">
                 <Image
                     src="/images/common/leaf_divider.webp"
                     alt=""
                     width={2088}
                     height={213}
                     unoptimized
-                    className="hero-divider-bottom h-auto w-[30cqi] max-w-none object-contain"
+                    className="h-auto w-[30cqi] max-w-none object-contain"
+                    // priority
                 />
             </div>
         </div>

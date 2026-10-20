@@ -293,21 +293,21 @@ body {
 
 .hero-stage-section {
     width: 100%;
-    height: 100vh; /* fallback */
     height: 100svh;
+    height: 100vh; /* fallback */
     display: flex;
-    align-items: flex-start; /* anchor top, like object-top */
-    justify-content: center; /* overflow is cropped equally left and right */
+    align-items: stretch;
+    justify-content: center;
     overflow: hidden;
     background: #faf7f5;
 }
 
 .hero-artboard {
+    /* Fullscreen: fills the entire hero section */
+    width: 100%;
+    height: 100%;
     position: relative;
-    flex: none;
-    aspect-ratio: 720 / 1280;
-    width: max(100%, calc(100svh * 720 / 1280)); /* cover the viewport */
-    /* no height here, aspect-ratio supplies it */
+    /* Note: no aspect-ratio — the video uses object-cover to fill */
 }
 
 /* ========================================
@@ -656,25 +656,13 @@ html[lang="ta"].section3-weekday {
 
 .hero-verse-wrap {
     position: absolute;
-    top: 31.1cqi;
+    top: 17.5%;
     left: 59.5%;
     transform: translateX(-50%);
     width: 80%;
     text-align: center;
     margin: 0;
     line-height: 1.13;
-}
-
-.hero-title-block {
-    position: absolute;
-    top: 49.4cqi; /* was 27.8% */
-    left: 59.5%;
-    transform: translateX(-50%);
-    width: 82%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2cqi; /* the one knob for spacing */
 }
 
 .hero-verse-quote {
@@ -693,15 +681,18 @@ html[lang="ta"].section3-weekday {
     font-size: 2.1cqi;
     font-weight: 600;
     letter-spacing: 0.15em;
-    font-family:
-        var(--font-sans), "Cormorant Garamond", Georgia, serif, cursive;
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif, cursive;
     line-height: 1.7;
     font-style: italic;
 }
 
 /* 2. Couple Names — Single line: Franklin & Irene */
 .hero-names-single {
-    width: 100%;
+    position: absolute;
+    top: 27.8%;
+    left: 59%;
+    transform: translateX(-50%);
+    width: 82%;
     text-align: center;
     white-space: nowrap;
     margin: 0;
@@ -720,10 +711,15 @@ html[lang="ta"].section3-weekday {
     font-family: var(--font-serif), "Cormorant Garamond", Georgia, serif;
     font-style: italic;
     font-size: 1.05em;
+    
 }
 
 /* 3. Date Block — Single line matching reference: NOVEMBER 16, 2026 */
 .hero-date-single {
+    position: absolute;
+    top: 35%;
+    left: 59.0%;
+    transform: translateX(-50%);
     width: 78%;
     text-align: center;
     white-space: nowrap;
@@ -751,7 +747,7 @@ html[lang="ta"] .hero-verse-quote {
 
 .hero-ta .hero-verse-ref,
 html[lang="ta"] .hero-verse-ref {
-    font-size: 2cqi;
+    font-size: 2.0cqi;
     letter-spacing: 0.04em;
     font-weight: 700;
 }
@@ -759,7 +755,7 @@ html[lang="ta"] .hero-verse-ref {
 .hero-ta .hero-names-single,
 html[lang="ta"] .hero-names-single {
     font-family: var(--font-sans), "Noto Sans Tamil", sans-serif;
-    font-size: 5cqi;
+    font-size: 5.0cqi;
     font-weight: 600;
     letter-spacing: 0.01em;
     margin-top: 2.6cqi;
@@ -1258,7 +1254,7 @@ main.hero-emerging > #hero-section {
     font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
     font-size: 2.8cqw;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.20em;
     text-transform: uppercase;
 }
 
@@ -1300,11 +1296,11 @@ main.hero-emerging > #hero-section {
 /* ── Location line ── */
 .venue-location {
     margin: 0.6cqw 0 0;
-    color: #6b2f1b;
+    color: #6b2f1b;;
     font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
     font-size: 4.1cqw;
     font-weight: 500;
-    font-style: italic;
+   font-style: italic;
     letter-spacing: 0.01em;
 }
 
@@ -1327,6 +1323,7 @@ main.hero-emerging > #hero-section {
     align-items: center;
     width: 74%;
     margin: 0 auto;
+
 }
 
 .venue-event {
@@ -1345,7 +1342,7 @@ main.hero-emerging > #hero-section {
     font-size: 3.4cqw;
     font-weight: 600;
     line-height: 1.5;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.20em;
     text-transform: uppercase;
     text-align: center;
 }
@@ -1455,19 +1452,19 @@ main.hero-emerging > #hero-section {
     font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
     font-size: 3.05cqw;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.20em;
     color: #713b1c;
     margin-top: 3.5%;
 }
 
 .venue-card-ta .venue-leaf-divider {
-    width: 47%;
-    margin: 2.5cqw auto 2.2cqw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    user-select: none;
+        width: 47%;
+        margin: 2.5cqw auto 2.2cqw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        user-select: none;
 }
 
 .venue-card-ta .venue-leaf-img {
@@ -1484,7 +1481,7 @@ main.hero-emerging > #hero-section {
 }
 
 .venue-card-ta .venue-church-name {
-    margin-top: 1cqw;
+    margin-top: 1.0cqw;
     width: 75%;
     font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
     font-size: 5.5cqw;
@@ -2147,8 +2144,9 @@ main.hero-emerging > #hero-section {
     margin-bottom: 1cqw;
 }
 
+
 .rsvp-declined-message {
-    margin: 0;
+    margin : 0;
     color: #f8e6d3;
     font-family: var(--font-cormorant), Georgia, serif;
     font-size: 4.5cqw;
@@ -2157,6 +2155,7 @@ main.hero-emerging > #hero-section {
     line-height: 1.6;
     letter-spacing: 0.03em;
     text-shadow: 0 1px 4px rgba(70, 25, 10, 0.35);
+    
 }
 
 .rsvp-success-heading {
@@ -2404,6 +2403,8 @@ main.hero-emerging > #hero-section {
     font-size: 2.6cqw;
     padding: 1.3cqw 4cqw;
 }
+
+
 
 .lang-ta .save-date-title-curved text {
     font-size: 78px;
