@@ -31,7 +31,7 @@ export const WeddingDetails: React.FC<WeddingDetailsProps> = ({
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     const googleMapsUrl =
-        "https://www.google.com/maps/search/?api=1&query=C.S.I.+St.+Paul%27s+Church+Keelkattalai+Tamil+Nadu";
+        "https://maps.app.goo.gl/uQQkeDsJuPyHv4WJ9";
 
     /* ── Trigger card reveal ── */
     const triggerCardReveal = useCallback(() => {
