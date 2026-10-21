@@ -266,7 +266,7 @@ export const translations: Record<Language, TranslationContent> = {
             closing: "தங்களை அன்புடன் \n வரவேற்க ஆவலுடன் \n காத்திருக்கிறோம்!",
         },
         rsvp: {
-            title: "வருகை\nஉறுதிப்படுத்தல்",
+            title: "வருகையை\nஉறுதிப்படுத்தவும்",
             attendingQuestion: "வருவீர்களா?",
             yesOption: "ஆம்",
             noOption: "இல்லை",
