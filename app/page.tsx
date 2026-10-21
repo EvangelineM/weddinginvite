@@ -17,6 +17,7 @@ function WeddingInvitationContent() {
     const [currentLang, setCurrentLang] = useState<Language>("EN");
     const [isUnlocked, setIsUnlocked] = useState(false);
     const [isHeroEmerging, setIsHeroEmerging] = useState(false);
+    const [isEnvelopeOpened, setIsEnvelopeOpened] = useState(false);
 
     const searchParams = useSearchParams();
     // flag=1 (or absent) → groom & bride; flag=0 → bride & groom
@@ -72,8 +73,15 @@ function WeddingInvitationContent() {
                     t={t}
                     onOpenComplete={handleOpenComplete}
                     onHeroRevealStart={() => setIsHeroEmerging(true)}
+                    onEnvelopeOpen={() => setIsEnvelopeOpened(true)}
                 />
             )}
+
+            {/* Floating Circular Music Toggle Button — preloaded from start, auto-starts immediately when envelope opens */}
+            <MusicToggle
+                isUnlocked={isUnlocked}
+                autoStart={isEnvelopeOpened}
+            />
 
             {/* Interactive UI visible after invitation is opened */}
             {isUnlocked && (
@@ -86,9 +94,6 @@ function WeddingInvitationContent() {
                         currentLang={currentLang}
                         onLanguageChange={setCurrentLang}
                     />
-
-                    {/* Floating Circular Music Toggle Button */}
-                    <MusicToggle />
                 </>
             )}
 

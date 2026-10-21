@@ -141,7 +141,7 @@ export const translations: Record<Language, TranslationContent> = {
             title: "Venue",
             subtitle: "Join us as we begin our forever!",
             churchName: "C.S.I. St. Paul's Church",
-            location: "KeelKattalai, Chennai",
+            location: "Keelkattalai, Chennai",
             date: "November 16, 2026",
             weddingLabel: "WEDDING",
             weddingTime: "10:30 AM",

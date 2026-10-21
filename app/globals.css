@@ -374,15 +374,27 @@ body {
     margin: 0;
 }
 
-.section3-intro-line {
+.section3-intro-line{
     margin: 0;
     color: #713b1c;
     font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif;
     font-size: 2.85cqw;
     font-weight: 600;
     letter-spacing: 0.2em;
-    line-height: 1.58;
+    line-height: 1.56;
     text-transform: uppercase;
+}
+
+.section3-intro-line-primary {
+    font-size: 3.45cqw;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    line-height: 1.5;
+    transform: translateY(-0.4cqw);
+    font-family: var(--font-sans), "Cormorant Garamond", Georgia, serif, cursive;
+    font-style: normal;
+    margin-bottom: 0.9cqw;
+    margin-left: 3cqw;
 }
 
 /* 2. Couple Names (Groom first, text ampersand with subtle opacity, Bride below) */
@@ -587,7 +599,17 @@ html[lang="ta"] .section3-intro-line {
     margin: 0 auto;
     line-height: 1.8;
     text-align: center;
-    margin-left: 11%;
+    margin-left: 12.5%;
+}
+
+.section3-ta .section3-intro-line-primary,
+html[lang="ta"] .section3-intro-line-primary {
+    font-size: 3.2cqw;
+    font-weight: 800;
+    transform: translateY(-0.4cqw);
+    margin-bottom: 1.25cqw;
+    margin-left: 10.5cqw;
+    font-style: italic;
 }
 
 .section3-ta .section3-name,

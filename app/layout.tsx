@@ -80,7 +80,7 @@ export const metadata: Metadata = {
         siteName: "Wedding Invitation",
         images: [
             {
-                url: "/og-v2.jpg",
+                url: "/og.jpg",
                 width: 1024,
                 height: 1536,
                 alt: "Wedding Invitation",
@@ -94,7 +94,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Wedding Invitation",
         description: "Join us to celebrate!",
-        images: ["og-v2.jpg"],
+        images: ["og.jpg"],
     },
 };
 

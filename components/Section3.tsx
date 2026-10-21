@@ -52,7 +52,7 @@ export function Section3({ t, lang = "EN", groomFirst = true }: Section3Props) {
 
                     {/* 1. Introductory lines */}
                     <div className="section3-intro">
-                        <p className="section3-intro-line">
+                        <p className="section3-intro-line section3-intro-line-primary">
                             {t.section3.inviteLine1}
                         </p>
                         <p className="section3-intro-line">

@@ -8,6 +8,7 @@ interface InvitationIntroProps {
     t: TranslationContent;
     onOpenComplete: () => void;
     onHeroRevealStart?: () => void;
+    onEnvelopeOpen?: () => void;
 }
 
 const LOCAL_VIDEO_WEBM = "/videos/env_new.webm";
@@ -22,6 +23,7 @@ export const InvitationIntro: React.FC<InvitationIntroProps> = ({
     t,
     onOpenComplete,
     onHeroRevealStart,
+    onEnvelopeOpen,
 }) => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -72,6 +74,7 @@ export const InvitationIntro: React.FC<InvitationIntroProps> = ({
         hasCompletedRef.current = true;
         triggerHeroReveal();
         setIsFadingOut(true);
+        onEnvelopeOpen?.();
 
         const video = videoRef.current;
         if (video && !hasStartedAudioFadeRef.current) {
@@ -83,7 +86,7 @@ export const InvitationIntro: React.FC<InvitationIntroProps> = ({
             setIsRevealed(true);
             onOpenComplete();
         }, 1100);
-    }, [triggerHeroReveal, onOpenComplete, fadeOutAudio]);
+    }, [triggerHeroReveal, onEnvelopeOpen, onOpenComplete, fadeOutAudio]);
 
     // Handle tap on the seal or anywhere on the envelope
     const handleEnvelopeTap = () => {
@@ -101,7 +104,7 @@ export const InvitationIntro: React.FC<InvitationIntroProps> = ({
         const video = videoRef.current;
         if (!video) return;
 
-        // Try unmuted audio first since user tapped; fallback to muted if browser blocks unmuted audio
+        // Keep envelope sound unmuted as requested
         video.muted = false;
         video.volume = 1.0;
         const playPromise = video.play();
@@ -127,19 +130,19 @@ export const InvitationIntro: React.FC<InvitationIntroProps> = ({
         const duration = video.duration;
         const currentTime = video.currentTime;
 
-        // Start fading audio ~2.2s before the end (or at 8.0s)
+        // Start fading audio ~2.2s before the end and open invitation at 1.6s left
         if (Number.isFinite(duration) && duration > 0) {
             const timeLeft = duration - currentTime;
             if (timeLeft <= 2.2 && !hasStartedAudioFadeRef.current) {
                 hasStartedAudioFadeRef.current = true;
-                fadeOutAudio(video, 2000);
+                fadeOutAudio(video, 1600);
             }
-            if (timeLeft <= 1.4 && !hasCompletedRef.current) {
+            if (timeLeft <= 1.6 && !hasCompletedRef.current) {
                 handleComplete();
             }
         } else if (currentTime >= 8.2 && !hasStartedAudioFadeRef.current) {
             hasStartedAudioFadeRef.current = true;
-            fadeOutAudio(video, 2000);
+            fadeOutAudio(video, 1600);
             handleComplete();
         }
     };

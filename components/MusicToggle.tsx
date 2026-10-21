@@ -1,181 +1,86 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
-export const MusicToggle: React.FC = () => {
+interface MusicToggleProps {
+    isUnlocked?: boolean;
+    autoStart?: boolean;
+}
+
+export const MusicToggle: React.FC<MusicToggleProps> = ({
+    isUnlocked = true,
+    autoStart = false,
+}) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const synthCtxRef = useRef<AudioContext | null>(null);
     const wasPlayingRef = useRef(false);
-    const synthIntervalRef = useRef<NodeJS.Timeout | null>(null);
-    const hasAutoPlayed = useRef(false);
+    const hasStartedRef = useRef(false);
 
-    // Gentle fallback Web Audio synthesizer playing romantic harp notes
-    const startSynthMelody = () => {
+    // Start music playback immediately with zero latency
+    const startMusic = useCallback(async () => {
+        if (!audioRef.current || hasStartedRef.current) return;
+        hasStartedRef.current = true;
         try {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const AudioCtx =
-                window.AudioContext || (window as any).webkitAudioContext;
-            if (!AudioCtx) return;
-
-            if (!synthCtxRef.current) {
-                synthCtxRef.current = new AudioCtx();
-            }
-
-            if (synthCtxRef.current.state === "suspended") {
-                synthCtxRef.current.resume();
-            }
-
-            const ctx = synthCtxRef.current;
-            const notes = [
-                293.66,
-                369.99,
-                440.0,
-                587.33,
-                440.0,
-                369.99, // D major
-                220.0,
-                277.18,
-                329.63,
-                440.0,
-                329.63,
-                277.18, // A major
-                246.94,
-                293.66,
-                369.99,
-                493.88,
-                369.99,
-                293.66, // B minor
-                196.0,
-                246.94,
-                293.66,
-                392.0,
-                293.66,
-                246.94, // G major
-            ];
-            let step = 0;
-
-            synthIntervalRef.current = setInterval(() => {
-                if (!ctx || ctx.state === "closed") return;
-                const freq = notes[step % notes.length];
-                step++;
-
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-
-                // Warm sine wave with subtle overtone
-                osc.type = "sine";
-                osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-                // Harp-like decay envelope
-                const now = ctx.currentTime;
-                gain.gain.setValueAtTime(0.001, now);
-                gain.gain.linearRampToValueAtTime(0.08, now + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.8);
-
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                osc.start(now);
-                osc.stop(now + 2.0);
-            }, 420);
-        } catch (e) {
-            console.warn("Web Audio synthesis not available:", e);
+            audioRef.current.volume = 0.6;
+            await audioRef.current.play();
+            setIsPlaying(true);
+        } catch (err) {
+            console.warn("Autoplay deferred until user gesture:", err);
+            setIsPlaying(true);
+            const resumeOnGesture = () => {
+                if (audioRef.current) {
+                    audioRef.current.play().catch(() => {});
+                }
+                window.removeEventListener("click", resumeOnGesture);
+                window.removeEventListener("touchstart", resumeOnGesture);
+                window.removeEventListener("scroll", resumeOnGesture);
+            };
+            window.addEventListener("click", resumeOnGesture, { once: true });
+            window.addEventListener("touchstart", resumeOnGesture, {
+                once: true,
+            });
+            window.addEventListener("scroll", resumeOnGesture, { once: true });
         }
-    };
+    }, []);
 
-    const stopSynthMelody = () => {
-        if (synthIntervalRef.current) {
-            clearInterval(synthIntervalRef.current);
-            synthIntervalRef.current = null;
+    // Start audio as soon as autoStart (envelope opened) or isUnlocked becomes true
+    useEffect(() => {
+        if ((autoStart || isUnlocked) && !hasStartedRef.current) {
+            startMusic();
         }
-        if (synthCtxRef.current && synthCtxRef.current.state !== "closed") {
-            synthCtxRef.current.suspend().catch(() => {});
-        }
-    };
-
-    // Start music — called from a real user gesture context
-    const startMusic = async () => {
-        let playedAudio = false;
-        if (audioRef.current) {
-            try {
-                audioRef.current.volume = 0.7;
-                await audioRef.current.play();
-                playedAudio = true;
-            } catch {
-                playedAudio = false;
-            }
-        }
-        if (!playedAudio) {
-            startSynthMelody();
-        }
-        setIsPlaying(true);
-    };
+    }, [autoStart, isUnlocked, startMusic]);
 
     const toggleMusic = async () => {
         if (!isPlaying) {
-            await startMusic();
+            if (audioRef.current) {
+                try {
+                    audioRef.current.volume = 0.6;
+                    await audioRef.current.play();
+                    setIsPlaying(true);
+                } catch (e) {
+                    console.error("Resume error:", e);
+                }
+            }
         } else {
             if (audioRef.current) {
                 audioRef.current.pause();
             }
-            stopSynthMelody();
             setIsPlaying(false);
         }
     };
 
-    // Auto-start music on the FIRST user interaction (click/tap/scroll).
-    // This runs inside the browser's trusted user-gesture, so play() won't be blocked.
-    useEffect(() => {
-        const onFirstInteraction = () => {
-            if (hasAutoPlayed.current) return;
-            hasAutoPlayed.current = true;
-
-            // Remove all listeners immediately
-            document.removeEventListener("click", onFirstInteraction, true);
-            document.removeEventListener(
-                "touchstart",
-                onFirstInteraction,
-                true,
-            );
-            document.removeEventListener("scroll", onFirstInteraction, true);
-            document.removeEventListener("keydown", onFirstInteraction, true);
-
-            startMusic();
-        };
-
-        // Attach listeners in capture phase so we catch any interaction
-        document.addEventListener("click", onFirstInteraction, true);
-        document.addEventListener("touchstart", onFirstInteraction, true);
-        document.addEventListener("scroll", onFirstInteraction, true);
-        document.addEventListener("keydown", onFirstInteraction, true);
-
-        return () => {
-            document.removeEventListener("click", onFirstInteraction, true);
-            document.removeEventListener(
-                "touchstart",
-                onFirstInteraction,
-                true,
-            );
-            document.removeEventListener("scroll", onFirstInteraction, true);
-            document.removeEventListener("keydown", onFirstInteraction, true);
-            stopSynthMelody();
-        };
-    }, []);
-
+    // Pause audio when browser tab is hidden, resume when visible if it was playing
     useEffect(() => {
         const handleVisibilityChange = () => {
             if (document.hidden) {
                 wasPlayingRef.current = isPlaying;
-                if (isPlaying) {
-                    if (audioRef.current) audioRef.current.pause();
-                    stopSynthMelody();
-                    setIsPlaying(false);
+                if (isPlaying && audioRef.current) {
+                    audioRef.current.pause();
                 }
             } else {
-                if (wasPlayingRef.current) {
-                    startMusic();
+                if (wasPlayingRef.current && audioRef.current) {
+                    audioRef.current.play().catch(() => {});
                 }
             }
         };
@@ -191,7 +96,7 @@ export const MusicToggle: React.FC = () => {
         <>
             <audio
                 ref={audioRef}
-                src="/music/wedding.mp3"
+                src="/music/wedding_music.mp3"
                 loop
                 preload="auto"
             />
@@ -199,7 +104,11 @@ export const MusicToggle: React.FC = () => {
                 type="button"
                 id="wedding-music-toggle"
                 onClick={toggleMusic}
-                className={`fixed bottom-5 right-5 z-40 w-12 h-12 rounded-full border border-[#E3BDB0]/60 flex items-center justify-center transition-all duration-300 shadow-md cursor-pointer ${
+                className={`fixed bottom-5 right-5 z-40 w-12 h-12 rounded-full border border-[#E3BDB0]/60 flex items-center justify-center transition-all duration-500 shadow-md cursor-pointer ${
+                    !isUnlocked
+                        ? "opacity-0 pointer-events-none scale-90"
+                        : "opacity-100 scale-100"
+                } ${
                     isPlaying
                         ? "bg-[#9F4B31] text-[#FFFDFB] audio-playing shadow-lg"
                         : "bg-[#9F4B31]/95 hover:bg-[#BD8167] active:bg-[#D28B77] text-[#FFFDFB] hover:scale-105"
