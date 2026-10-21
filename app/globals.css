@@ -739,7 +739,7 @@ html[lang="ta"].section3-weekday {
 /* 3. Date Block — Single line matching reference: NOVEMBER 16, 2026 */
 .hero-date-single {
     position: absolute;
-    top: 35%;
+    top: 34.9%;
     left: 59.0%;
     transform: translateX(-50%);
     width: 78%;

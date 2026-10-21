@@ -22,7 +22,7 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
         if (!audioRef.current || hasStartedRef.current) return;
         hasStartedRef.current = true;
         try {
-            audioRef.current.volume = 0.6;
+            audioRef.current.volume = 0.2;
             await audioRef.current.play();
             setIsPlaying(true);
         } catch (err) {
@@ -55,7 +55,7 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
         if (!isPlaying) {
             if (audioRef.current) {
                 try {
-                    audioRef.current.volume = 0.6;
+                    audioRef.current.volume = 0.2;
                     await audioRef.current.play();
                     setIsPlaying(true);
                 } catch (e) {
@@ -96,7 +96,7 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
         <>
             <audio
                 ref={audioRef}
-                src="/music/wedding_music.mp3"
+                src="/music/compressed_audio.mp3"
                 loop
                 preload="auto"
             />
