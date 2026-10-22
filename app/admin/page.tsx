@@ -19,6 +19,7 @@ import {
   Heart,
   AlertCircle,
   Filter,
+  X,
 } from 'lucide-react';
 import { RSVPRecord } from '@/lib/supabase';
 
@@ -39,6 +40,9 @@ export default function AdminPage() {
   // Filters & Search
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'attending' | 'declined'>('all');
+
+  // Message popup
+  const [selectedRsvp, setSelectedRsvp] = useState<RSVPRecord | null>(null);
 
   // Check authentication on initial mount
   useEffect(() => {
@@ -650,12 +654,16 @@ export default function AdminPage() {
                           </td>
 
                           {/* Message */}
-                          <td className="py-4 px-6 max-w-xs xl:max-w-md">
+                          <td className="py-4 px-6 max-w-xs xl:max-w-sm">
                             {rsvp.message ? (
-                              <div className="flex items-start gap-2 text-xs sm:text-sm text-[#713B1C] italic">
-                                <MessageSquare className="w-4 h-4 text-[#946042] shrink-0 mt-0.5" />
+                              <button
+                                type="button"
+                                onClick={() => setSelectedRsvp(rsvp)}
+                                className="flex items-start gap-2 text-xs sm:text-sm text-[#713B1C] italic text-left cursor-pointer hover:bg-[#FAF0E6]/60 rounded-lg p-1.5 -m-1.5 transition-colors group w-full"
+                              >
+                                <MessageSquare className="w-4 h-4 text-[#946042] shrink-0 mt-0.5 group-hover:text-[#9F4B31] transition-colors" />
                                 <span className="line-clamp-2">&ldquo;{rsvp.message}&rdquo;</span>
-                              </div>
+                              </button>
                             ) : (
                               <span className="text-xs text-[#B59685] italic font-serif">
                                 No message provided
@@ -733,9 +741,13 @@ export default function AdminPage() {
 
                       {/* Message */}
                       {rsvp.message && (
-                        <div className="p-3 bg-[#FAF6F0] rounded-xl border border-[#E3BDB0]/40 text-xs text-[#713B1C] italic">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedRsvp(rsvp)}
+                          className="w-full text-left p-3 bg-[#FAF6F0] rounded-xl border border-[#E3BDB0]/40 text-xs text-[#713B1C] italic cursor-pointer hover:bg-[#F2DFD7]/50 hover:border-[#D28B77]/50 transition-colors"
+                        >
                           <p className="line-clamp-3">&ldquo;{rsvp.message}&rdquo;</p>
-                        </div>
+                        </button>
                       )}
                     </div>
                   );
@@ -745,6 +757,91 @@ export default function AdminPage() {
           )}
         </section>
       </main>
+
+      {/* ── Message Popup Modal ── */}
+      {selectedRsvp && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+          onClick={() => setSelectedRsvp(null)}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-[#613018]/40 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]" />
+
+          {/* Card */}
+          <div
+            className="relative w-full max-w-lg bg-[#FFFDFB] rounded-2xl shadow-2xl shadow-[#713B1C]/15 border border-[#E3BDB0]/80 overflow-hidden animate-[scaleIn_0.25s_ease-out]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Decorative top accent */}
+            <div className="h-1.5 bg-gradient-to-r from-[#D28B77] via-[#9F4B31] to-[#D28B77]" />
+
+            {/* Header */}
+            <div className="px-6 pt-5 pb-4 flex items-start justify-between gap-4 border-b border-[#E3BDB0]/40">
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div
+                  className={`w-11 h-11 rounded-full flex items-center justify-center font-serif text-lg font-bold shrink-0 ${
+                    selectedRsvp.attendance === 'attending'
+                      ? 'bg-[#EAF4EC] text-[#2D5A3C] border border-[#B2D8BB]'
+                      : 'bg-[#FDF0ED] text-[#8F3D2C] border border-[#F3C5BA]'
+                  }`}
+                >
+                  {selectedRsvp.full_name.charAt(0).toUpperCase()}
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-serif text-lg text-[#613018] font-bold truncate">
+                    {selectedRsvp.full_name}
+                  </h3>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    {selectedRsvp.attendance === 'attending' ? (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#EAF4EC] text-[#2D5A3C] border border-[#B2D8BB]">
+                        <CheckCircle2 className="w-3 h-3" />
+                        Attending
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FDF0ED] text-[#8F3D2C] border border-[#F3C5BA]">
+                        <XCircle className="w-3 h-3" />
+                        Declined
+                      </span>
+                    )}
+                    <span className="text-[11px] text-[#8F6E64] flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
+                      {formatDate(selectedRsvp.created_at)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setSelectedRsvp(null)}
+                className="shrink-0 w-8 h-8 rounded-lg bg-[#FAF0E6] border border-[#DAC7BA] flex items-center justify-center text-[#8F6E64] hover:text-[#613018] hover:bg-[#F2DFD7] transition-all cursor-pointer"
+                aria-label="Close message"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Message Body */}
+            <div className="px-6 py-5 max-h-[60vh] overflow-y-auto">
+              <div className="flex items-start gap-3">
+                <MessageSquare className="w-5 h-5 text-[#D28B77] shrink-0 mt-1" />
+                <p className="font-serif italic text-[#713B1C] text-base sm:text-lg leading-relaxed whitespace-pre-wrap">
+                  &ldquo;{selectedRsvp.message}&rdquo;
+                </p>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="px-6 py-3.5 bg-[#FAF6F0]/60 border-t border-[#E3BDB0]/30 flex justify-end">
+              <button
+                onClick={() => setSelectedRsvp(null)}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#713B1C] to-[#8C4A25] hover:from-[#5A2E16] hover:to-[#713B1C] text-[#FFF6EE] text-xs font-semibold tracking-wide shadow-sm hover:shadow-md transition-all cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

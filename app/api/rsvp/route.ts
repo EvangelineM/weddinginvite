@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     if (
       message !== undefined &&
       message !== null &&
-      (typeof message !== "string" || message.length > 1000)
+      typeof message !== "string"
     ) {
       return NextResponse.json(
         { success: false, error: "Invalid message." },
