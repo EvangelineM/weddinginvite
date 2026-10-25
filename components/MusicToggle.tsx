@@ -104,7 +104,7 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
                 type="button"
                 id="wedding-music-toggle"
                 onClick={toggleMusic}
-                className={`fixed bottom-5 right-5 z-40 w-12 h-12 rounded-full border border-[#E3BDB0]/60 flex items-center justify-center transition-all duration-500 shadow-md cursor-pointer ${
+                className={`fixed bottom-5 right-5 z-40 w-9 h-9 rounded-full border border-[#E3BDB0]/60 flex items-center justify-center transition-all duration-500 shadow-md cursor-pointer ${
                     !isUnlocked
                         ? "opacity-0 pointer-events-none scale-90"
                         : "opacity-100 scale-100"
@@ -121,9 +121,9 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
                 title={isPlaying ? "Pause music" : "Play wedding music"}
             >
                 {isPlaying ? (
-                    <Volume2 className="w-5 h-5 text-[#FFFDFB] animate-pulse" />
+                    <Volume2 className="w-4 h-4 text-[#FFFDFB] animate-pulse" />
                 ) : (
-                    <VolumeX className="w-5 h-5 text-[#FFFDFB]/90" />
+                    <VolumeX className="w-4 h-4 text-[#FFFDFB]/90" />
                 )}
             </button>
         </>

@@ -228,60 +228,9 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
     groomFirst = true,
 }) => {
     const [isVideoEnded, setIsVideoEnded] = React.useState(false);
-    const hasNudgedRef = React.useRef(false);
 
     const handleVideoEnded = React.useCallback(() => {
         setIsVideoEnded(true);
-
-        if (hasNudgedRef.current) return;
-        if (typeof window === "undefined") return;
-        if (window.scrollY > 60) return;
-
-        window.setTimeout(() => {
-            if (hasNudgedRef.current || window.scrollY > 60) return;
-            hasNudgedRef.current = true;
-
-            const peek = Math.min(Math.round(window.innerHeight * 0.14), 110);
-            const DURATION = 2000; // total ms, down and back
-
-            // 0 -> peek -> 0 as one smooth wave (zero velocity at start, middle and end)
-            const wave = (p: number) => (1 - Math.cos(2 * Math.PI * p)) / 2;
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const lenis = (window as any).__lenis;
-            const setY = (y: number) => {
-                if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
-                else window.scrollTo(0, y);
-            };
-
-            let cancelled = false;
-            const cancel = () => {
-                cancelled = true;
-                cleanup();
-            };
-            const events = ["wheel", "touchstart", "keydown"] as const;
-            const cleanup = () =>
-                events.forEach((e) => window.removeEventListener(e, cancel));
-            events.forEach((e) =>
-                window.addEventListener(e, cancel, { passive: true }),
-            );
-
-            const startTime = performance.now();
-            const frame = (now: number) => {
-                if (cancelled) return;
-                const p = Math.min((now - startTime) / DURATION, 1);
-
-                setY(peek * wave(p));
-
-                if (p < 1) {
-                    requestAnimationFrame(frame);
-                } else {
-                    setY(0);
-                    cleanup();
-                }
-            };
-            requestAnimationFrame(frame);
-        }, 500);
     }, []);
 
     return (

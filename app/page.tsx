@@ -12,6 +12,7 @@ import { SaveTheDate } from "@/components/SaveTheDate";
 import { Section3 } from "@/components/Section3";
 import { WeddingDetails } from "@/components/WeddingDetails";
 import { RSVPForm } from "@/components/RSVPForm";
+import { AutoScrollToggle } from "@/components/AutoScrollToggle";
 
 function WeddingInvitationContent() {
     const [currentLang, setCurrentLang] = useState<Language>("EN");
@@ -82,6 +83,9 @@ function WeddingInvitationContent() {
                 isUnlocked={isUnlocked}
                 autoStart={isEnvelopeOpened}
             />
+
+            {/* Floating Auto-Scroll Toggle — ON by default, bottom-left corner */}
+            <AutoScrollToggle isUnlocked={isUnlocked} />
 
             {/* Interactive UI visible after invitation is opened */}
             {isUnlocked && (
